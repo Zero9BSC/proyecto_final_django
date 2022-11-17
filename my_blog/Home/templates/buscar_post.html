@@ -1,0 +1,35 @@
+{% extends 'index.html' %}
+
+{% load static %}
+
+{% block codigoDinamico %}
+
+<p>
+    <form action="buscar/" method="GET">
+
+        <input type="text" name="titulo" id="titulo">
+
+        <input type="submit" value="Buscar">
+
+    </form>
+</p>
+    {% block codigoDinamico1 %}
+    <h1 class="fw-bolder">Resultado de tu busqueda</h1>    
+    
+        <p>{{respuesta}}</p>
+    
+        {% if post %}
+        
+        <ul>
+            {% for i in post %}
+            <li>Titulo: {{ i.titulo }}</li>            
+            <li>Sub Titulo: {{ i.sub_titulo }}</li>
+            <li>Fecha: {{ i.fecha }} min</li>
+            <li>Texto: {{ i.texto }}</li>
+            {% endfor %}
+        </ul>
+
+        {% endif %}
+        <button onclick="location.href='{% url 'Home' %}'">Volver</button>
+    {% endblock  %}
+{% endblock  %}

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        {% load static %}
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Gaming Zone</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="static/Home/assets/zicon.ico" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="{% static 'Home/css/styles.css' %}" rel="stylesheet" />
+    </head>
+    <body>
+        <!-- Responsive navbar-->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <a class="navbar-brand" href="#!">Blog Gaming by Zero9</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item"><a class="nav-link" href={% url 'Home' %}>Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Login</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Sign Up</a></li>
+                        <li class="nav-item"><a class="nav-link" href={% url 'Buscar' %}>Buscar Post</a></li>
+                        <li class="nav-item"><a class="nav-link" href={% url 'Crear' %}>Crear Post</a></li>
+                        <li class="nav-item"><a class="nav-link" href={% url 'About' %}>About</a></li>
+                        <li class="nav-item"><a class="nav-link" href={% url 'Contacto' %}>Contacto</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        {% block codigoDinamico %}
+                <!-- Page header with logo and tagline-->
+        <header class="py-5 bg-light border-bottom mb-4">
+            <div class="container">
+                <div class="text-center my-5">
+                    <h1 class="fw-bolder">Te damos la bienvenida al Blog Gaming Zone</h1>
+                    <p class="lead mb-0">Un Blog Gamer para Gamers!</p>
+                </div>
+            </div>
+        </header>
+        <!-- Page content-->
+        <div class="container">
+            <div class="row">
+                <!-- Blog entries-->
+                <div class="col-lg-8">
+                    <!-- Featured blog post-->
+                    <div class="card mb-4">
+                        <a href="https://warthunder.com/es/news/3678-especial-feliz-aniversario-war-thunder-es"><img class="card-img-top" src="static/Home/assets/wt_10_years.jpg" alt="..." /></a>
+                        <div class="card-body">
+                            <div class="small text-muted">1/11/2022</div>
+                            <h2 class="card-title">¡Feliz Aniversario War Thunder!</h2>
+                            <p class="card-text">El 1 de Noviembre de 2012, War Thunder pasó a la beta abierta, este es el día que consideramos como el cumpleaños del juego. Hemos recorrido un largo y glorioso camino, ¡y nos alegramos de que nos acompañéis durante todo el trayecto!</p>
+                            <a class="btn btn-primary" href="#!">LEER MÁS »</a>
+                        </div>
+                    </div>
+                    <!-- Nested row for non-featured blog posts-->
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <!-- Blog post-->
+                            <div class="card mb-4">
+                                <a href="#!"><img class="card-img-top" src="static/Home/assets/gafas_kirigood.jpg" alt="..." /></a> #cargar statics
+                                <div class="card-body">
+                                    <div class="small text-muted">9/11/2022</div>
+                                    <h2 class="card-title h4">Estas gafas de realidad virtual son mortales: si mueres en el juego, te matan en la vida real</h2>
+                                    <p class="card-text">En muchos videojuegos, uno no para de morir. No pasa nada, claro, porque no mueres en la vida real.</p>
+                                    <a class="btn btn-primary" href="#!">LEER MÁS »</a>
+                                </div>
+                            </div>
+                            <!-- Blog post-->
+                            <div class="card mb-4">
+                                <a href="#!"><img class="card-img-top" src="static/Home/assets/github_copilot.jpg" alt="..." /></a>
+                                <div class="card-body">
+                                    <div class="small text-muted">9/11/2022</div>
+                                    <h2 class="card-title h4">Copilot copia código sin piedad. Ahora Microsoft se enfrenta a una demanda colectiva que podría poner el jaque a la herramienta</h2>
+                                    <p class="card-text">La demanda alega que Copilot infringe los requisitos de atribución de varias licencias de código abierto, incluidas las licencias MIT, GPL y Apache</p>
+                                    <a class="btn btn-primary" href="#!">LEER MÁS »</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <!-- Blog post-->
+                            <div class="card mb-4">
+                                <a href="#!"><img class="card-img-top" src="static/Home/assets/worlds_2022.jpg" alt="..." /></a>
+                                <div class="card-body">
+                                    <div class="small text-muted">9/11/2022</div>
+                                    <h2 class="card-title h4">League of Legends: el impresionante récord de audiencia que marcó la final del Worlds</h2>
+                                    <p class="card-text">La final del Worlds 2022 de League of Legends que coronó a DRX marcó nuevos récords de audiencia y se alzó como la más vista de la historia.</p>
+                                    <a class="btn btn-primary" href="#!">LEER MÁS »</a>
+                                </div>
+                            </div>
+                            <!-- Blog post-->
+                            <div class="card mb-4">
+                                <a href="https://vandal.elespanol.com/noticia/1350757905/la-banda-sonora-de-god-of-war-ragnarok-ya-esta-disponible-en-spotify/"><img class="card-img-top" src="static/Home/assets/gow.jpg" alt="..." /></a>
+                                <div class="card-body">
+                                    <div class="small text-muted">09/11/2022</div>
+                                    <h2 class="card-title h4">La banda sonora de God of War: Ragnarok ya está disponible en Spotify</h2>
+                                    <p class="card-text">La banda sonora compuesta por Bear McCreary para God of War: Ragnarok, que llega hoy mismo a las tiendas, ya está disponible en Spotify. Los títulos de las canciones pueden contener spoilers.</p>
+                                    <a class="btn btn-primary" href="#!">LEER MÁS »</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Pagination-->
+                    <nav aria-label="Pagination">
+                        <hr class="my-0" />
+                        <ul class="pagination justify-content-center my-4">
+                            <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true">Newer</a></li>
+                            <li class="page-item active" aria-current="page"><a class="page-link" href="#!">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#!">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#!">3</a></li>
+                            <li class="page-item disabled"><a class="page-link" href="#!">...</a></li>
+                            <li class="page-item"><a class="page-link" href="#!">15</a></li>
+                            <li class="page-item"><a class="page-link" href="#!">Older</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <!-- Side widgets-->
+                <div class="col-lg-4">
+                    <!-- Search widget-->
+                    <div class="card mb-4">
+                        <div class="card-header">Buscar</div>
+
+                        <div class="card-body">
+                            <ul class="list-unstyled mb-0">
+                                {% block codigoDinamico1 %}
+                                <form action="buscar/" method="get">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="Buscar..." name="titulo" id="titulo">
+                                        <button class="btn btn-primary" id="button-search" type="submit">Go!<i class="fas fa-search"></button>
+                                    </div>
+                                {% endblock  %}
+
+                            </ul>
+                        </div>
+
+                    </div>
+                    <!-- Categories widget-->
+                    <div class="card mb-4">
+                        <div class="card-header">Categories</div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <ul class="list-unstyled mb-0">
+                                        <li><a href={% url 'Noticias' %}>Noticias</a></li>
+                                        <li><a href="#!">Reviews</a></li>
+                                        <li><a href="#!">Gaming</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-sm-6">
+                                    <ul class="list-unstyled mb-0">
+                                        <li><a href="#!">Sofrware</a></li>
+                                        <li><a href="#!">Hardware</a></li>
+                                        <li><a href="#!">Todo</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Side widget-->
+                    <div class="card mb-4">
+                        <div class="card-header">Side Widget</div>
+                        <div class="card-body">You can put anything you want inside of these side widgets. They are easy to use, and feature the Bootstrap 5 card component!</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endblock  %}
+        <!-- Footer-->
+        <footer class="footer py-5 bg-dark">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 h-100 text-center text-lg-start my-auto">
+                        <ul class="list-inline mb-2">
+                            <li class="list-inline-item">
+                                <a href="https://www.linkedin.com/in/franco-nicolas-jones-266a62162">Franco's Linkedin</a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="https://www.linkedin.com/in/florenciahnatiuk/">Florencia's Linkedin</a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="https://github.com/Zero9BSC">Franco's Github</a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="https://github.com/FlorcitaHnatiuk">Florencia's Github</a>'
+                            </li>
+                        </ul>
+                    </div>>
+                </div>>
+                <p class="m-0 text-center text-white">Copyright &copy; Zero9BSC 2022</p>
+            </div>
+        </footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="static/Home/js/scripts.js"></script>
+    </body>
+</html>

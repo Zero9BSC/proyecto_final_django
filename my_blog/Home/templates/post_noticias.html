@@ -1,0 +1,20 @@
+{% extends 'index.html' %}
+
+{% block codigoDinamico %}
+
+    
+{% if post %}
+    
+    <ul>
+        {% for i in post %}
+        <li>Titulo: {{ i.titulo }}</li>            
+        <li>Sub Titulo: {{ i.sub_titulo }}</li>
+        <li>Fecha: {{ i.fecha }} min</li>
+        <li>Texto: {{ i.texto }}</li>
+        {% endfor %}
+    </ul>
+
+{% endif %}
+
+
+{% endblock  %}

@@ -1,0 +1,47 @@
+{% extends 'index.html' %}
+
+{% load static %}
+
+{% block codigoDinamico %}
+<!-- FORMULARIO DE CONTACTO -->
+
+    <body>
+
+        <main class="container">
+            <div class="row my-4 py-4">
+                <div class="text-center">
+                    <h1>¡Contactanos!</h1>
+                </div>
+            </div>
+            <section class="row col-12 my-4 py-4">
+                <div class="col-12 col-lg-6">
+
+                    <div>
+                        <label for="exampleFormControlInput1" class="form-label">Nombre y apellido</label>
+                        <form id="form" action="" method="get">{{ formulario.name }}</form>
+                        <input type="text" class="form-control" id="submit" type="submit"
+                            placeholder="Nombre Apellido">
+                            
+                    </div>
+
+                    <div>
+                        <label for="exampleFormControlInput1" class="form-label">Email address</label>
+                        <form id="form" action="" method="get">{{ formulario.email }}</form>
+                        <input type="email" class="form-control" id="submit" type="submit" 
+                            placeholder="name@example.com">
+                    </div>
+
+                    <div>
+                        <form id="form" action="" method="get">{{ formulario.consulta }}</form>
+                        <textarea id="mi-texto" id="submit" type="submit"  rows="10" placeholder="Ingresa tu consulta acá!"></textarea>
+                        <p id="resultado"></p>
+                        <p id="mensaje"></p>
+                        <button type="text" class="form-control" id="submit" type="submit" value="Enviar">Enviar</button>
+                    </div>
+                </div>
+                </div>
+
+            </section>
+        </main>
+
+{% endblock  %}
