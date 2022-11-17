@@ -16,7 +16,7 @@ Se debe crear el entorno virtual de python:
 ```cmd
 cd ProyectoFinal
 
-virtualenv django
+python -m venv django
 ```
 Luego activamos el entorno con el siguiente comando:
 ```cmd
@@ -37,6 +37,11 @@ python manage.py runserver
 ```
 
 Si todo fue bien esto iniciara un servidor web [Blog](http://localhost:8000) en el cual ya podremos trabajar.
+
+Para acceder al menu de administrador debe colocar en la barra de navegacion http://localhost:8000/admin/ o darle click al siguiente [Blog](http://localhost:8000/admin/) y loguearse con los siguientes datos:
+
+Usuario: Franco
+Password: django123
 
 ## Techs
 
