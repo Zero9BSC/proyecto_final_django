@@ -33,8 +33,6 @@ pip install Django
 Para correr nuestro blog deben iniciar nuestro proyecto en la carpeta "my_blog" de la siguiente manera:
 ```cmd
 cd my_blog
-
-python manage.py runserver
 ```
 Luego realizamos una migracion de nuestros Models para asegurarnos que corra todo bien:
 ```cmd
