@@ -27,17 +27,22 @@ Luego procedemos a instalar Django para correr el entorno:
 ```cmd
 pip install Django
 ```
-Luego realizamos una migracion de nuestros Models para asegurarnos que corra todo bien:
-```cmd
-python manage.py migrate  
-```
-Ya estamos listos para correr nuestro entorno.
+
 
 ## Como iniciar el proyecto
 Para correr nuestro blog deben iniciar nuestro proyecto en la carpeta "my_blog" de la siguiente manera:
 ```cmd
 cd my_blog
 
+python manage.py runserver
+```
+Luego realizamos una migracion de nuestros Models para asegurarnos que corra todo bien:
+```cmd
+python manage.py migrate  
+```
+
+Por ultimo iniciamos nuestro servidor local de la siguiente manera:
+```cmd
 python manage.py runserver
 ```
 
