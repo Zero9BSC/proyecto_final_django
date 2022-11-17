@@ -14,7 +14,7 @@ git clone https://github.com/Zero9BSC/proyecto_final_django.git
 Se debe crear el entorno virtual de python:
 
 ```cmd
-cd ProyectoFinal
+cd proyecto_final_django
 
 python -m venv django
 ```
