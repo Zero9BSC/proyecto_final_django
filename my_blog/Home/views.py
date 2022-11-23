@@ -1,7 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.views.generic import ListView
+from django.views.generic.detail import DetailView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import *
-from .forms import CrearPostForm, ContactoForm
+from .forms import CrearPostForm, ContactoForm, SignUpForm
 
 
 def mostrar_home(request):
@@ -48,9 +51,6 @@ def buscar(request):
                 return render(request, "buscar_post.html", {"respuesta": respuesta})
 
 
-
-
-
 def mostrar_post(request):
     return render(request, "post.html") #Solo como ejemplo para mostrar como se ve la template "post.html"
 
@@ -87,3 +87,91 @@ def crear_consulta(request):
         formulario = ContactoForm()
         
     return render(request, "contacto.html", {"formulario": formulario})
+
+def mostrar_posteos(request):
+
+    posteos = Post.objects.all()
+
+    context = {'posteos':posteos}
+
+    return render(request, 'mostrar_posteos.html', context=context)
+
+def eliminar_posteos(request, post_id):
+
+    posteos = Post.objects.get(id=post_id)
+
+    posteos.delete()
+
+    posteos = Post.objects.all()
+
+    context = {'posteos':posteos}
+
+    return render(request, 'mostrar_posteos.html', context=context)
+
+
+def actualizar_posteos(request, post_id):
+
+    post = Post.objects.get(id=post_id)
+
+    if request.method == "POST":
+
+        formulario = CrearPostForm(request.POST)
+
+        if formulario.is_valid():
+
+            formulario_limpio = formulario.cleaned_data
+
+            #post = Post(titulo=formulario_limpio["titulo"], sub_titulo=formulario_limpio["sub_titulo"], fecha=formulario_limpio["fecha"], texto=formulario_limpio["texto"])
+
+            post.titulo = formulario_limpio['titulo']
+            post.sub_titulo = formulario_limpio['sub_titulo']
+            post.fecha = formulario_limpio['fecha']
+            post.texto = formulario_limpio['texto']
+            
+            post.save()
+
+            return render(request, "Home/templates/index.html")
+    else:
+        formulario = CrearPostForm(initial={'titulo': post.titulo, 'sub_titulo': post.sub_titulo, 'fecha': post.fecha, 'texto': post.texto})
+        
+        return render(request, "actualizar_post.html", {"formulario": formulario})
+
+class PostDetailView(DetailView):
+
+    model = Post
+    template_name = 'Home/post_detalle.html'
+
+
+class PostList(ListView):
+
+    model = Post
+    template_name = 'Home/post_list.html'
+
+class PostDeleteView(DeleteView):
+
+    model = Post
+    success_url = '/post_list' #posible solucion a crear post que no redirecciona bien al index
+
+class PostUpdateView(UpdateView):
+
+    model = Post
+    success_url = '/post_list' #posible solucion a crear post que no redirecciona bien al index
+    fields = ['titulo', 'sub_titulo', 'fecha', 'texto']
+
+
+class PostCreateView(CreateView):
+
+    model = Post
+    success_url = '/post_list' #posible solucion a crear post que no redirecciona bien al index
+    fields = ['titulo', 'sub_titulo', 'fecha', 'texto']
+
+
+
+
+
+#class SignUpView(CreateView):
+#
+#    form_class = SignUpForm
+#    success_url = ''
+#    template_name = 'registro.html'
+

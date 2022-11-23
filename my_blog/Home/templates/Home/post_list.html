@@ -1,0 +1,33 @@
+{% extends 'index.html' %}
+
+{% load static %}
+
+{% block codigoDinamico %}
+
+{% for post in object_list %}
+
+    <ul>
+        <li>
+            {{ post }}
+
+            <button>
+                <a href="{% url 'Detail' post.id %}">Ver Detalles</a>
+            </button>
+            <button>
+                <a href="{% url 'Delete' post.id %}">Eliminar</a>
+            </button>
+            <button>
+                <a href="{% url 'Update' post.id %}">Actualizar</a>
+            </button>
+        </li>
+    </ul>
+
+
+{% endfor %}
+
+<button>
+    <a href="{% url 'Create' %}">Crear Nuevo Post</a>
+</button>
+
+
+{% endblock %}

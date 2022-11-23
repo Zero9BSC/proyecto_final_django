@@ -7,6 +7,9 @@ class Post(models.Model):
     fecha = models.DateField()
     texto = models.CharField(max_length=254)
 
+    def __str__(self):
+        return f'Titulo: {self.titulo}, Sub Titulo: {self.sub_titulo}, Fecha: {self.fecha}, Contenido: {self.texto}'
+
 class PostNoticias(models.Model):
     titulo = models.CharField(max_length=90)
     sub_titulo = models.CharField(max_length=90)

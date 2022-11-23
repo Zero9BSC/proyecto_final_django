@@ -1,0 +1,14 @@
+{% extends 'index.html' %}
+
+{% load static %}
+
+{% block codigoDinamico %}
+
+
+<form method="post"> {% csrf_token %}
+    Seguro que desea eliminar el Post {{object}}?
+    <input type="submit" value="Eliminar">
+</form>
+
+
+{% endblock %}
