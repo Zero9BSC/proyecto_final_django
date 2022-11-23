@@ -20,4 +20,5 @@ urlpatterns = [
     path('post_confirm_delete/<pk>', views.PostDeleteView.as_view(), name='Delete'),
     path('post_edit/<pk>', views.PostUpdateView.as_view(), name='Update'),
     path('post_form/', views.PostCreateView.as_view(), name='Create'),
+    path('post_gaming/', views.PostListGaming.as_view(), name='Gaming'),
 ]

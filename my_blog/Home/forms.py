@@ -6,6 +6,7 @@ class CrearPostForm(forms.Form):
     titulo = forms.CharField(max_length=90)
     sub_titulo = forms.CharField(max_length=90)
     fecha = forms.DateField()
+    categoria = forms.CharField(max_length=20)
     texto = forms.CharField(max_length=254)
 
 class ContactoForm(forms.Form):

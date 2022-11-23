@@ -1,9 +1,29 @@
-{% extends 'index.html' %}
+
+{% load static %}
 
 {% block codigoDinamico %}
 
-    
+    <h1 class="fw-bolder">Post Gaming</h1>
 
+{% for post in object_list %}    
 
+    <ul>
+        <li>
+            {{ post }}
+
+            <button>
+                <a href="{% url 'Detail' post.id %}">Ver Detalles</a>
+            </button>
+            <button>
+                <a href="{% url 'Delete' post.id %}">Eliminar</a>
+            </button>
+            <button>
+                <a href="{% url 'Update' post.id %}">Actualizar</a>
+            </button>
+        </li>
+    </ul>
+        <button onclick="location.href='{% url 'Home' %}'">Volver</button>
+
+{% endfor %}
 
 {% endblock  %}

@@ -8,8 +8,6 @@ from .forms import CrearPostForm, ContactoForm, SignUpForm
 
 
 def mostrar_home(request):
-    #queryset = request.GET.get("buscar")
-
     return render (request, "index.html")
 
 def crear_post(request):
@@ -163,9 +161,11 @@ class PostCreateView(CreateView):
 
     model = Post
     success_url = '/post_list' #posible solucion a crear post que no redirecciona bien al index
-    fields = ['titulo', 'sub_titulo', 'fecha', 'texto']
+    fields = ['titulo', 'sub_titulo', 'fecha', 'categoria', 'texto']
 
-
+class PostListGaming(ListView):
+    model = Post.objects.get_queryset().filter(categoria__icontains='Gaming')
+    template_name = 'Home/post_gaming.html'
 
 
 
