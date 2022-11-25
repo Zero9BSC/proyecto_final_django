@@ -1,11 +1,21 @@
 from django.db import models
 
-# Create your models here.
+
+CATEGORIES_CHOICES = (
+    ("", "Select Option"),
+    ("Noticias", "Noticias"),
+    ("Reviews", "Reviews"),
+    ("Gaming", "Gaming"),
+    ("Sofrware", "Sofrware"),
+    ("Hardware", "Hardware"),
+)
+
+
 class Post(models.Model):
     titulo = models.CharField(max_length=90)
     sub_titulo = models.CharField(max_length=90)
     fecha = models.DateField()
-    categoria = models.CharField(max_length=20, default='Uncategorize')
+    categoria = models.CharField(max_length=20, choices = CATEGORIES_CHOICES, blank= False, default=1)
     texto = models.CharField(max_length=254)
 
     def __str__(self):

@@ -3,13 +3,22 @@ from django.http import HttpResponse
 from django.views.generic import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+
+from django.urls import reverse_lazy
+
+from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.decorators import login_required # DECORATORS para vistas basadas en Funciones
+from django.contrib.auth.mixins import LoginRequiredMixin # MIXINS para vistas basadas en Clases
+
 from .models import *
 from .forms import CrearPostForm, ContactoForm, SignUpForm
 
 
+# VISTAS BASADAS EN FUNCIONES
 def mostrar_home(request):
     return render (request, "index.html")
 
+@login_required
 def crear_post(request):
     if request.method == "POST":
         formulario = CrearPostForm(request.POST)
@@ -39,13 +48,12 @@ def buscar(request):
             titulo = request.GET["titulo"]
             post = Post.objects.filter(titulo__icontains=titulo)
             if post:
-                print('se encontro el resultado.....supuestamente')
+                
                 return render(request, "buscar_post.html", {"post":post, "titulo":titulo})    
             else:
-                print('no hay resultado')
+                
                 respuesta = "No hay post"
             
-        #    return HttpResponse(respuesta)
                 return render(request, "buscar_post.html", {"respuesta": respuesta})
 
 
@@ -93,7 +101,7 @@ def mostrar_posteos(request):
     context = {'posteos':posteos}
 
     return render(request, 'mostrar_posteos.html', context=context)
-
+@login_required
 def eliminar_posteos(request, post_id):
 
     posteos = Post.objects.get(id=post_id)
@@ -106,7 +114,7 @@ def eliminar_posteos(request, post_id):
 
     return render(request, 'mostrar_posteos.html', context=context)
 
-
+@login_required
 def actualizar_posteos(request, post_id):
 
     post = Post.objects.get(id=post_id)
@@ -134,6 +142,7 @@ def actualizar_posteos(request, post_id):
         
         return render(request, "actualizar_post.html", {"formulario": formulario})
 
+# VISTAS BASADAS EN CLASES
 class PostDetailView(DetailView):
 
     model = Post
@@ -145,19 +154,19 @@ class PostList(ListView):
     model = Post
     template_name = 'Home/post_list.html'
 
-class PostDeleteView(DeleteView):
+class PostDeleteView(LoginRequiredMixin, DeleteView):
 
     model = Post
     success_url = '/post_list' #posible solucion a crear post que no redirecciona bien al index
 
-class PostUpdateView(UpdateView):
+class PostUpdateView(LoginRequiredMixin, UpdateView):
 
     model = Post
     success_url = '/post_list' #posible solucion a crear post que no redirecciona bien al index
     fields = ['titulo', 'sub_titulo', 'fecha', 'texto']
 
 
-class PostCreateView(CreateView):
+class PostCreateView(LoginRequiredMixin, CreateView):
 
     model = Post
     success_url = '/post_list' #posible solucion a crear post que no redirecciona bien al index
@@ -168,10 +177,14 @@ class PostListGaming(ListView):
     template_name = 'Home/post_gaming.html'
 
 
+class SignUpView(CreateView):
 
-#class SignUpView(CreateView):
-#
-#    form_class = SignUpForm
-#    success_url = ''
-#    template_name = 'registro.html'
+    form_class = SignUpForm
+    success_url = reverse_lazy('Home')
+    template_name = 'registro.html'
 
+class AdminLoginView(LoginView):
+    template_name = 'login.html'
+
+class AdminLogoutView(LogoutView):
+    template_name = 'logout.html'

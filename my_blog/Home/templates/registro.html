@@ -1,0 +1,18 @@
+{% extends 'index.html' %}
+
+{% load static %}
+
+{% block codigoDinamico %}
+
+<div>
+    <div>   
+        <form action="" method="post">{% csrf_token %}
+
+            {{form.as_p}}
+
+            <button type="submit">Iniciar Sesion</button>
+
+        </form>
+    </div>
+</div>
+{% endblock %}
