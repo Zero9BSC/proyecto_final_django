@@ -1,5 +1,15 @@
-<h3>Has cerrado la sesion</h3>
+{% extends 'index.html' %}
 
-<button>
-    <a href="{% url 'Home' %}">Regresar al Home</a>
+{% load static %}
+
+{% block codigoDinamico %}
+
+<h1 class="h-primary center" style="margin-top:30px;text-align:center;">
+    Cerraste la sesión
+</h1>
+
+<button class="btn btn-danger m-5">
+    <a style="color:white; text-decoration:none;" href="{% url 'Home' %}">Regresar al Home</a>
 </button>
+
+{% endblock %}

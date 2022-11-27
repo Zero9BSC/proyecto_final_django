@@ -4,11 +4,16 @@
 
 {% block codigoDinamico %}
 
+<h1 class="h-primary center text-danger border-bottom border-danger" style="margin-top:30px;text-align:center;">
+    Estas por eliminar un posteo...
+</h1>
 
-<form method="post"> {% csrf_token %}
-    Seguro que desea eliminar el Post {{object}}?
-    <input type="submit" value="Eliminar">
-</form>
-
+<div class="m-5 p-5">
+    <form method="post"> {% csrf_token %}
+        {{object}}
+        
+    </form>
+    <input class="btn btn-danger mt-5" type="submit" value="Eliminar">
+</div>
 
 {% endblock %}

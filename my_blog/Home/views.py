@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.conf import settings
 from django.views.generic import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -27,7 +28,7 @@ def crear_post(request):
 
             formulario_limpio = formulario.cleaned_data
 
-            post = Post(titulo=formulario_limpio["titulo"], sub_titulo=formulario_limpio["sub_titulo"], fecha=formulario_limpio["fecha"], texto=formulario_limpio["texto"])
+            post = Post(titulo=formulario_limpio["titulo"], imagen=formulario_limpio["imagen"], sub_titulo=formulario_limpio["sub_titulo"], fecha=formulario_limpio["fecha"], texto=formulario_limpio["texto"])
 
             post.save()
 
@@ -101,6 +102,7 @@ def mostrar_posteos(request):
     context = {'posteos':posteos}
 
     return render(request, 'mostrar_posteos.html', context=context)
+
 @login_required
 def eliminar_posteos(request, post_id):
 
@@ -170,11 +172,11 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 
     model = Post
     success_url = '/post_list' #posible solucion a crear post que no redirecciona bien al index
-    fields = ['titulo', 'sub_titulo', 'fecha', 'categoria', 'texto']
+    fields = ['titulo', 'sub_titulo', 'imagen', 'fecha', 'categoria', 'texto']
 
 class PostListGaming(ListView):
-    model = Post.objects.get_queryset().filter(categoria__icontains='Gaming')
-    template_name = 'Home/post_gaming.html'
+    model = Post
+    template_name = 'Home/post_gaming'
 
 
 class SignUpView(CreateView):

@@ -3,12 +3,16 @@
 {% load static %}
 
 {% block codigoDinamico %}
-
-<form action="" method="post">{% csrf_token %}
-
-    {{form.as_p}}
-
-    <button type="submit">Iniciar Sesion</button>
+<h1 class="h-primary center" style="margin-top:30px;text-align:center;">
+    Formulario de ingreso
+</h1>
+<div class="input-group">
+<form class="m-5 p-5" action="" method="post">{% csrf_token %}
+    <div class="mb-3">
+        {{form.as_p}}
+    </div>
+    <button class="btn btn-primary" type="submit">Iniciar Sesión</button>
 </form>
+</div>
 
 {% endblock %}

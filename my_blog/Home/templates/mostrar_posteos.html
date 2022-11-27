@@ -1,21 +1,29 @@
 {% extends 'index.html' %}
 
-{% load static %}
+{% load static %} 
 
 {% block codigoDinamico %}
 
-{% for post in posteos %}
+<div class="m-5 p-5">
+    {% if 'post==True' %}
 
-    <p>
-        id: {{post.id}}
-        {{post}}
-    </p>
-    <button>
-        <a href="{% url 'Eliminar Posteos' post_id=post.id %}">Eliminar</a>
-    </button>
-    <button>
-        <a href="{% url 'Actualizar Posteos' post_id=post.id %}">Actualizar</a>
-    </button>
-{% endfor %} 
+        {% for post in posteos %}
+
+
+        <p class="m-5">id: {{post.id}} | {{post}}</p>
+            <button class="btn btn-danger">
+                <a style="color: white; text-decoration: none" href="{% url 'Eliminar Posteos' post_id=post.id %}">Eliminar</a>
+            </button>
+            <button class="btn btn-primary">
+                <astyle="color: white; text-decoration: none" href="{% url 'Actualizar Posteos' post_id=post.id %}">Actualizar</a>
+            </button>
+
+        {% endfor %}
+    {% else %}
+            <h1 class="h-primary center" style="margin-top:30px;text-align:center;">
+            No hay posteos creados</h1>
+        
+    {% endif %}
+</div>
 
 {% endblock %}

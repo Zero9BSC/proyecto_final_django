@@ -2,8 +2,21 @@
 
 {% block codigoDinamico %}
 
+<h1 class="h-primary center" style="margin-top:30px;text-align:center;">
+    Hardware
+</h1>
 
-
-
+{% if post %}
+    <div class="m-5 p-5">
+    <ul class="list-group">
+        {% for i in post %}
+        <li class="list-group-item">Titulo: {{ i.titulo }}</li>            
+        <li class="list-group-item">Sub Titulo: {{ i.sub_titulo }}</li>
+        <li class="list-group-item">Fecha: {{ i.fecha }} min</li> 
+        <li class="list-group-item">Texto: {{ i.texto }}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
 
 {% endblock  %}

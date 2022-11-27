@@ -1,29 +1,50 @@
+{% extends 'index.html' %}
 
 {% load static %}
 
 {% block codigoDinamico %}
 
-    <h1 class="fw-bolder">Post Gaming</h1>
+    <h1 class="h-primary center" style="margin-top:30px;text-align:center;">
+        Gaming post
+    </h1>
 
-{% for post in object_list %}    
+    {% if post.categoria == Gaming %}
 
-    <ul>
-        <li>
-            {{ post }}
+            {% for post in object_list %}    
 
-            <button>
-                <a href="{% url 'Detail' post.id %}">Ver Detalles</a>
-            </button>
-            <button>
-                <a href="{% url 'Delete' post.id %}">Eliminar</a>
-            </button>
-            <button>
-                <a href="{% url 'Update' post.id %}">Actualizar</a>
-            </button>
-        </li>
-    </ul>
-        <button onclick="location.href='{% url 'Home' %}'">Volver</button>
+            <ul>
+                <li>
+                    {{ post }}
+        
+                    <button class="btn btn-success m-5">
+                        <a style="color:white; text-decoration:none;" href="{% url 'Detail' post.id %}">Ver Detalles</a>
+                    </button>
+                    <button class="btn btn-danger m-5">
+                        <a style="color:white; text-decoration:none;" href="{% url 'Delete' post.id %}">Eliminar</a>
+                    </button>
+                    <button class="btn btn-primary m-5">
+                        <a style="color:white; text-decoration:none;" href="{% url 'Update' post.id %}">Actualizar</a>
+                    </button>
+                </li>
+            </ul>
+                <button class="btn btn-primary m-5" onclick="location.href='{% url 'Home' %}'">Volver al inicio</button>
 
-{% endfor %}
+            {% endfor %}
+
+        {% else %}
+            <h1 class="h-primary center" style="margin-top:30px;text-align:center;">
+                No hay posteos con la categoria "Gaming" aun, quieres crear uno?
+            </h1>
+            
+                <button class="btn btn-success">
+                    <a style="color:white; text-decoration:none;" href="{% url 'Create' %}">Crear Nuevo Post</a>
+                </button>
+
+
+    {% endif %}
+
+    <button>
+        <a href="{% url 'Home' %}">Regresar</a>
+    </button>
 
 {% endblock  %}

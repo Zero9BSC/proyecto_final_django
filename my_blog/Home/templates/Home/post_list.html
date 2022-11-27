@@ -4,30 +4,45 @@
 
 {% block codigoDinamico %}
 
-{% for post in object_list %}
+<h1 class="h-primary center" style="margin-top:30px;text-align:center;">
+    Lista de Posteos
+</h1>
 
-    <ul>
-        <li>
-            {{ post }}
+{% if 'post==True' %}
 
-            <button>
-                <a href="{% url 'Detail' post.id %}">Ver Detalles</a>
-            </button>
-            <button>
-                <a href="{% url 'Delete' post.id %}">Eliminar</a>
-            </button>
-            <button>
-                <a href="{% url 'Update' post.id %}">Actualizar</a>
-            </button>
-        </li>
-    </ul>
+    {% for post in object_list %}
+        <div class="m-5 p-5">
+            <ul>
+                <li>
+                    {{ post }}
 
+                    <button class="btn btn-success">
+                        <a style="color:white; text-decoration:none;" href="{% url 'Detail' post.id %}">Ver Detalles</a>
+                    </button>
+                    <button class="btn btn-danger">
+                        <a style="color:white; text-decoration:none;" href="{% url 'Delete' post.id %}">Eliminar</a>
+                    </button>
+                    <button class="btn btn-primary">
+                        <a style="color:white; text-decoration:none;" href="{% url 'Update' post.id %}">Actualizar</a>
+                    </button>
+                </li>
+            </ul>
+        </div>
 
-{% endfor %}
+    {% endfor %}
+{% else %}
+    <div class="m-5 p-5">
+        <h2 class="h-primary center" style="margin-top:30px;text-align:center;">
+            No hay posteos creados
+        </h2>
+    </div>
 
-<button>
-    <a href="{% url 'Create' %}">Crear Nuevo Post</a>
-</button>
+{% endif %}
+<div class="m-5 p-5">        
+    <button class="btn btn-success">
+        <a style="color:white; text-decoration:none;" href="{% url 'Create' %}">Crear Nuevo Post</a>
+    </button>
+</div>
 
 
 {% endblock %}
