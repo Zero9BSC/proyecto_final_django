@@ -23,9 +23,10 @@ Luego activamos el entorno con el siguiente comando:
 django\Scripts\activate
 ```
 
-Luego procedemos a instalar Django para correr el entorno:
+## Requerimientos
+Para instalar los requerimientos procederemos de la siguiente forma.
 ```cmd
-pip install Django
+pip install -r requirements.txt
 ```
 
 
