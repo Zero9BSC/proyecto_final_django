@@ -12,7 +12,7 @@ from django.contrib.auth.decorators import login_required # DECORATORS para vist
 from django.contrib.auth.mixins import LoginRequiredMixin # MIXINS para vistas basadas en Clases
 
 from .models import *
-from .forms import CrearPostForm, ContactoForm, SignUpForm
+from .forms import CrearPostForm, ContactoForm, SignUpForm, UserEditForm
 
 
 # VISTAS BASADAS EN FUNCIONES
@@ -68,14 +68,14 @@ def mostrar_about(request):
     return render(request, "about.html")
 
 
-def mostrar_noticias(request):
-    post = Post.objects.all()
-
-    
-    all_entries = PostNoticias.objects.all()
-
-    return render(request, "post_noticias.html", {"post":post})
-    #return render(request, "post_noticias.html", {"all_entries": all_entries})
+#def mostrar_noticias(request):
+#    post = Post.objects.all()
+#
+#    
+#    all_entries = Post.objects.filter()
+#
+#    return render(request, "post_noticias.html", {"post":post})
+#    #return render(request, "post_noticias.html", {"all_entries": all_entries})
 
 def crear_consulta(request):
     if request.method == "POST":
@@ -143,6 +143,39 @@ def actualizar_posteos(request, post_id):
         formulario = CrearPostForm(initial={'titulo': post.titulo, 'sub_titulo': post.sub_titulo, 'fecha': post.fecha, 'texto': post.texto})
         
         return render(request, "actualizar_post.html", {"formulario": formulario})
+
+@login_required
+def editar_usuario(request):
+
+    usuario = request.user
+
+    if request.method == 'POST':
+        usuario_form = UserEditForm(request.POST)
+
+        if usuario_form.is_valid():
+
+            informacion = usuario_form.cleaned_data
+            
+            usuario.username = informacion['username']
+            usuario.email = informacion['email']
+            usuario.password1 = informacion['password1']
+            usuario.password2 = informacion['password2']
+
+            usuario.save()
+
+            return render(request, 'index.html')
+        
+    else:
+        usuario_form = UserEditForm(initial={
+            'username': usuario.username,
+            'email': usuario.email,
+        })
+
+    return render(request, 'admin_update.html', {
+        'form': usuario_form,
+        'usuario': usuario
+        })
+
 
 # VISTAS BASADAS EN CLASES
 class PostDetailView(DetailView):

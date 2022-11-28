@@ -22,8 +22,11 @@
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li class="nav-item"><a class="nav-link" href="{% url 'Home' %}">Home</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'Sign Up' %}">Sign Up</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'Login' %}">Login</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'Logout' %}">Logout</a></li>
+                        {% if request.user.is_authenticated %}
+                            <li class="nav-item"><a class="nav-link" href="{% url 'Logout' %}">Logout</a></li>
+                        {% else %}
+                            <li class="nav-item"><a class="nav-link" href="{% url 'Login' %}">Login</a></li>
+                        {% endif %}
                         <li class="nav-item"><a class="nav-link" href="{% url 'Mostrar Posteos' %}">Mostrar Posteos</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'List' %}">Mostrar Posteos (Vistas Basadas en Clases)</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'Buscar' %}">Buscar Post</a></li>
@@ -40,7 +43,11 @@
             <div class="container">
                 <div class="text-center my-5">
                     <h1 class="fw-bolder">Te damos la bienvenida al Blog Gaming Zone</h1>
-                    <h3>{{user.username}}</h3>
+                    {% if request.user.is_authenticated %}
+                        <h3>{{user.username}}</h3>
+                    {% else %}
+                        <h3>Invitado</h3>
+                    {% endif %}
                     <p class="lead mb-0">Un Blog Gamer para Gamers!</p>
                 </div>
             </div>
@@ -148,7 +155,7 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <ul class="list-unstyled mb-0">
-                                        <li><a href={% url 'Noticias' %}>Noticias</a></li>
+                                        <li><a href="#!">Noticias</a></li>
                                         <li><a href="#!">Reviews</a></li>
                                         <li><a href="{% url 'Gaming' %}">Gaming</a></li>
                                     </ul>

@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+from ckeditor.fields import RichTextField
 
 CATEGORIES_CHOICES = (
     ("", "Select Option"),
@@ -13,48 +13,24 @@ CATEGORIES_CHOICES = (
 
 
 class Post(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    #user = models.ForeignKey(User, on_delete=models.CASCADE)
     titulo = models.CharField(max_length=90)
-    imagen = models.ImageField(null= False, blank=False, upload_to='images/')
+    imagen = models.ImageField(null= True, blank=True, upload_to='images/')
     sub_titulo = models.CharField(max_length=90)
     fecha = models.DateField()
     categoria = models.CharField(max_length=20, choices = CATEGORIES_CHOICES, blank= False, default=1)
-    texto = models.CharField(max_length=254)
+    texto = RichTextField()
 
     def __str__(self):
-        return f'User: {self.user},Titulo: {self.titulo}, Imagen: {self.imagen}, Sub Titulo: {self.sub_titulo}, Fecha: {self.fecha}, Categoria: {self.categoria},Contenido: {self.texto}'
+        return f'Titulo: {self.titulo}, Imagen: {self.imagen}, Sub Titulo: {self.sub_titulo}, Fecha: {self.fecha}, Categoria: {self.categoria},Contenido: {self.texto}'
 
-class PostNoticias(models.Model):
-    titulo = models.CharField(max_length=90)
-    sub_titulo = models.CharField(max_length=90)
-    fecha = models.DateField()
-    texto = models.CharField(max_length=254)
-
-class PostReviews(models.Model):
-    titulo = models.CharField(max_length=90)
-    sub_titulo = models.CharField(max_length=90)
-    fecha = models.DateField()
-    texto = models.CharField(max_length=254)
-
-class PostGaming(models.Model):
-    titulo = models.CharField(max_length=90)
-    sub_titulo = models.CharField(max_length=90)
-    fecha = models.DateField()
-    texto = models.CharField(max_length=254)
-
-class PostSoftware(models.Model):
-    titulo = models.CharField(max_length=90)
-    sub_titulo = models.CharField(max_length=90)
-    fecha = models.DateField()
-    texto = models.CharField(max_length=254)
-
-class PostHardware(models.Model):
-    titulo = models.CharField(max_length=90)
-    sub_titulo = models.CharField(max_length=90)
-    fecha = models.DateField()
-    texto = models.CharField(max_length=254)
-
+#User: {self.user},
 class Contacto(models.Model):
     nombre = models.CharField(max_length=90)
     email = models.EmailField()
     consulta = models.CharField(max_length=254)
+
+
+class Avatar(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    imagen = models.ImageField(upload_to='images/', null=True, blank=True)

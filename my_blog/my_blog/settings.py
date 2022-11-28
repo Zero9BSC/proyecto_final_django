@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'Home',
+    'ckeditor',
 ]
 
 MIDDLEWARE = [
@@ -136,8 +137,8 @@ MEDIA_ROOT = MEDIA_DIR
 MEDIA_URL = '/my_blog/media/'
 
 # Barra de herramientes full de ckeditor
-#CKEDITOR_CONFIGS = {
-#    'default': {
-#        'toolbar': 'full',
-#    },
-#}
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+    },
+}
