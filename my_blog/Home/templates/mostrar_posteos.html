@@ -6,22 +6,21 @@
 
 <div class="m-5 p-5">
     {% if 'post==True' %}
+    
+            {% for post in posteos %}
 
-        {% for post in posteos %}
 
+            <p class="m-5">id: {{post.id}} | {{post}}</p>
+                <button class="btn btn-danger">
+                    <a style="color: white; text-decoration: none" href="{% url 'Eliminar Posteos' post_id=post.id %}">Eliminar</a>
+                </button>
+                <button class="btn btn-primary">
+                    <a style="color: white; text-decoration: none" href="{% url 'Actualizar Posteos' post_id=post.id %}">Actualizar</a>
+                </button>
 
-        <p class="m-5">id: {{post.id}} | {{post}}</p>
-            <button class="btn btn-danger">
-                <a style="color: white; text-decoration: none" href="{% url 'Eliminar Posteos' post_id=post.id %}">Eliminar</a>
-            </button>
-            <button class="btn btn-primary">
-                <a style="color: white; text-decoration: none" href="{% url 'Actualizar Posteos' post_id=post.id %}">Actualizar</a>
-            </button>
-
-        {% endfor %}
-    {% else %}
-            <h1 class="h-primary center" style="margin-top:30px;text-align:center;">
-            No hay posteos creados</h1>
+            {% endfor %}
+        {% else %}
+            <h3 class="h-primary center" style="margin-top:30px;text-align:center;">No hay posteos creados</h3>
         
     {% endif %}
 </div>

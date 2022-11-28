@@ -131,10 +131,10 @@ LOGIN_REDIRECT_URL = 'Home'
 LOGIN_URL = 'Login'
 
 
-
-MEDIA_DIR = BASE_DIR / 'media'
+MEDIA_URL = '/media/'
+MEDIA_DIR = os.path.join(BASE_DIR, 'media')
 MEDIA_ROOT = MEDIA_DIR
-MEDIA_URL = '/my_blog/media/'
+
 
 # Barra de herramientes full de ckeditor
 CKEDITOR_CONFIGS = {

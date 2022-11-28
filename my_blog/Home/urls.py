@@ -1,6 +1,5 @@
 from django.contrib import admin
-from django.conf import settings
-from django.conf.urls.static import static
+
 from django.urls import path
 from . import views
 
@@ -26,4 +25,4 @@ urlpatterns = [
     path('post_edit/<pk>', views.PostUpdateView.as_view(), name='Update'),
     path('post_form/', views.PostCreateView.as_view(), name='Create'),
     path('post_gaming/', views.PostListGaming.as_view(), name='Gaming'),
-]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]
