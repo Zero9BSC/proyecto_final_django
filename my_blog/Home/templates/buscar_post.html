@@ -6,7 +6,7 @@
 
 <div class="m-5 p-5">
     <form action="buscar/" method="GET">
-
+        <p>Ingrese su busqueda aqui:</p>
         <input type="text" name="titulo" id="titulo">
 
         <input class="btn btn-primary" type="submit" value="Buscar">
@@ -15,16 +15,16 @@
 </div>
     {% block codigoDinamico1 %}
     <div class="m-5 p-5">
-        <h1 class="h-primary center" style="margin-top:30px;text-align:center;">Resultado de tu búsqueda</h1>   
+
         
             <p>{{respuesta}}</p>
         
         {% if post %}
-            
+        <h1 class="h-primary center" style="margin-top:30px;text-align:center;">Resultado de tu búsqueda</h1>
         <div class="m-5 p-5">
             <ul class="list-group">
                 {% for i in post %}
-                <li class="list-group-item">{{ i.imagen }}</li>
+                <li class="list-group-item"><img src="{{i.imagen.url}}" alt="..."></li>
                 <li class="list-group-item">Autor: {{ i.user }}</li>  
                 <li class="list-group-item">Titulo: {{ i.titulo }}</li>            
                 <li class="list-group-item">Sub Titulo: {{ i.sub_titulo }}</li>

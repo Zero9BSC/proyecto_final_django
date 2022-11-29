@@ -18,25 +18,25 @@
 
                     <div>
                         <label for="exampleFormControlInput1" class="form-label">Nombre y apellido</label>
-                        <form id="form" action="" method="get">{{ formulario.name }}</form>
+                        <form id="form" action="" method="post">{{ formulario.name }}
                         <input type="text" class="form-control" id="submit" type="submit"
-                            placeholder="Nombre Apellido">
+                            placeholder="Nombre Apellido"></form>
                             
                     </div>
 
                     <div>
                         <label for="exampleFormControlInput1" class="form-label">Email address</label>
-                        <form id="form" action="" method="get">{{ formulario.email }}</form>
+                        <form id="form" action="" method="post">{{ formulario.email }}
                         <input type="email" class="form-control" id="submit" type="submit" 
-                            placeholder="name@example.com">
+                            placeholder="name@example.com"></form>
                     </div>
 
                     <div>
-                        <form id="form" action="" method="get">{{ formulario.consulta }}</form>
+                        <form id="form" action="" method="post">{{ formulario.consulta }}
                         <textarea id="mi-texto" id="submit" type="submit"  rows="10" placeholder="Ingresa tu consulta acá!"></textarea>
                         <p id="resultado"></p>
                         <p id="mensaje"></p>
-                        <button type="text" class="form-control" id="submit" type="submit" value="Enviar">Enviar</button>
+                        <input class="btn btn-primary" type="submit" value="Enviar"></form>
                     </div>
                 </div>
                 </div>

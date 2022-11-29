@@ -5,7 +5,7 @@
 {% block codigoDinamico %}
 
 <div class="m-5 p-5">
-    {% if 'post==True' %}
+    {% if posteos %}
     
             {% for post in posteos %}
 
@@ -19,7 +19,7 @@
                 </button>
 
             {% endfor %}
-        {% else %}
+    {% else %}
             <h3 class="h-primary center" style="margin-top:30px;text-align:center;">No hay posteos creados</h3>
         
     {% endif %}

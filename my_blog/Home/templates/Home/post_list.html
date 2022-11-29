@@ -8,7 +8,7 @@
     Lista de Posteos
 </h1>
 
-{% if 'post==True' %}
+{% if object_list.all %}
 
     {% for post in object_list %}
         <div class="m-5 p-5">

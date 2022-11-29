@@ -39,7 +39,7 @@ def crear_post(request):
         return render(request, "crear_post.html", {"formulario": formulario})
 
 def buscar_post(request):
-    print('aca no pasa naranja')
+    
     return render(request, "buscar_post.html")
 
 def buscar(request):
@@ -222,4 +222,5 @@ class AdminLoginView(LoginView):
     template_name = 'login.html'
 
 class AdminLogoutView(LogoutView):
+    success_url = reverse_lazy('Home')
     template_name = 'logout.html'
