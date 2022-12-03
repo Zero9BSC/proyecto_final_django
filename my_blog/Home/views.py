@@ -17,7 +17,10 @@ from .forms import CrearPostForm, ContactoForm, SignUpForm, UserEditForm
 
 # VISTAS BASADAS EN FUNCIONES
 def mostrar_home(request):
-    return render (request, "index.html")
+
+    #imagenes = Avatar.objects.filter(user=request.user.id)
+
+    return render (request, "index.html")#, {'url': imagenes[0].imagen.url})
 
 @login_required
 def crear_post(request):
@@ -28,7 +31,7 @@ def crear_post(request):
 
             formulario_limpio = formulario.cleaned_data
 
-            post = Post(titulo=formulario_limpio["titulo"], imagen=formulario_limpio["imagen"], sub_titulo=formulario_limpio["sub_titulo"], fecha=formulario_limpio["fecha"], texto=formulario_limpio["texto"])
+            post = Post(titulo=formulario_limpio["titulo"], imagen=formulario_limpio["imagen"], sub_titulo=formulario_limpio["sub_titulo"], autor=formulario_limpio["autor"], fecha=formulario_limpio["fecha"], texto=formulario_limpio["texto"])
 
             post.save()
 
@@ -177,6 +180,12 @@ def editar_usuario(request):
         })
 
 
+
+
+
+
+
+
 # VISTAS BASADAS EN CLASES
 class PostDetailView(DetailView):
 
@@ -224,3 +233,28 @@ class AdminLoginView(LoginView):
 class AdminLogoutView(LogoutView):
     success_url = reverse_lazy('Home')
     template_name = 'logout.html'
+
+
+class AvatarUpdateView(LoginRequiredMixin, UpdateView):
+
+    model = Avatar
+    success_url = '/index' #posible solucion a crear post que no redirecciona bien al index
+    fields = ['imagen', 'nombre', 'apellido', 'facebook', 'twitter', 'instagram', 'web', 'correo']
+
+
+#class AutorUpdateView(LoginRequiredMixin, UpdateView):
+#
+#    model = Autor
+#    success_url = '/index' #posible solucion a crear post que no redirecciona bien al index
+#    fields = [
+#        'nombres', 
+#        'apellidos', 
+#        'facebook', 
+#        'twitter', 
+#        'instagram', 
+#        'web', 
+#        'correo', 
+#        'estado',
+#    ]
+
+

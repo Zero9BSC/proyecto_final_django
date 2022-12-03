@@ -3,16 +3,14 @@
 {% load static %}
 
 {% block codigoDinamico %}
+<h1 class="h-primary center" style="margin-top:30px;text-align:center;">Actualizar un post</h1>
 
+<div class="m-5 p-5">
     <form action="" method="post"> {% csrf_token %}
-
-        <h3>Crear un Post</h3>
-
-        <table>
+        <table class="table">
             {{formulario.as_table}}
-        </table> 
-
-        <input type="submit" value="Enviar">
+        </table>
+        <input class="btn btn-primary" type="submit" value="Enviar">
     </form>
-
+</div>
 {% endblock %}

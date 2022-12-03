@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from .models import Post
+from .models import Post, Autor
 
 #class CrearPostForm(forms.Form):
 #    titulo = forms.CharField(max_length=90)

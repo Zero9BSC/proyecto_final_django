@@ -19,6 +19,7 @@ urlpatterns = [
     path('login/', views.AdminLoginView.as_view(), name='Login'),
     path('logout/', views.AdminLogoutView.as_view(), name='Logout'),
     path('editar_usuario/', views.editar_usuario, name='Editar Usuario'),
+    path('editar_autor/', views.AvatarUpdateView.as_view(), name='Editar Autor'),
     path('post_list/', views.PostList.as_view(), name='List'),
     path('post_detalle/<pk>', views.PostDetailView.as_view(), name='Detail'),
     path('post_confirm_delete/<pk>', views.PostDeleteView.as_view(), name='Delete'),

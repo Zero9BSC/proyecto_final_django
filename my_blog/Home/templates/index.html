@@ -24,6 +24,7 @@
                         <li class="nav-item"><a class="nav-link" href="{% url 'Sign Up' %}">Sign Up</a></li>
                         {% if request.user.is_authenticated %}
                             <li class="nav-item"><a class="nav-link" href="{% url 'Logout' %}">Logout</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'Editar Autor' %}">Editar Autor</a></li>
                         {% else %}
                             <li class="nav-item"><a class="nav-link" href="{% url 'Login' %}">Login</a></li>
                         {% endif %}
@@ -44,6 +45,7 @@
                 <div class="text-center my-5">
                     <h1 class="fw-bolder">Te damos la bienvenida al Blog Gaming Zone</h1>
                     {% if request.user.is_authenticated %}
+                        <!--<img src="{{url}}" alt="">-->
                         <h3>{{user.username}}</h3>
                     {% else %}
                         <h3>Invitado</h3>

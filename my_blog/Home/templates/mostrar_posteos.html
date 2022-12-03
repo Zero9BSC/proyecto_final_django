@@ -4,9 +4,14 @@
 
 {% block codigoDinamico %}
 
+<h1 class="h-primary center" style="margin-top:30px;text-align:center;">
+    Lista de Posteos
+</h1>
+
+
 <div class="m-5 p-5">
     {% if posteos %}
-    
+
             {% for post in posteos %}
 
 
@@ -20,9 +25,18 @@
 
             {% endfor %}
     {% else %}
-            <h3 class="h-primary center" style="margin-top:30px;text-align:center;">No hay posteos creados</h3>
-        
+    <div >
+        <h2 class="h-primary center" style="margin-top:30px;text-align:center;">
+            No hay posteos creados
+        </h2>
+    </div>
+
     {% endif %}
+    <div class="m-5 p-5">
+        <button class="btn btn-success">
+            <a style="color:white; text-decoration:none;" href="{% url 'Create' %}">Crear Nuevo Post</a>
+        </button>
+    </div>
 </div>
 
 {% endblock %}
