@@ -1,0 +1,18 @@
+{% extends 'index.html' %}
+
+{% load static %}
+
+{% block codigoDinamico %}
+
+<!--<h1 class="h-primary center" style="margin-top:30px;text-align:center;">
+    Actualizar el post
+</h1>-->
+<div class="m-5 p-5">
+<form method="post" enctype='multipart/form-data'>{% csrf_token %}
+
+    {{form.as_p}}
+    <input class="btn btn-primary" type="submit" value="Enviar">
+</form>
+</div>
+
+{% endblock %}

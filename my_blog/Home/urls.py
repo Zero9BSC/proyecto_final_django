@@ -1,5 +1,3 @@
-from django.contrib import admin
-
 from django.urls import path
 from . import views
 
@@ -9,7 +7,7 @@ urlpatterns = [
     path('buscar/', views.buscar),
     path('crear_post/', views.crear_post, name='Crear'),
     path('mostrar_post/', views.mostrar_post, name='Mostrar'),
-    path('mostrar_contacto/', views.mostrar_contacto, name='Contacto'),
+    path('mostrar_contacto/', views.ContactCreateView.as_view(), name='Contacto'),
     path('mostrar_about/', views.mostrar_about, name='About'),
     #path('mostrar_noticias/', views.mostrar_noticias, name='Noticias'),
     path('mostrar_posteos/', views.mostrar_posteos, name='Mostrar Posteos'),
@@ -18,8 +16,8 @@ urlpatterns = [
     path('signup/', views.SignUpView.as_view(), name='Sign Up'),
     path('login/', views.AdminLoginView.as_view(), name='Login'),
     path('logout/', views.AdminLogoutView.as_view(), name='Logout'),
-    path('editar_usuario/', views.editar_usuario, name='Editar Usuario'),
-    path('editar_autor/', views.AvatarUpdateView.as_view(), name='Editar Autor'),
+    path('editar_usuario/<pk>', views.editar_usuario, name='Editar Usuario'),
+    path('perfil/', views.AvatarUpdateView.as_view(), name='Editar Perfil'),
     path('post_list/', views.PostList.as_view(), name='List'),
     path('post_detalle/<pk>', views.PostDetailView.as_view(), name='Detail'),
     path('post_confirm_delete/<pk>', views.PostDeleteView.as_view(), name='Delete'),

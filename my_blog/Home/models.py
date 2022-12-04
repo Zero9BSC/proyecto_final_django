@@ -67,5 +67,8 @@ class Contacto(models.Model):
     email = models.EmailField()
     consulta = models.CharField(max_length=254)
 
+    def __str__(self):
+        return f'Nombre: {self.nombre}, Email: {self.email}, Consulta: {self.consulta}'
+
 
 

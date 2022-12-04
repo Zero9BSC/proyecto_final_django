@@ -11,6 +11,7 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.decorators import login_required # DECORATORS para vistas basadas en Funciones
 from django.contrib.auth.mixins import LoginRequiredMixin # MIXINS para vistas basadas en Clases
 
+
 from .models import *
 from .forms import CrearPostForm, ContactoForm, SignUpForm, UserEditForm
 
@@ -216,10 +217,16 @@ class PostCreateView(LoginRequiredMixin, CreateView):
     success_url = '/post_list' #posible solucion a crear post que no redirecciona bien al index
     fields = ['titulo', 'sub_titulo', 'imagen', 'fecha', 'categoria', 'texto']
 
+
+class ContactCreateView(CreateView):
+
+    form_class = ContactoForm
+    template_name = 'contacto.html'
+    success_url = reverse_lazy('Home')
+
 class PostListGaming(ListView):
     model = Post
     template_name = 'Home/post_gaming'
-
 
 class SignUpView(CreateView):
 
@@ -238,7 +245,8 @@ class AdminLogoutView(LogoutView):
 class AvatarUpdateView(LoginRequiredMixin, UpdateView):
 
     model = Avatar
-    success_url = '/index' #posible solucion a crear post que no redirecciona bien al index
+    #success_url = reverse_lazy('Home')
+    template_name = 'perfil.html'
     fields = ['imagen', 'nombre', 'apellido', 'facebook', 'twitter', 'instagram', 'web', 'correo']
 
 

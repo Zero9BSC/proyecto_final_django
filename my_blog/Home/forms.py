@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from .models import Post, Autor
+from .models import *
 
 #class CrearPostForm(forms.Form):
 #    titulo = forms.CharField(max_length=90)
@@ -18,11 +18,20 @@ class CrearPostForm(forms.ModelForm):
         fields = '__all__'
         exclude = ["user"]
 
-class ContactoForm(forms.Form):
-    nombre = forms.CharField(max_length= 90)
-    email = forms.EmailField()
-    consulta = forms.CharField(max_length=254)
+#class ContactoForm(forms.Form):
+#    nombre = forms.CharField(max_length= 90)
+#    email = forms.EmailField()
+#    consulta = forms.CharField(max_length=254)
 
+class ContactoForm(forms.ModelForm):
+
+    class Meta:
+        model = Contacto
+        fields = [
+            'nombre',
+            'email',
+            'consulta',
+        ]
 
 class SignUpForm(UserCreationForm):
 
