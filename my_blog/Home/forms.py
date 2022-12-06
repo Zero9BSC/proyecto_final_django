@@ -18,11 +18,6 @@ class CrearPostForm(forms.ModelForm):
         fields = '__all__'
         exclude = ["user"]
 
-#class ContactoForm(forms.Form):
-#    nombre = forms.CharField(max_length= 90)
-#    email = forms.EmailField()
-#    consulta = forms.CharField(max_length=254)
-
 class ContactoForm(forms.ModelForm):
 
     class Meta:

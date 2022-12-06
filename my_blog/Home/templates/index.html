@@ -24,7 +24,7 @@
                         <li class="nav-item"><a class="nav-link" href="{% url 'Sign Up' %}">Sign Up</a></li>
                         {% if request.user.is_authenticated %}
                             <li class="nav-item"><a class="nav-link" href="{% url 'Logout' %}">Logout</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{% url 'Editar Perfil' %}">Editar Perfil</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'Editar Perfil' user.id %}">Editar Perfil</a></li>
                         {% else %}
                             <li class="nav-item"><a class="nav-link" href="{% url 'Login' %}">Login</a></li>
                         {% endif %}
@@ -47,6 +47,7 @@
                     {% if request.user.is_authenticated %}
                         <!--<img src="{{url}}" alt="">-->
                         <h3>{{user.username}}</h3>
+                        <h3>{{user.id}}</h3>
                     {% else %}
                         <h3>Invitado</h3>
                     {% endif %}
@@ -157,16 +158,16 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <ul class="list-unstyled mb-0">
-                                        <li><a href="#!">Noticias</a></li>
-                                        <li><a href="#!">Reviews</a></li>
-                                        <li><a href="{% url 'Gaming' %}">Gaming</a></li>
+                                        <li><a href="{% url 'Noticias' categoria="Noticias" %}">Noticias</a></li>
+                                        <li><a href="{% url 'Reviews' categoria="Reviews" %}">Reviews</a></li>
+                                        <li><a href="{% url 'Gaming' categoria="Gaming" %}">Gaming</a></li>
                                     </ul>
                                 </div>
                                 <div class="col-sm-6">
                                     <ul class="list-unstyled mb-0">
-                                        <li><a href="#!">Software</a></li>
-                                        <li><a href="#!">Hardware</a></li>
-                                        <li><a href="#!">Todo</a></li>
+                                        <li><a href="{% url 'Software' categoria="Software" %}">Software</a></li>
+                                        <li><a href="{% url 'Hardware' categoria="Hardware" %}">Hardware</a></li>
+                                        <li><a href="{% url 'List' %}">Todo</a></li>
                                     </ul>
                                 </div>
                             </div>

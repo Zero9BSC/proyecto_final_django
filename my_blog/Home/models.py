@@ -45,12 +45,12 @@ class Avatar(models.Model):
 
 
 class Post(models.Model):
-    id = models.AutoField(primary_key = True)
+    #id = models.AutoField(primary_key = True)
     titulo = models.CharField(max_length=90)
     imagen = models.ImageField(null= True, blank=True, upload_to='images/')
     sub_titulo = models.CharField(max_length=90)
     autor = models.ForeignKey(User, on_delete = models.CASCADE)
-    fecha = models.DateField('Fecha de Creación', auto_now = False, auto_now_add = True)
+    fecha = models.DateField()
     categoria = models.CharField(max_length=20, choices = CATEGORIES_CHOICES, blank= False, default=1)
     texto = RichTextField()
 
@@ -60,6 +60,9 @@ class Post(models.Model):
 
     def __str__(self):
         return f'Titulo: {self.titulo}, Fecha: {self.fecha}, Categoria: {self.categoria}'
+
+
+
 
 #User: {self.user},
 class Contacto(models.Model):

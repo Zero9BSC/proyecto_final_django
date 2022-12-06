@@ -1,22 +1,50 @@
 {% extends 'index.html' %}
 
+{% load static %}
+
 {% block codigoDinamico %}
 
-<h1 class="h-primary center" style="margin-top:30px;text-align:center;">
-    Hardware
-</h1>
+    <h1 class="h-primary center" style="margin-top:30px;text-align:center;">
+        Hardware post
+    </h1>
 
-{% if post %}
-    <div class="m-5 p-5">
-    <ul class="list-group">
-        {% for i in post %}
-        <li class="list-group-item">Título: {{ i.titulo }}</li>
-        <li class="list-group-item">Subtítulo: {{ i.sub_titulo }}</li>
-        <li class="list-group-item">Fecha: {{ i.fecha }} min</li> 
-        <li class="list-group-item">Texto: {{ i.texto }}</li>
-        {% endfor %}
-    </ul>
-</div>
-{% endif %}
+    {% if object_list.all %}
+
+            {% for post in object_list %}    
+
+            <ul>
+                <li>
+                    {{ post }}
+        
+                    <button class="btn btn-success m-5">
+                        <a style="color:white; text-decoration:none;" href="{% url 'Detail' post.id %}">Ver Detalles</a>
+                    </button>
+                    <button class="btn btn-danger m-5">
+                        <a style="color:white; text-decoration:none;" href="{% url 'Delete' post.id %}">Eliminar</a>
+                    </button>
+                    <button class="btn btn-primary m-5">
+                        <a style="color:white; text-decoration:none;" href="{% url 'Update' post.id %}">Actualizar</a>
+                    </button>
+                </li>
+            </ul>
+                <button class="btn btn-primary m-5" onclick="location.href='{% url 'Home' %}'">Volver al inicio</button>
+
+            {% endfor %}
+
+        {% else %}
+            <h1 class="h-primary center" style="margin-top:30px;text-align:center;">
+                No hay posteos con esta categoria aun, quieres crear uno?
+            </h1>
+            
+                <button class="btn btn-success">
+                    <a style="color:white; text-decoration:none;" href="{% url 'Crear' %}">Crear Nuevo Post</a>
+                </button>
+
+
+    {% endif %}
+
+    <button class="btn btn-primary m-5">
+        <a style="color:white; text-decoration:none;" href="{% url 'Home' %}">Regresar</a>
+    </button>
 
 {% endblock  %}

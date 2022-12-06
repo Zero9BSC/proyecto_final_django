@@ -8,7 +8,7 @@
         Gaming post
     </h1>
 
-    {% if post.categoria == Gaming %}
+    {% if object_list.all %}
 
             {% for post in object_list %}    
 
@@ -33,18 +33,18 @@
 
         {% else %}
             <h1 class="h-primary center" style="margin-top:30px;text-align:center;">
-                No hay posteos con la categoria "Gaming" aun, quieres crear uno?
+                No hay posteos con esta categoria aun, quieres crear uno?
             </h1>
             
                 <button class="btn btn-success">
-                    <a style="color:white; text-decoration:none;" href="{% url 'Create' %}">Crear Nuevo Post</a>
+                    <a style="color:white; text-decoration:none;" href="{% url 'Crear' %}">Crear Nuevo Post</a>
                 </button>
 
 
     {% endif %}
 
-    <button>
-        <a href="{% url 'Home' %}">Regresar</a>
+    <button class="btn btn-primary m-5">
+        <a style="color:white; text-decoration:none;" href="{% url 'Home' %}">Regresar</a>
     </button>
 
 {% endblock  %}

@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.conf import settings
 from django.views.generic import ListView
 from django.views.generic.detail import DetailView
@@ -23,24 +23,6 @@ def mostrar_home(request):
 
     return render (request, "index.html")#, {'url': imagenes[0].imagen.url})
 
-@login_required
-def crear_post(request):
-    if request.method == "POST":
-        formulario = CrearPostForm(request.POST)
-
-        if formulario.is_valid():
-
-            formulario_limpio = formulario.cleaned_data
-
-            post = Post(titulo=formulario_limpio["titulo"], imagen=formulario_limpio["imagen"], sub_titulo=formulario_limpio["sub_titulo"], autor=formulario_limpio["autor"], fecha=formulario_limpio["fecha"], texto=formulario_limpio["texto"])
-
-            post.save()
-
-            return render(request, "Home/templates/index.html")
-    else:
-        formulario = CrearPostForm()
-        
-        return render(request, "crear_post.html", {"formulario": formulario})
 
 def buscar_post(request):
     
@@ -48,18 +30,23 @@ def buscar_post(request):
 
 def buscar(request):
 
-    if request.method == "GET":
-        if request.GET["titulo"]:
-            titulo = request.GET["titulo"]
-            post = Post.objects.filter(titulo__icontains=titulo)
-            if post:
+    try:
+        if request.method == "GET":
+            if request.GET["titulo"]:
+                titulo = request.GET["titulo"]
+                post = Post.objects.filter(titulo__icontains=titulo)
+                if post:
+                    
+                    return render(request, "buscar_post.html", {"post":post, "titulo":titulo})    
+                else:
+                    
+                    respuesta = "No hay post"
                 
-                return render(request, "buscar_post.html", {"post":post, "titulo":titulo})    
-            else:
-                
-                respuesta = "No hay post"
-            
-                return render(request, "buscar_post.html", {"respuesta": respuesta})
+                    return render(request, "buscar_post.html", {"respuesta": respuesta})
+    except ValueError:
+        print('que haces hermano!? estas pasando algo sin valor flaco!')
+        respuesta = "Debe ingresar un parametro para buscar"
+        return render(request, "buscar_post.html", {"respuesta": respuesta})
 
 
 def mostrar_post(request):
@@ -181,12 +168,6 @@ def editar_usuario(request):
         })
 
 
-
-
-
-
-
-
 # VISTAS BASADAS EN CLASES
 class PostDetailView(DetailView):
 
@@ -217,6 +198,11 @@ class PostCreateView(LoginRequiredMixin, CreateView):
     success_url = '/post_list' #posible solucion a crear post que no redirecciona bien al index
     fields = ['titulo', 'sub_titulo', 'imagen', 'fecha', 'categoria', 'texto']
 
+    def form_valid(self, form):
+        post = form.save(commit=False)
+        post.autor = User.objects.get(id=self.request.user.id)  # use your own profile here
+        post.save()
+        return HttpResponseRedirect('/post_list')
 
 class ContactCreateView(CreateView):
 
@@ -224,10 +210,56 @@ class ContactCreateView(CreateView):
     template_name = 'contacto.html'
     success_url = reverse_lazy('Home')
 
+
+# CATEGORIAS
+class PostListNoticias(ListView):
+    model = Post
+    template_name = 'post_noticias.html'
+
+    def get_queryset(self):
+        queryset = Post.objects.filter(categoria__icontains = self.kwargs['categoria'])
+
+        return queryset
+
+class PostListReviews(ListView):
+    model = Post
+    template_name = 'post_reviews.html'
+
+    def get_queryset(self):
+        queryset = Post.objects.filter(categoria__icontains = self.kwargs['categoria'])
+
+        return queryset
+
 class PostListGaming(ListView):
     model = Post
-    template_name = 'Home/post_gaming'
+    template_name = 'post_gaming.html'
+    #template_name = 'Home/post_gaming'
 
+    def get_queryset(self):
+        queryset = Post.objects.filter(categoria__icontains = self.kwargs['categoria'])
+
+        return queryset
+
+class PostListSoftware(ListView):
+    model = Post
+    template_name = 'post_software.html'
+
+    def get_queryset(self):
+        queryset = Post.objects.filter(categoria__icontains = self.kwargs['categoria'])
+
+        return queryset
+
+class PostListHardware(ListView):
+    model = Post
+    template_name = 'post_hardware.html'
+
+    def get_queryset(self):
+        queryset = Post.objects.filter(categoria__icontains = self.kwargs['categoria'])
+
+        return queryset
+
+
+#SIGNUP, LOGIN Y LOGOUT
 class SignUpView(CreateView):
 
     form_class = SignUpForm
@@ -246,23 +278,6 @@ class AvatarUpdateView(LoginRequiredMixin, UpdateView):
 
     model = Avatar
     #success_url = reverse_lazy('Home')
-    template_name = 'perfil.html'
+    template_name = 'Home/perfil.html'
     fields = ['imagen', 'nombre', 'apellido', 'facebook', 'twitter', 'instagram', 'web', 'correo']
-
-
-#class AutorUpdateView(LoginRequiredMixin, UpdateView):
-#
-#    model = Autor
-#    success_url = '/index' #posible solucion a crear post que no redirecciona bien al index
-#    fields = [
-#        'nombres', 
-#        'apellidos', 
-#        'facebook', 
-#        'twitter', 
-#        'instagram', 
-#        'web', 
-#        'correo', 
-#        'estado',
-#    ]
-
 
