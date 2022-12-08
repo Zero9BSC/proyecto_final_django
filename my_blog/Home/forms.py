@@ -3,13 +3,6 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from .models import *
 
-#class CrearPostForm(forms.Form):
-#    titulo = forms.CharField(max_length=90)
-#    imagen = forms.ImageField()
-#    sub_titulo = forms.CharField(max_length=90)
-#    fecha = forms.DateField()
-#    categoria = forms.CharField(max_length=20)
-#    texto = forms.CharField(max_length=254)
 
 class CrearPostForm(forms.ModelForm):
     
@@ -48,5 +41,21 @@ class UserEditForm(UserCreationForm):
             'email',
             'password1',
             'password2',
+        ]
+        help_text = {k: '' for k in fields}
+
+class AvatarEditForm():
+
+    class Meta:
+        model = Avatar
+        fields = [
+            'imagen',
+            'nombre',
+            'apellido',
+            'facebook',
+            'twitter',
+            'instagram',
+            'web',
+            'correo',
         ]
         help_text = {k: '' for k in fields}

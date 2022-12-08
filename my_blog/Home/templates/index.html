@@ -25,6 +25,7 @@
                         {% if request.user.is_authenticated %}
                             <li class="nav-item"><a class="nav-link" href="{% url 'Logout' %}">Logout</a></li>
                             <li class="nav-item"><a class="nav-link" href="{% url 'Editar Perfil' user.id %}">Editar Perfil</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'Editar Usuario' %}">Editar Usuario</a></li>
                         {% else %}
                             <li class="nav-item"><a class="nav-link" href="{% url 'Login' %}">Login</a></li>
                         {% endif %}

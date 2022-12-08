@@ -59,14 +59,7 @@ def mostrar_about(request):
     return render(request, "about.html")
 
 
-#def mostrar_noticias(request):
-#    post = Post.objects.all()
-#
-#    
-#    all_entries = Post.objects.filter()
-#
-#    return render(request, "post_noticias.html", {"post":post})
-#    #return render(request, "post_noticias.html", {"all_entries": all_entries})
+
 
 def crear_consulta(request):
     if request.method == "POST":
@@ -280,4 +273,3 @@ class AvatarUpdateView(LoginRequiredMixin, UpdateView):
     #success_url = reverse_lazy('Home')
     template_name = 'Home/perfil.html'
     fields = ['imagen', 'nombre', 'apellido', 'facebook', 'twitter', 'instagram', 'web', 'correo']
-
