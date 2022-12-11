@@ -24,13 +24,13 @@
                         <li class="nav-item"><a class="nav-link" href="{% url 'Sign Up' %}">Sign Up</a></li>
                         {% if request.user.is_authenticated %}
                             <li class="nav-item"><a class="nav-link" href="{% url 'Logout' %}">Logout</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{% url 'Editar Perfil' user.id %}">Editar Perfil</a></li>
+                            <!--<li class="nav-item"><a class="nav-link" href="{% url 'Editar Perfil' user.id %}">Editar Perfil</a></li>-->
                             <li class="nav-item"><a class="nav-link" href="{% url 'Editar Usuario' %}">Editar Usuario</a></li>
                         {% else %}
                             <li class="nav-item"><a class="nav-link" href="{% url 'Login' %}">Login</a></li>
                         {% endif %}
-                        <li class="nav-item"><a class="nav-link" href="{% url 'Mostrar Posteos' %}">Mostrar Posteos</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'List' %}">Mostrar Posteos (Vistas Basadas en Clases)</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'Mostrar Posteos' %}">Mostrar Posteos (FBV)</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'List' %}">Mostrar Posteos (CBV)</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'Buscar' %}">Buscar Post</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'Crear' %}">Crear Post</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'About' %}">About</a></li>

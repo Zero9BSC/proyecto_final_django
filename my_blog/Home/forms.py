@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from .models import *
-
+from django.forms import ModelForm
 
 class CrearPostForm(forms.ModelForm):
     
@@ -23,14 +23,22 @@ class ContactoForm(forms.ModelForm):
 
 class SignUpForm(UserCreationForm):
 
+
     class Meta:
         model = User
         fields = [
             'username',
-            'email',
             'password1',
             'password2',
+
         ]
+        help_text = {k: '' for k in fields}
+
+class PerfilForm(ModelForm):
+    class Meta:
+        model= Perfil
+        fields = '__all__'
+        exclude = ["usuario"]
 
 class UserEditForm(UserCreationForm):
 
@@ -38,24 +46,23 @@ class UserEditForm(UserCreationForm):
         model = User
         fields = [
             'username',
-            'email',
             'password1',
             'password2',
         ]
         help_text = {k: '' for k in fields}
 
-class AvatarEditForm():
+class PerfilEditForm(UserCreationForm):
 
     class Meta:
-        model = Avatar
+        model = Perfil
         fields = [
             'imagen',
             'nombre',
             'apellido',
+            'correo',
             'facebook',
             'twitter',
             'instagram',
             'web',
-            'correo',
         ]
         help_text = {k: '' for k in fields}

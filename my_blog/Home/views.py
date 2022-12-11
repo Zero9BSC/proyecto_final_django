@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.conf import settings
 from django.views.generic import ListView
@@ -7,22 +7,20 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 from django.urls import reverse_lazy
 
+from django.contrib.auth import login, authenticate
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.decorators import login_required # DECORATORS para vistas basadas en Funciones
 from django.contrib.auth.mixins import LoginRequiredMixin # MIXINS para vistas basadas en Clases
 
 
 from .models import *
-from .forms import CrearPostForm, ContactoForm, SignUpForm, UserEditForm
+from .forms import *
 
 
 # VISTAS BASADAS EN FUNCIONES
 def mostrar_home(request):
 
-    #imagenes = Avatar.objects.filter(user=request.user.id)
-
     return render (request, "index.html")#, {'url': imagenes[0].imagen.url})
-
 
 def buscar_post(request):
     
@@ -48,7 +46,6 @@ def buscar(request):
         respuesta = "Debe ingresar un parametro para buscar"
         return render(request, "buscar_post.html", {"respuesta": respuesta})
 
-
 def mostrar_post(request):
     return render(request, "post.html") #Solo como ejemplo para mostrar como se ve la template "post.html"
 
@@ -57,9 +54,6 @@ def mostrar_contacto(request):
     
 def mostrar_about(request):
     return render(request, "about.html")
-
-
-
 
 def crear_consulta(request):
     if request.method == "POST":
@@ -130,22 +124,34 @@ def actualizar_posteos(request, post_id):
 
 @login_required
 def editar_usuario(request):
-
+    perfil = Perfil.objects.get()
     usuario = request.user
 
     if request.method == 'POST':
         usuario_form = UserEditForm(request.POST)
+        perfil_form = PerfilEditForm(request.POST)# agregado
 
-        if usuario_form.is_valid():
+        if usuario_form.is_valid() and perfil_form.is_valid(): #agregado "and perfil_form.is_valid()"
 
-            informacion = usuario_form.cleaned_data
+            informacion1 = usuario_form.cleaned_data
+            informacion2 = perfil_form.cleaned_data# agregado
             
-            usuario.username = informacion['username']
-            usuario.email = informacion['email']
-            usuario.password1 = informacion['password1']
-            usuario.password2 = informacion['password2']
-
+            usuario.username = informacion1['username']
+            usuario.email = informacion1['email']
+            usuario.password1 = informacion1['password1']
+            usuario.password2 = informacion1['password2']
             usuario.save()
+
+            perfil.imagen = informacion2['imagen']# agregado
+            perfil.nombre = informacion2['nombre']# agregado
+            perfil.apellido = informacion2['apellido']# agregado
+            perfil.correo = informacion2['correo']# agregado
+            perfil.facebook = informacion2['facebook']# agregado
+            perfil.twitter = informacion2['twitter']# agregado
+            perfil.instagram = informacion2['instagram']# agregado
+            perfil.web = informacion2['web']# agregado
+            perfil.save()# agregado
+
 
             return render(request, 'index.html')
         
@@ -154,11 +160,44 @@ def editar_usuario(request):
             'username': usuario.username,
             'email': usuario.email,
         })
+        perfil_form = PerfilEditForm(initial={# agregado
+            'imagen': perfil.imagen,# agregado
+            'nombre': perfil.nombre,# agregado
+            'apellido': perfil.apellido,# agregado
+            'correo': perfil.correo,# agregado
+            'facebook': perfil.facebook,# agregado
+            'twitter': perfil.twitter,# agregado
+            'instagram': perfil.instagram,# agregado
+            'web': perfil.web,# agregado
+        })# agregado
+
 
     return render(request, 'admin_update.html', {
-        'form': usuario_form,
+        'usuario_form': usuario_form,
+        'perfil_form': perfil_form,
         'usuario': usuario
         })
+
+
+def create_user(request):
+    if request.method == 'POST':
+        user_form = UserCreationForm(request.POST)
+        perfil_form = PerfilForm(request.POST)
+        if user_form.is_valid() and perfil_form.is_valid():
+            user = user_form.save()
+            perfil = perfil_form.save(commit=False)
+            perfil.user = request.user
+            perfil.save()
+            return redirect('index.html')
+    else:
+        user_form = UserCreationForm()
+        perfil_form = PerfilForm()
+    return render(request, 'registro.html', {
+        'user_form': user_form, 
+        'perfil_form': perfil_form
+        })
+
+
 
 
 # VISTAS BASADAS EN CLASES
@@ -255,21 +294,39 @@ class PostListHardware(ListView):
 #SIGNUP, LOGIN Y LOGOUT
 class SignUpView(CreateView):
 
+    model = Perfil
     form_class = SignUpForm
     success_url = reverse_lazy('Home')
-    template_name = 'registro.html'
+    template_name = 'perfil_form.html'
+
+    def form_valid(self, form):
+
+        form.save()
+        usuario = form.cleaned_data.get('username')
+        password = form.cleaned_data.get('password1')
+        usuario = authenticate(username=usuario, password=password)
+        login(self.request, usuario)
+        return redirect('index.html')
 
 class AdminLoginView(LoginView):
     template_name = 'login.html'
 
 class AdminLogoutView(LogoutView):
     success_url = reverse_lazy('Home')
-    template_name = 'logout.html'
+    #template_name = 'logout.html'
 
+#class PerfilCreateView(CreateView):
 
-class AvatarUpdateView(LoginRequiredMixin, UpdateView):
-
-    model = Avatar
+    #form_class = PerfilCreateForm
     #success_url = reverse_lazy('Home')
-    template_name = 'Home/perfil.html'
+    #template_name = '.html'
+
+class PerfilUpdateView(LoginRequiredMixin, UpdateView):
+
+    model = Perfil
+    success_url = reverse_lazy('Home')
+    template_name = '/Home/perfil.html'
     fields = ['imagen', 'nombre', 'apellido', 'facebook', 'twitter', 'instagram', 'web', 'correo']
+
+
+

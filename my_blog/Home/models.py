@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from ckeditor.fields import RichTextField
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 CATEGORIES_CHOICES = (
     ("", "Select Option"),
@@ -32,8 +34,9 @@ class Autor(models.Model):
     def __str__(self):
         return "{0},{1}".format(self.apellidos, self.nombres)
 
-class Avatar(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+class Perfil(models.Model):
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    correo = models.EmailField(blank = False, null = False)
     imagen = models.ImageField(upload_to='avatar/', null=True, blank=True)
     nombre = models.CharField(max_length = 255, null = False, blank = False)
     apellido = models.CharField(max_length = 255, null = False, blank = False)
@@ -41,15 +44,20 @@ class Avatar(models.Model):
     twitter = models.URLField(null = True, blank = True)
     instagram = models.URLField(null = True, blank = True)
     web = models.URLField(null = True, blank = True)
-    correo = models.EmailField(blank = False, null = False)
+
+    USERNAME_FIELD = 'usuario'
+
+    def __str__(self):  
+        return self.usuario.username
+
+
 
 
 class Post(models.Model):
-    #id = models.AutoField(primary_key = True)
     titulo = models.CharField(max_length=90)
     imagen = models.ImageField(null= True, blank=True, upload_to='images/')
     sub_titulo = models.CharField(max_length=90)
-    autor = models.ForeignKey(User, on_delete = models.CASCADE)
+    autor = models.ForeignKey(Perfil, on_delete = models.CASCADE)
     fecha = models.DateField()
     categoria = models.CharField(max_length=20, choices = CATEGORIES_CHOICES, blank= False, default=1)
     texto = RichTextField()
@@ -62,9 +70,6 @@ class Post(models.Model):
         return f'Titulo: {self.titulo}, Fecha: {self.fecha}, Categoria: {self.categoria}'
 
 
-
-
-#User: {self.user},
 class Contacto(models.Model):
     nombre = models.CharField(max_length=90)
     email = models.EmailField()
