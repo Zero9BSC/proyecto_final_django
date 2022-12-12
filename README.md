@@ -45,11 +45,11 @@ Por ultimo iniciamos nuestro servidor local de la siguiente manera:
 python manage.py runserver
 ```
 
-Si todo fue bien esto iniciara un servidor web [Blog](http://localhost:8000) en el cual ya podremos trabajar.
+Si todo fue bien esto iniciara un servidor web de nuestro [Blog(Click para ir al inicio)](http://localhost:8000) en el cual ya podremos trabajar.
 
 Para gestionar el servidor primero debemos crear un super usuario con el siguiente comando desde la terminal y cargar los datos que nos pide:
 ```cmd
-python manage.py  createsuperuser
+python manage.py createsuperuser
 ```
 
 Para acceder al menu de administrador debe colocar en la barra de navegacion http://localhost:8000/admin/ o darle click al siguiente [Link](http://localhost:8000/admin/) y loguearse con los datos anteriormente cargados.
