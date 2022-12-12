@@ -47,10 +47,13 @@ python manage.py runserver
 
 Si todo fue bien esto iniciara un servidor web [Blog](http://localhost:8000) en el cual ya podremos trabajar.
 
-Para acceder al menu de administrador debe colocar en la barra de navegacion http://localhost:8000/admin/ o darle click al siguiente [Blog](http://localhost:8000/admin/) y loguearse con los siguientes datos:
+Para gestionar el servidor primero debemos crear un super usuario con el siguiente comando desde la terminal y cargar los datos que nos pide:
+```cmd
+python manage.py  createsuperuser
+```
 
-Usuario: Franco
-Password: django123
+Para acceder al menu de administrador debe colocar en la barra de navegacion http://localhost:8000/admin/ o darle click al siguiente [Link](http://localhost:8000/admin/) y loguearse con los datos anteriormente cargados.
+
 
 ## Techs
 
