@@ -23,18 +23,17 @@ class ContactoForm(forms.ModelForm):
 
 class SignUpForm(UserCreationForm):
 
-
     class Meta:
         model = User
         fields = [
             'username',
             'password1',
             'password2',
-
         ]
         help_text = {k: '' for k in fields}
 
 class PerfilForm(ModelForm):
+    
     class Meta:
         model= Perfil
         fields = '__all__'
@@ -46,23 +45,14 @@ class UserEditForm(UserCreationForm):
         model = User
         fields = [
             'username',
-            'password1',
-            'password2',
         ]
         help_text = {k: '' for k in fields}
 
-class PerfilEditForm(UserCreationForm):
+class PerfilEditForm(ModelForm):
 
     class Meta:
-        model = Perfil
-        fields = [
-            'imagen',
-            'nombre',
-            'apellido',
-            'correo',
-            'facebook',
-            'twitter',
-            'instagram',
-            'web',
-        ]
+        model= Perfil
+        fields = '__all__'
+        exclude = ["usuario"]
         help_text = {k: '' for k in fields}
+        

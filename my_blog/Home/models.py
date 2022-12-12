@@ -35,6 +35,7 @@ class Autor(models.Model):
         return "{0},{1}".format(self.apellidos, self.nombres)
 
 class Perfil(models.Model):
+    #id = models.AutoField(primary_key = True)
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
     correo = models.EmailField(blank = False, null = False)
     imagen = models.ImageField(upload_to='avatar/', null=True, blank=True)
@@ -48,7 +49,7 @@ class Perfil(models.Model):
     USERNAME_FIELD = 'usuario'
 
     def __str__(self):  
-        return self.usuario.username
+        return f'{self.usuario.username}, {self.correo}, {self.nombre}, {self.apellido}'
 
 
 
