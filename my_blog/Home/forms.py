@@ -9,7 +9,7 @@ class CrearPostForm(forms.ModelForm):
     class Meta:
         model= Post
         fields = '__all__'
-        exclude = ["user"]
+        exclude = ["autor"]
 
 class ContactoForm(forms.ModelForm):
 
