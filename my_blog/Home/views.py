@@ -236,7 +236,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         post = form.save(commit=False)
-        post.autor = User.objects.get(id=self.request.user.id)  # use your own profile here
+        post.autor = Perfil.objects.get(usuario=self.request.user.id)  # use your own profile here
         post.save()
         return HttpResponseRedirect('/post_list')
 
@@ -269,7 +269,6 @@ class PostListReviews(ListView):
 class PostListGaming(ListView):
     model = Post
     template_name = 'post_gaming.html'
-    #template_name = 'Home/post_gaming'
 
     def get_queryset(self):
         queryset = Post.objects.filter(categoria__icontains = self.kwargs['categoria'])
@@ -318,12 +317,6 @@ class AdminLoginView(LoginView):
 class AdminLogoutView(LogoutView):
     success_url = reverse_lazy('Home')
     #template_name = 'logout.html'
-
-#class PerfilCreateView(CreateView):
-
-    #form_class = PerfilCreateForm
-    #success_url = reverse_lazy('Home')
-    #template_name = '.html'
 
 class PerfilUpdateView(LoginRequiredMixin, UpdateView):
 
