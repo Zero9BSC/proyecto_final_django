@@ -225,7 +225,6 @@ class PostUpdateView(LoginRequiredMixin, UpdateView):
 
     model = Post
     success_url = '/post_list' #posible solucion a crear post que no redirecciona bien al index
-    #template_name = 'Home/post_edit.html'
     fields = ['titulo', 'imagen', 'sub_titulo', 'categoria', 'fecha', 'texto']
 
 
