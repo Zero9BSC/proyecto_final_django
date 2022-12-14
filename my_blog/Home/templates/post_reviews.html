@@ -5,17 +5,21 @@
 {% block codigoDinamico %}
 
     <h1 class="h-primary center" style="margin-top:30px;text-align:center;">
-        Reviews post
+        Posteos de Reviews
     </h1>
 
     {% if object_list.all %}
 
             {% for post in object_list %}    
 
-            <ul>
-                <li>
-                    {{ post }}
-        
+                    <li class="list-group-item">Titulo: {{ post.titulo }}</li>    
+                    <li class="list-group-item"><img src="{{ post.imagen.url }}" alt="..."></li>
+                    <li class="list-group-item">Sub Titulo: {{ post.sub_titulo }}</li>
+                    <li class="list-group-item">Autor: {{ post.autor }}</li>
+                    <li class="list-group-item">Categoria: {{ post.categoria }}</li> 
+                    <li class="list-group-item">Fecha: {{ post.fecha }}</li> 
+                    <li class="list-group-item">Texto: {{ post.texto }}</li>
+
                     <button class="btn btn-success m-5">
                         <a style="color:white; text-decoration:none;" href="{% url 'Detail' post.id %}">Ver Detalles</a>
                     </button>
@@ -25,9 +29,6 @@
                     <button class="btn btn-primary m-5">
                         <a style="color:white; text-decoration:none;" href="{% url 'Update' post.id %}">Actualizar</a>
                     </button>
-                </li>
-            </ul>
-                <button class="btn btn-primary m-5" onclick="location.href='{% url 'Home' %}'">Volver al inicio</button>
 
             {% endfor %}
 
@@ -39,7 +40,6 @@
                 <button class="btn btn-success">
                     <a style="color:white; text-decoration:none;" href="{% url 'Crear' %}">Crear Nuevo Post</a>
                 </button>
-
 
     {% endif %}
 

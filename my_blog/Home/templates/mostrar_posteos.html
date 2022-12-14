@@ -8,14 +8,19 @@
     Lista de Posteos
 </h1>
 
-
 <div class="m-5 p-5">
     {% if posteos %}
 
             {% for post in posteos %}
-
-
-            <p class="m-5">id: {{post.id}} | {{post}}</p>
+            <p class="m-5">
+                <li class="list-group-item">Titulo: {{ post.titulo }}</li>    
+                <li class="list-group-item"><img src="{{ post.imagen.url }}" alt="..."></li>
+                <li class="list-group-item">Sub Titulo: {{ post.sub_titulo }}</li>
+                <li class="list-group-item">Autor: {{ post.autor }}</li>
+                <li class="list-group-item">Categoria: {{ post.categoria }}</li> 
+                <li class="list-group-item">Fecha: {{ post.fecha }}</li> 
+                <li class="list-group-item">Texto: {{ post.texto }}</li>
+            </p>
                 <button class="btn btn-danger">
                     <a style="color: white; text-decoration: none" href="{% url 'Eliminar Posteos' post_id=post.id %}">Eliminar</a>
                 </button>

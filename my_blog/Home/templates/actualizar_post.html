@@ -8,7 +8,14 @@
 <div class="m-5 p-5">
     <form action="" method="post"> {% csrf_token %}
         <table class="table">
-            {{formulario.as_table}}
+            <li class="list-group-item">Titulo: {{ formulario.titulo }}</li>    
+            {% if request.user.is_superuser %}
+                <li class="list-group-item">Imagen: {{ formulario.imagen }}</li>
+            {% endif %}
+            <li class="list-group-item">Sub Titulo: {{ formulario.sub_titulo }}</li>
+            <li class="list-group-item">Categoria: {{ formulario.categoria }}</li> 
+            <li class="list-group-item">Fecha: {{ formulario.fecha }}</li> 
+            <li class="list-group-item">Texto: {{ formulario.texto }}</li>
         </table>
         <input class="btn btn-primary" type="submit" value="Enviar">
     </form>

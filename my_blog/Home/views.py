@@ -108,6 +108,7 @@ def actualizar_posteos(request, post_id):
             formulario_limpio = formulario.cleaned_data
 
             post.titulo = formulario_limpio['titulo']
+            post.imagen = formulario_limpio['imagen']
             post.sub_titulo = formulario_limpio['sub_titulo']
             post.categoria = formulario_limpio['categoria']
             post.fecha = formulario_limpio['fecha']
@@ -224,7 +225,8 @@ class PostUpdateView(LoginRequiredMixin, UpdateView):
 
     model = Post
     success_url = '/post_list' #posible solucion a crear post que no redirecciona bien al index
-    fields = ['titulo', 'sub_titulo', 'categoria', 'fecha', 'texto']
+    #template_name = 'Home/post_edit.html'
+    fields = ['titulo', 'imagen', 'sub_titulo', 'categoria', 'fecha', 'texto']
 
 
 class PostCreateView(LoginRequiredMixin, CreateView):

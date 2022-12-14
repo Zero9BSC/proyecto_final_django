@@ -14,7 +14,6 @@ CATEGORIES_CHOICES = (
 )
 
 class Perfil(models.Model):
-    #id = models.AutoField(primary_key = True)
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
     correo = models.EmailField(blank = False, null = False)
     imagen = models.ImageField(upload_to='avatar/', null=True, blank=True)
@@ -29,9 +28,6 @@ class Perfil(models.Model):
 
     def __str__(self):  
         return f'{self.usuario.username}, {self.correo}, {self.nombre}, {self.apellido}'
-
-
-
 
 class Post(models.Model):
     titulo = models.CharField(max_length=90)

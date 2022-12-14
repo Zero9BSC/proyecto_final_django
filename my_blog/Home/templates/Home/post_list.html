@@ -13,8 +13,14 @@
     {% for post in object_list %}
         <div class="m-5 p-5">
             <ul>
-                <li>
-                    {{ post }}
+                <table>
+                    <li class="list-group-item">Titulo: {{ post.titulo }}</li>    
+                    <li class="list-group-item"><img src="{{ post.imagen.url }}" alt="..."></li>
+                    <li class="list-group-item">Sub Titulo: {{ post.sub_titulo }}</li>
+                    <li class="list-group-item">Autor: {{ post.autor }}</li>
+                    <li class="list-group-item">Categoria: {{ post.categoria }}</li> 
+                    <li class="list-group-item">Fecha: {{ post.fecha }}</li> 
+                    <li class="list-group-item">Texto: {{ post.texto }}</li>
 
                     <button class="btn btn-success">
                         <a style="color:white; text-decoration:none;" href="{% url 'Detail' post.id %}">Ver Detalles</a>
@@ -25,7 +31,7 @@
                     <button class="btn btn-primary">
                         <a style="color:white; text-decoration:none;" href="{% url 'Update' post.id %}">Actualizar</a>
                     </button>
-                </li>
+                </table>
             </ul>
         </div>
 
