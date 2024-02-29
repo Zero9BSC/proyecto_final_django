@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.conf import settings
 from django.views.generic import ListView
@@ -74,53 +74,84 @@ def crear_consulta(request):
     return render(request, "contacto.html", {"formulario": formulario})
 
 def mostrar_posteos(request):
-
     posteos = Post.objects.all()
-
-    context = {'posteos':posteos}
+    context = {'posteos': posteos}
+    
+    # Determinar si el usuario logueado es el autor de cada post (si está logueado)
+    if request.user.is_authenticated:
+        for post in posteos:
+            post.es_autor = post.autor.usuario == request.user
+    else:
+        # Si no está logueado, establecer es_autor como False para todos los posteos
+        for post in posteos:
+            post.es_autor = False
 
     return render(request, 'mostrar_posteos.html', context=context)
+
+# @login_required
+# def eliminar_posteos(request, post_id):
+
+#     posteos = Post.objects.get(id=post_id)
+
+#     posteos.delete()
+
+#     posteos = Post.objects.all()
+
+#     context = {'posteos':posteos}
+
+#     return render(request, 'mostrar_posteos.html', context=context)
+
+# @login_required
+# def actualizar_posteos(request, post_id):
+
+#     post = Post.objects.get(id=post_id)
+
+#     if request.method == "POST":
+
+#         formulario = CrearPostForm(request.POST)
+
+#         if formulario.is_valid():
+
+#             formulario_limpio = formulario.cleaned_data
+
+#             post.titulo = formulario_limpio['titulo']
+#             post.imagen = formulario_limpio['imagen']
+#             post.sub_titulo = formulario_limpio['sub_titulo']
+#             post.categoria = formulario_limpio['categoria']
+#             post.fecha = formulario_limpio['fecha']
+#             post.texto = formulario_limpio['texto']
+            
+#             post.save()
+
+#             return render(request, "Home/templates/index.html")
+#     else:
+#         formulario = CrearPostForm(initial={'titulo': post.titulo, 'sub_titulo': post.sub_titulo, 'categoria': post.categoria, 'fecha': post.fecha, 'texto': post.texto})
+        
+#         return render(request, "actualizar_post.html", {"formulario": formulario})
 
 @login_required
 def eliminar_posteos(request, post_id):
-
-    posteos = Post.objects.get(id=post_id)
-
-    posteos.delete()
-
-    posteos = Post.objects.all()
-
-    context = {'posteos':posteos}
-
-    return render(request, 'mostrar_posteos.html', context=context)
+    post = get_object_or_404(Post, id=post_id)
+    # Verifica si el usuario actual es el autor del post
+    if post.autor.usuario == request.user:
+        post.delete()
+    return redirect('Mostrar Posteos')
 
 @login_required
 def actualizar_posteos(request, post_id):
-
-    post = Post.objects.get(id=post_id)
-
-    if request.method == "POST":
-
-        formulario = CrearPostForm(request.POST)
-
-        if formulario.is_valid():
-
-            formulario_limpio = formulario.cleaned_data
-
-            post.titulo = formulario_limpio['titulo']
-            post.imagen = formulario_limpio['imagen']
-            post.sub_titulo = formulario_limpio['sub_titulo']
-            post.categoria = formulario_limpio['categoria']
-            post.fecha = formulario_limpio['fecha']
-            post.texto = formulario_limpio['texto']
-            
-            post.save()
-
-            return render(request, "Home/templates/index.html")
-    else:
-        formulario = CrearPostForm(initial={'titulo': post.titulo, 'sub_titulo': post.sub_titulo, 'categoria': post.categoria, 'fecha': post.fecha, 'texto': post.texto})
-        
+    post = get_object_or_404(Post, id=post_id)
+    # Verifica si el usuario actual es el autor del post
+    if post.autor.usuario == request.user:
+        if request.method == "POST":
+            formulario = CrearPostForm(request.POST, instance=post)
+            if formulario.is_valid():
+                formulario.save()
+                return redirect('index.html')
+        else:
+            formulario = CrearPostForm(instance=post)
         return render(request, "actualizar_post.html", {"formulario": formulario})
+    else:
+        return HttpResponse("No tienes permiso para realizar esta acción.")
 
 @login_required
 def editar_usuario(request):

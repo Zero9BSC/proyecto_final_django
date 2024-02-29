@@ -1,18 +1,36 @@
 {% extends 'index.html' %}
-
 {% load static %}
 
 {% block codigoDinamico %}
-<h1 class="h-primary center" style="margin-top:30px;text-align:center;">
-    Formulario de ingreso
-</h1>
-<div class="input-group">
-<form class="m-5 p-5" action="" method="post">{% csrf_token %}
-    <div class="mb-3">
-        {{form.as_p}}
+<div class="container">
+    <h1 class="h-primary text-center mt-5">Iniciar Sesión</h1>
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <div class="card mt-5 shadow-lg">
+                <div class="card-body">
+                    <form class="p-4" action="" method="post">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="id_username" class="form-label fs-5">Nombre de usuario</label>
+                            <input type="text" name="username" class="form-control form-control-lg" id="id_username" placeholder="Nombre de usuario">
+                        </div>
+                        <div class="mb-3">
+                            <label for="id_password" class="form-label fs-5">Contraseña</label>
+                            <input type="password" name="password" class="form-control form-control-lg" id="id_password" placeholder="Contraseña">
+                        </div>
+                        <div class="mb-3">
+                            <button class="w-100 btn btn-lg btn-primary" type="submit">Iniciar Sesión</button>
+                        </div>
+                    </form>
+                    <div class="text-center">
+                        <p class="fs-6 mb-0">¿No tienes una cuenta?</p>
+                        <a href="{% url 'Sign Up' %}" class="btn btn-link">Regístrate aquí</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <button class="btn btn-primary" type="submit">Iniciar Sesión</button>
-</form>
 </div>
+<br><br><br><br>
 
 {% endblock %}

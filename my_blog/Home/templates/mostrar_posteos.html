@@ -1,46 +1,60 @@
 {% extends 'index.html' %}
-
 {% load static %} 
 
 {% block codigoDinamico %}
 
-<h1 class="h-primary center" style="margin-top:30px;text-align:center;">
-    Lista de Posteos
-</h1>
+<style>
+    .post-imagen {
+        max-width: 300px;
+        height: auto;
+        object-fit: cover;
+    }
+</style>
 
-<div class="m-5 p-5">
-    {% if posteos %}
+<div class="container">
+    <h1 class="h-primary text-center mt-5">Lista de Posteos</h1>
 
-            {% for post in posteos %}
-            <p class="m-5">
-                <li class="list-group-item">Titulo: {{ post.titulo }}</li>    
-                <li class="list-group-item"><img src="{{ post.imagen.url }}" alt="..."></li>
-                <li class="list-group-item">Sub Titulo: {{ post.sub_titulo }}</li>
-                <li class="list-group-item">Autor: {{ post.autor }}</li>
-                <li class="list-group-item">Categoria: {{ post.categoria }}</li> 
-                <li class="list-group-item">Fecha: {{ post.fecha }}</li> 
-                <li class="list-group-item">Texto: {{ post.texto }}</li>
-            </p>
-                <button class="btn btn-danger">
-                    <a style="color: white; text-decoration: none" href="{% url 'Eliminar Posteos' post_id=post.id %}">Eliminar</a>
-                </button>
-                <button class="btn btn-primary">
-                    <a style="color: white; text-decoration: none" href="{% url 'Actualizar Posteos' post_id=post.id %}">Actualizar</a>
-                </button>
-
-            {% endfor %}
-    {% else %}
-    <div >
-        <h2 class="h-primary center" style="margin-top:30px;text-align:center;">
-            No hay posteos creados
-        </h2>
-    </div>
-
-    {% endif %}
     <div class="m-5 p-5">
-        <button class="btn btn-success">
-            <a style="color:white; text-decoration:none;" href="{% url 'Crear' %}">Crear Nuevo Post</a>
-        </button>
+        {% if posteos %}
+            <ul class="list-group">
+                {% for post in posteos %}
+                    <li class="list-group-item">
+                        <h2>{{ post.titulo }}</h2>
+                        {% if post.imagen %}
+                            <img src="{{ post.imagen.url }}" alt="Imagen del post" class="img-fluid post-imagen">
+                        {% else %}
+                            <p>No hay imagen asociada a este post.</p>
+                        {% endif %}
+                        <p>Subtítulo: {{ post.sub_titulo }}</p>
+                        <p>Autor: {{ post.autor }}</p>
+                        <p>Categoría: {{ post.categoria }}</p>
+                        <p>Fecha: {{ post.fecha }}</p>
+                        <p>Texto: {{ post.texto }}</p>
+                        {% if post.es_autor %}
+                            <div class="btn-group" role="group">
+                                <button type="button" class="btn btn-danger mr-2" style="margin-right: 5px;">
+                                    <a href="{% url 'Eliminar Posteos' post_id=post.id %}" style="color: white; text-decoration: none;">Eliminar</a>
+                                </button>
+                                <button type="button" class="btn btn-primary mr-2" style="margin-right: 5px;">
+                                    <a href="{% url 'Actualizar Posteos' post_id=post.id %}" style="color: white; text-decoration: none;">Actualizar</a>
+                                </button>
+                            </div>
+                        {% endif %}
+                    </li>
+                    <br>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <div class="text-center">
+                <h2 class="h-primary">No hay posteos creados</h2>
+            </div>
+        {% endif %}
+        
+        <div class="m-5 p-5 text-center">
+            <button class="btn btn-success">
+                <a href="{% url 'Crear' %}" style="color: white; text-decoration: none;">Crear Nuevo Post</a>
+            </button>
+        </div>
     </div>
 </div>
 

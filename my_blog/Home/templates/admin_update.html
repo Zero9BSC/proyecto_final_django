@@ -1,23 +1,66 @@
 {% extends 'index.html' %}
 
-{% load static %}
+{% load custom_filters %}
 
 {% block codigoDinamico %}
-
-
-<h1 class="h-primary center" style="margin-top:30px;text-align:center;">
-    Actualizacion de usuario
-</h1>
-<div class="m-5 p-5">
-    <div>   
-        <form action="" method="post">{% csrf_token %}
-            <table>
-            {{form.as_p}}
-            {{form2.as_p}}
-            </table>
-            <button class="btn btn-primary" type="submit">Iniciar Sesion</button>
-
-        </form>
+<div class="container">
+    <h1 class="h-primary text-center mt-5">Actualización de usuario</h1>
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <div class="card mt-5">
+                <div class="card-body">
+                    <form action="" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Nombre de usuario</label>
+                            {{ form.username | add_class:"form-control" }}
+                        </div>
+                        <div class="mb-3">
+                            <label for="password1" class="form-label">Contraseña</label>
+                            {{ form.password1 | add_class:"form-control" }}
+                        </div>
+                        <div class="mb-3">
+                            <label for="password2" class="form-label">Confirmación de contraseña</label>
+                            {{ form.password2 | add_class:"form-control" }}
+                        </div>
+                        <div class="mb-3">
+                            <label for="imagen" class="form-label">Imagen</label>
+                            {{ form2.imagen | add_class:"form-control" }}
+                        </div>
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label">Nombre</label>
+                            {{ form2.nombre | add_class:"form-control" }}
+                        </div>
+                        <div class="mb-3">
+                            <label for="apellido" class="form-label">Apellido</label>
+                            {{ form2.apellido | add_class:"form-control" }}
+                        </div>
+                        <div class="mb-3">
+                            <label for="correo" class="form-label">Correo electrónico</label>
+                            {{ form2.correo | add_class:"form-control" }}
+                        </div>
+                        <div class="mb-3">
+                            <label for="facebook" class="form-label">Facebook</label>
+                            {{ form2.facebook | add_class:"form-control" }}
+                        </div>
+                        <div class="mb-3">
+                            <label for="twitter" class="form-label">Twitter</label>
+                            {{ form2.twitter | add_class:"form-control" }}
+                        </div>
+                        <div class="mb-3">
+                            <label for="instagram" class="form-label">Instagram</label>
+                            {{ form2.instagram | add_class:"form-control" }}
+                        </div>
+                        <div class="mb-3">
+                            <label for="web" class="form-label">Sitio web</label>
+                            {{ form2.web | add_class:"form-control" }}
+                        </div>
+                        <button class="w-100 btn btn-lg btn-primary" type="submit">Guardar cambios</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+<br><br><br><br>
 {% endblock %}
