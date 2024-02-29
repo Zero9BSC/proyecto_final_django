@@ -1,6 +1,6 @@
 # Gaming Zone
 
-*Franco Nicolás Jones y Florencia Hnatiuk*👋
+*Franco Nicolás Jones👋
 
 > Este es un proyecto realizado para el curso de Python en coderhouse. Se trata de un blog en el que podrás navegar y crear posts categorizados..
 

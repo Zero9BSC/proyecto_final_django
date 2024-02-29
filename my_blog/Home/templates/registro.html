@@ -1,24 +1,67 @@
 {% extends 'index.html' %}
-
 {% load static %}
 
 {% block codigoDinamico %}
-
-
-<h1 class="h-primary center" style="margin-top:30px;text-align:center;">
-    Registro de usuario
-</h1>
-<div class="m-5 p-5">
-    <div>
-        <form action="{% url 'Sign Up' %}" method="post">
-            {% csrf_token %}
-
-            {{ user_form.as_p }}
-            {{ perfil_form.as_p }}
-        
-            <button class="btn btn-primary" type="submit">Iniciar Sesión</button>
-
-        </form>
+<div class="container">
+    <h1 class="h-primary text-center mt-5">Registro de usuario</h1>
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <div class="card mt-5">
+                <div class="card-body">
+                    <form action="{% url 'Sign Up' %}" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Nombre de usuario</label>
+                            <input type="text" name="username" class="form-control" placeholder="Username" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password1" class="form-label">Contraseña</label>
+                            <input type="password" name="password1" class="form-control" placeholder="Password" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password2" class="form-label">Confirmación de contraseña</label>
+                            <input type="password" name="password2" class="form-control" placeholder="Password Again" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Correo electrónico</label>
+                            {{ perfil_form.correo }}
+                            <small class="form-text text-muted">
+                                Proporcione una dirección de correo electrónico válida.
+                            </small>
+                        </div>
+                        <div class="mb-3">
+                            <label for="imagen" class="form-label">Imagen</label>
+                            {{ perfil_form.imagen }}
+                        </div>
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label">Nombre</label>
+                            {{ perfil_form.nombre }}
+                        </div>
+                        <div class="mb-3">
+                            <label for="apellido" class="form-label">Apellido</label>
+                            {{ perfil_form.apellido }}
+                        </div>
+                        <div class="mb-3">
+                            <label for="facebook" class="form-label">Facebook</label>
+                            {{ perfil_form.facebook }}
+                        </div>
+                        <div class="mb-3">
+                            <label for="twitter" class="form-label">Twitter</label>
+                            {{ perfil_form.twitter }}
+                        </div>
+                        <div class="mb-3">
+                            <label for="instagram" class="form-label">Instagram</label>
+                            {{ perfil_form.instagram }}
+                        </div>
+                        <div class="mb-3">
+                            <label for="web" class="form-label">Web</label>
+                            {{ perfil_form.web }}
+                        </div>
+                        <button class="w-100 btn btn-lg btn-primary" type="submit">Registrarse</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}
