@@ -1,44 +1,65 @@
 {% extends 'index.html' %}
-
 {% load static %}
 
 {% block codigoDinamico %}
 
-<div class="m-5 p-5">
-    <form action="buscar/" method="GET">
-        <p>Ingrese su busqueda aqui:</p>
-        <input type="text" name="titulo" id="titulo">
-
-        <input class="btn btn-primary" type="submit" value="Buscar">
-
-    </form>
-</div>
-    {% block codigoDinamico1 %}
-    <div class="m-5 p-5">
-
-        
-            <p>{{respuesta}}</p>
-        
-        {% if post %}
-        <h1 class="h-primary center" style="margin-top:30px;text-align:center;">Resultado de tu búsqueda</h1>
-        <div class="m-5 p-5">
-            <ul class="list-group">
-                {% for i in post %}
-                <li class="list-group-item"><img src="{{i.imagen.url}}" alt="..."></li>
-                <li class="list-group-item">Autor: {{ i.user }}</li>  
-                <li class="list-group-item">Titulo: {{ i.titulo }}</li>            
-                <li class="list-group-item">Sub Titulo: {{ i.sub_titulo }}</li>
-                <li class="list-group-item">Fecha: {{ i.fecha }} min</li> 
-                <li class="list-group-item">Texto: {{ i.texto }}</li>
-                {% endfor %}
-            </ul>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card mt-5">
+                <div class="card-body">
+                    <h2 class="card-title text-center mb-4">Buscar Post</h2>
+                    <form action="buscar/" method="GET">
+                        <div class="mb-3">
+                            <label for="titulo" class="form-label">Ingrese su búsqueda aquí:</label>
+                            <input type="text" class="form-control" name="titulo" id="titulo">
+                        </div>
+                        <div class="text-center">
+                            <button class="btn btn-primary" type="submit">Buscar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-
-        {% endif %}
-
-        <button class="btn btn-primary" onclick="location.href='{% url 'Home' %}'">Volver</button>
     </div>
 
-    {% endblock  %}
+    {% block codigoDinamico1 %}
+    {% if respuesta %}
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-8">
+            <div class="alert alert-info" role="alert">
+                {{ respuesta }}
+            </div>
+        </div>
+    </div>
+    {% endif %}
 
-{% endblock  %}
+    {% if post %}
+    <h1 class="h-primary text-center mt-5">Resultado de tu búsqueda</h1>
+    <div class="row justify-content-center mt-5">
+        {% for i in post %}
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <img src="{{ i.imagen.url }}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Titulo: {{ i.titulo }}</h5>
+                    <p class="card-text">Subtítulo: {{ i.sub_titulo }}</p>
+                    <p class="card-text">Autor: {{ i.user }}</p>
+                    <p class="card-text">Fecha: {{ i.fecha }}</p>
+                    <p class="card-text">Texto: {{ i.texto }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-6 text-center">
+            <button class="btn btn-primary" onclick="location.href='{% url 'Home' %}'">Volver</button>
+        </div>
+    </div>
+    {% endblock %}
+</div>
+
+{% endblock %}

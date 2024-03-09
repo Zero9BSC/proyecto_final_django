@@ -1,5 +1,5 @@
 {% extends 'index.html' %}
-
+{% load static %}
 {% load custom_filters %}
 
 {% block codigoDinamico %}
@@ -7,53 +7,67 @@
     <h1 class="h-primary text-center mt-5">Actualización de usuario</h1>
     <div class="row justify-content-center">
         <div class="col-lg-6">
-            <div class="card mt-5">
+            <div class="card mt-5 shadow-lg">
                 <div class="card-body">
-                    <form action="" method="post" enctype="multipart/form-data">
+                    <form action="" method="post" enctype="multipart/form-data" class="p-4">
                         {% csrf_token %}
                         <div class="mb-3">
-                            <label for="username" class="form-label">Nombre de usuario</label>
-                            {{ form.username | add_class:"form-control" }}
+                            <label for="id_username" class="form-label fs-5">Nombre de usuario</label>
+                            {{ form.username | add_class:"form-control form-control-lg" }}
                         </div>
                         <div class="mb-3">
-                            <label for="password1" class="form-label">Contraseña</label>
-                            {{ form.password1 | add_class:"form-control" }}
+                            <label for="id_password1" class="form-label fs-5">Contraseña</label>
+                            {{ form.password1 | add_class:"form-control form-control-lg" }}
                         </div>
                         <div class="mb-3">
-                            <label for="password2" class="form-label">Confirmación de contraseña</label>
-                            {{ form.password2 | add_class:"form-control" }}
+                            <label for="id_password2" class="form-label fs-5">Confirmación de contraseña</label>
+                            {{ form.password2 | add_class:"form-control form-control-lg" }}
                         </div>
                         <div class="mb-3">
-                            <label for="imagen" class="form-label">Imagen</label>
-                            {{ form2.imagen | add_class:"form-control" }}
+                            <label class="form-label fs-5">Imagen</label>
+                            {% if imagen_pequena_url %}
+                                <div class="mb-3">
+                                    <img src="{{ imagen_pequena_url }}" class="rounded-circle" alt="Imagen de perfil" style="max-width: 150px; max-height: 150px;">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label"></label>
+                                    {{ form2.imagen }}
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Eliminar</label>
+                                </div>
+                            {% else %}
+                                <div class="placeholder">No hay imagen de perfil</div>
+                                {{ form2.imagen }}
+                            {% endif %}
                         </div>
                         <div class="mb-3">
-                            <label for="nombre" class="form-label">Nombre</label>
-                            {{ form2.nombre | add_class:"form-control" }}
+                            <label for="id_nombre" class="form-label fs-5">Nombre</label>
+                            {{ form2.nombre | add_class:"form-control form-control-lg" }}
                         </div>
                         <div class="mb-3">
-                            <label for="apellido" class="form-label">Apellido</label>
-                            {{ form2.apellido | add_class:"form-control" }}
+                            <label for="id_apellido" class="form-label fs-5">Apellido</label>
+                            {{ form2.apellido | add_class:"form-control form-control-lg" }}
                         </div>
                         <div class="mb-3">
-                            <label for="correo" class="form-label">Correo electrónico</label>
-                            {{ form2.correo | add_class:"form-control" }}
+                            <label for="id_correo" class="form-label fs-5">Correo electrónico</label>
+                            {{ form2.correo | add_class:"form-control form-control-lg" }}
                         </div>
                         <div class="mb-3">
-                            <label for="facebook" class="form-label">Facebook</label>
-                            {{ form2.facebook | add_class:"form-control" }}
+                            <label for="id_facebook" class="form-label fs-5">Facebook</label>
+                            {{ form2.facebook | add_class:"form-control form-control-lg" }}
                         </div>
                         <div class="mb-3">
-                            <label for="twitter" class="form-label">Twitter</label>
-                            {{ form2.twitter | add_class:"form-control" }}
+                            <label for="id_twitter" class="form-label fs-5">Twitter</label>
+                            {{ form2.twitter | add_class:"form-control form-control-lg" }}
                         </div>
                         <div class="mb-3">
-                            <label for="instagram" class="form-label">Instagram</label>
-                            {{ form2.instagram | add_class:"form-control" }}
+                            <label for="id_instagram" class="form-label fs-5">Instagram</label>
+                            {{ form2.instagram | add_class:"form-control form-control-lg" }}
                         </div>
                         <div class="mb-3">
-                            <label for="web" class="form-label">Sitio web</label>
-                            {{ form2.web | add_class:"form-control" }}
+                            <label for="id_web" class="form-label fs-5">Sitio web</label>
+                            {{ form2.web | add_class:"form-control form-control-lg" }}
                         </div>
                         <button class="w-100 btn btn-lg btn-primary" type="submit">Guardar cambios</button>
                     </form>

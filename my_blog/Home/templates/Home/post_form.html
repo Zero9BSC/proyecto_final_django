@@ -1,18 +1,52 @@
 {% extends 'index.html' %}
-
 {% load static %}
 
 {% block codigoDinamico %}
 
-<!--<h1 class="h-primary center" style="margin-top:30px;text-align:center;">
-    Actualizar el post
-</h1>-->
-<div class="m-5 p-5">
-<form method="post" enctype='multipart/form-data'>{% csrf_token %}
-
-    {{form.as_p}}
-    <input class="btn btn-primary" type="submit" value="Enviar">
-</form>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card mt-5">
+                <div class="card-body">
+                    <h2 class="card-title text-center mb-4">Crear Post</h2>
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="id_titulo" class="form-label">Título:</label>
+                            <input type="text" name="titulo" class="form-control" id="id_titulo" placeholder="Título">
+                        </div>
+                        <div class="mb-3">
+                            <label for="id_sub_titulo" class="form-label">Subtítulo:</label>
+                            <input type="text" name="sub_titulo" class="form-control" id="id_sub_titulo" placeholder="Subtítulo">
+                        </div>
+                        <div class="mb-3">
+                            <label for="id_imagen" class="form-label">Imagen:</label>
+                            {{ form.imagen }}
+                        </div>
+                        <div class="mb-3">
+                            <label for="id_fecha" class="form-label">Fecha:</label>
+                            <input type="date" name="fecha" class="form-control" id="id_fecha" value="{{ form.fecha.value }}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="id_categoria" class="form-label">Categoría:</label>
+                            <select name="categoria" class="form-control" id="id_categoria">
+                                {% for choice in form.categoria.field.choices %}
+                                    <option value="{{ choice.0 }}" {% if choice.0 == form.categoria.value %}selected{% endif %}>{{ choice.1 }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="id_texto" class="form-label">Texto:</label>
+                            <textarea name="texto" class="form-control" id="id_texto" rows="5" placeholder="Texto"></textarea>
+                        </div>
+                        <div class="text-center">
+                            <input class="btn btn-primary" type="submit" value="Enviar">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 {% endblock %}

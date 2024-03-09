@@ -1,24 +1,50 @@
 {% extends 'index.html' %}
-
 {% load static %}
 
 {% block codigoDinamico %}
-<!-- FORMULARIO DE CONTACTO -->
-
-    <body>
-
-        <main class="container">
-            <div class="row my-4 py-4">
-                <div class="text-center">
-                    <h1>¡Contactanos!</h1>
+    <div class="container">
+        <div class="row my-4 py-4">
+            <div class="col text-center">
+                <h1 class="h-primary">¡Contáctanos!</h1>
+            </div>
+        </div>
+        <div class="m-5 p-5">
+            <form method="post" class="needs-validation" novalidate>
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="id_nombre" class="form-label">Nombre:</label>
+                    {% if form.nombre.value %}
+                        <input type="text" name="nombre" id="id_nombre" class="form-control" value="{{ form.nombre.value }}">
+                    {% else %}
+                        <input type="text" name="nombre" id="id_nombre" class="form-control">
+                    {% endif %}
                 </div>
-            </div>
-            <div class="m-5 p-5">
-                <form method="post" enctype='multipart/form-data'>{% csrf_token %}
-                
-                    {{form.as_p}}
-                    <input class="btn btn-primary" type="submit" value="Enviar">
-                </form>
-            </div>
-            
+                <div class="mb-3">
+                    <label for="id_email" class="form-label">Email:</label>
+                    {% if form.email.value %}
+                        <input type="email" name="email" id="id_email" class="form-control" value="{{ form.email.value }}">
+                    {% else %}
+                        <input type="email" name="email" id="id_email" class="form-control">
+                    {% endif %}
+                </div>
+                <div class="mb-3">
+                    <label for="id_asunto" class="form-label">Asunto:</label>
+                    {% if form.asunto.value %}
+                        <input type="text" name="asunto" id="id_asunto" class="form-control" value="{{ form.asunto.value }}">
+                    {% else %}
+                        <input type="text" name="asunto" id="id_asunto" class="form-control">
+                    {% endif %}
+                </div>
+                <div class="mb-3">
+                    <label for="id_mensaje" class="form-label">Mensaje:</label>
+                    {% if form.mensaje.value %}
+                        <textarea name="mensaje" id="id_mensaje" class="form-control">{{ form.mensaje.value }}</textarea>
+                    {% else %}
+                        <textarea name="mensaje" id="id_mensaje" class="form-control"></textarea>
+                    {% endif %}
+                </div>
+                <button class="btn btn-primary" type="submit">Enviar</button>
+            </form>
+        </div>
+    </div>
 {% endblock %}

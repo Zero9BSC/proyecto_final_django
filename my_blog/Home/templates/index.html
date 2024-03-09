@@ -9,24 +9,53 @@
         <title>Gaming Zone</title>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="static/Home/assets/zicon.ico" />
-        <!-- Core theme CSS (includes Bootstrap)-->
-        {% comment %} <link href="{% static 'Home/css/styles.css' %}" rel="stylesheet" /> {% endcomment %}
         <!-- Bootstrap CSS (CDN) -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">        
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Bootstrap Icons CSS (CDN) -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+        
+        <style>
+                /* Custom styles for the navbar */
+            .navbar-brand {
+                font-size: 1.2rem;
+            }
 
+            .navbar-nav .nav-link {
+                font-size: 0.8rem;
+                color: #fff;
+                font-weight: 500;
+                transition: color 0.3s;
+            }
+
+            .navbar-nav .nav-link:hover {
+                color: #fff; /* Cambia el color del texto a blanco cuando se pasa el mouse */
+            }
+
+            @media (max-width: 991.98px) {
+                .navbar-nav {
+                    margin-top: 10px;
+                    text-align: center;
+                }
+
+                .navbar-nav .nav-item {
+                    padding-bottom: 8px;
+                }
+            }
+        </style>
     </head>
     <body>
         <!-- Responsive navbar-->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
-            <div class="container">
-                <a class="navbar-brand" href="https://github.com/Zero9BSC">Blog Gaming by Zero9</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="container-fluid">
+                <a class="navbar-brand me-5" href="{% url 'Home' %}">Gaming Zone</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li class="nav-item"><a class="nav-link" href="{% url 'Home' %}">Home</a></li>
                         {% if request.user.is_authenticated %}
                             <li class="nav-item"><a class="nav-link" href="{% url 'Logout' %}">Logout</a></li>
-                            <!--<li class="nav-item"><a class="nav-link" href="{% url 'Editar Perfil' user.id %}">Editar Perfil</a></li>-->
                             <li class="nav-item"><a class="nav-link" href="{% url 'Editar Usuario' %}">Editar Usuario</a></li>
                         {% else %}
                             <li class="nav-item"><a class="nav-link" href="{% url 'Sign Up' %}">Sign Up</a></li>
@@ -43,15 +72,21 @@
             </div>
         </nav>
         {% block codigoDinamico %}
-                <!-- Page header with logo and tagline-->
+        <!-- Page header with logo and tagline-->
         <header class="py-5 bg-light border-bottom mb-4">
             <div class="container">
                 <div class="text-center my-5">
                     <h1 class="fw-bolder">Te damos la bienvenida al Blog Gaming Zone</h1>
                     {% if request.user.is_authenticated %}
-                        <!--<img src="{{url}}" alt="">-->
-                        <h3>{{user.username}}</h3>
-                        <h3>{{user.id}}</h3>
+                        {% if perfil_usuario %}
+                            {% if perfil_usuario.imagen %}
+                                <img src="{{ perfil_usuario.imagen.url }}" alt="Imagen de perfil del usuario" class="rounded-circle img-thumbnail perfil-imagen" style="width: 100px; height: 100px;">
+                            {% else %}
+                                <p>No hay imagen de perfil disponible</p>
+                            {% endif %}
+                            <h3>{{ request.user.username }}</h3>
+                            {% comment %} <h3>{{ request.user.id }}</h3> {% endcomment %}
+                        {% endif %}
                     {% else %}
                         <h3>Invitado</h3>
                     {% endif %}
@@ -64,64 +99,42 @@
             <div class="row">
                 <!-- Blog entries-->
                 <div class="col-lg-8">
-                    <!-- Featured blog post-->
-                    <div class="card mb-4">
-                        <a href="https://warthunder.com/es/news/3678-especial-feliz-aniversario-war-thunder-es"><img class="card-img-top" src="static/Home/assets/wt_10_years.jpg" alt="..." /></a>
-                        <div class="card-body">
-                            <div class="small text-muted">1/11/2022</div>
-                            <h2 class="card-title">¡Feliz Aniversario War Thunder!</h2>
-                            <p class="card-text">El 1 de Noviembre de 2012, War Thunder pasó a la beta abierta, este es el día que consideramos como el cumpleaños del juego. Hemos recorrido un largo y glorioso camino, ¡y nos alegramos de que nos acompañéis durante todo el trayecto!</p>
-                            <a class="btn btn-primary" href="#!">LEER MÁS »</a>
-                        </div>
-                    </div>
-                    <!-- Nested row for non-featured blog posts-->
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <!-- Blog post-->
-                            <div class="card mb-4">
-                                <a href="#!"><img class="card-img-top" src="static/Home/assets/gafas_kirigood.jpg" alt="..." /></a>
-                                <div class="card-body">
-                                    <div class="small text-muted">9/11/2022</div>
-                                    <h2 class="card-title h4">Estas gafas de realidad virtual son mortales: si mueres en el juego, te matan en la vida real</h2>
-                                    <p class="card-text">En muchos videojuegos, uno no para de morir. No pasa nada, claro, porque no mueres en la vida real.</p>
-                                    <a class="btn btn-primary" href="#!">LEER MÁS »</a>
-                                </div>
-                            </div>
-                            <!-- Blog post-->
-                            <div class="card mb-4">
-                                <a href="#!"><img class="card-img-top" src="static/Home/assets/github_copilot.jpg" alt="..." /></a>
-                                <div class="card-body">
-                                    <div class="small text-muted">9/11/2022</div>
-                                    <h2 class="card-title h4">Copilot copia código sin piedad. Ahora Microsoft se enfrenta a una demanda colectiva que podría poner el jaque a la herramienta</h2>
-                                    <p class="card-text">La demanda alega que Copilot infringe los requisitos de atribución de varias licencias de código abierto, incluidas las licencias MIT, GPL y Apache</p>
-                                    <a class="btn btn-primary" href="#!">LEER MÁS »</a>
-                                </div>
+                    {% if latest_posts %}
+                        <!-- Featured blog post-->
+                        <div class="card mb-4">
+                            <a href="{{ latest_posts.0.get_absolute_url }}"><img class="card-img-top" src="{{ latest_posts.0.imagen.url }}" alt="{{ latest_posts.0.titulo }}" /></a>
+                            <div class="card-body">
+                                <div class="small text-muted">{{ latest_posts.0.fecha }}</div>
+                                <h2 class="card-title">{{ latest_posts.0.titulo }}</h2>
+                                <p class="card-text">{{ latest_posts.0.texto }}</p>
+                                <a class="btn btn-primary" href="{{ latest_posts.0.get_absolute_url }}">LEER MÁS »</a>
                             </div>
                         </div>
-                        <div class="col-lg-6">
-                            <!-- Blog post-->
-                            <div class="card mb-4">
-                                <a href="#!"><img class="card-img-top" src="static/Home/assets/worlds_2022.jpg" alt="..." /></a>
-                                <div class="card-body">
-                                    <div class="small text-muted">9/11/2022</div>
-                                    <h2 class="card-title h4">League of Legends: el impresionante récord de audiencia que marcó la final del Worlds</h2>
-                                    <p class="card-text">La final del Worlds 2022 de League of Legends que coronó a DRX marcó nuevos récords de audiencia y se alzó como la más vista de la historia.</p>
-                                    <a class="btn btn-primary" href="#!">LEER MÁS »</a>
+                        <!-- Nested row for non-featured blog posts-->
+                        <div class="row">
+                            {% for post in latest_posts|slice:"1:" %}
+                            <div class="col-lg-6">
+                                <!-- Blog post-->
+                                <div class="card mb-4">
+                                    <a href="{{ post.get_absolute_url }}"><img class="card-img-top" src="{{ post.imagen.url }}" alt="{{ post.titulo }}" /></a>
+                                    <div class="card-body">
+                                        <div class="small text-muted">{{ post.fecha }}</div>
+                                        <h2 class="card-title h4">{{ post.titulo }}</h2>
+                                        <p class="card-text">{{ post.texto }}</p>
+                                        <a class="btn btn-primary" href="{{ post.get_absolute_url }}">LEER MÁS »</a>
+                                    </div>
                                 </div>
                             </div>
-                            <!-- Blog post-->
-                            <div class="card mb-4">
-                                <a href="https://vandal.elespanol.com/noticia/1350757905/la-banda-sonora-de-god-of-war-ragnarok-ya-esta-disponible-en-spotify/"><img class="card-img-top" src="static/Home/assets/gow.jpg" alt="..." /></a>
-                                <div class="card-body">
-                                    <div class="small text-muted">09/11/2022</div>
-                                    <h2 class="card-title h4">La banda sonora de God of War: Ragnarok ya está disponible en Spotify</h2>
-                                    <p class="card-text">La banda sonora compuesta por Bear McCreary para God of War: Ragnarok, que llega hoy mismo a las tiendas, ya está disponible en Spotify. Los títulos de las canciones pueden contener spoilers.</p>
-                                    <a class="btn btn-primary" href="#!">LEER MÁS »</a>
-                                </div>
-                            </div>
+                            {% endfor %}
                         </div>
-                    </div>
-                    <!-- Pagination-->
+                    {% else %}
+                        <div class="alert alert-info" role="alert">
+                            Todavía no hay posts creados. ¡Anímate a crear el primero!
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- Pagination-->
                     <!--<nav aria-label="Pagination">
                         <hr class="my-0" />
                         <ul class="pagination justify-content-center my-4">
@@ -134,26 +147,22 @@
                             <li class="page-item"><a class="page-link" href="#!">Older</a></li>
                         </ul>
                     </nav>-->
-                </div>
+
                 <!-- Side widgets-->
                 <div class="col-lg-4">
                     <!-- Search widget-->
                     <div class="card mb-4">
                         <div class="card-header">Buscar</div>
-
                         <div class="card-body">
                             <ul class="list-unstyled mb-0">
-                                {% block codigoDinamico1 %}
                                 <form action="buscar/" method="get">
                                     <div class="input-group">
                                         <input type="text" class="form-control" placeholder="Buscar..." name="titulo" id="titulo">
-                                        <button class="btn btn-primary" id="button-search" type="submit">Go!<i class="fas fa-search"></button>
+                                        <button class="btn btn-primary" id="button-search" type="submit">Go!<i class="fas fa-search"></i></button>
                                     </div>
-                                {% endblock  %}
-
+                                </form>
                             </ul>
                         </div>
-
                     </div>
                     <!-- Categories widget-->
                     <div class="card mb-4">
@@ -193,15 +202,19 @@
                     <div class="col-lg-6 h-100 text-center text-lg-start my-auto">
                         <ul class="list-inline mb-2">
                             <li class="list-inline-item">
-                                <a href="https://www.linkedin.com/in/franco-nicolas-jones-266a62162">Franco's Linkedin</a>
+                                <a href="https://www.linkedin.com/in/franco-nicolas-jones-266a62162" class="text-decoration-none text-white">
+                                    <i class="bi bi-linkedin"></i> Franco's Linkedin
+                                </a>
                             </li>
                             <li class="list-inline-item">
-                                <a href="https://github.com/Zero9BSC">Franco's Github</a>
+                                <a href="https://github.com/Zero9BSC" class="text-decoration-none text-white">
+                                    <i class="bi bi-github"></i> Franco's Github
+                                </a>
                             </li>
                         </ul>
-                    </div>>
-                </div>>
-                <p class="m-0 text-center text-white">Copyright &copy; Zero9BSC 2022</p>
+                    </div>
+                </div>
+                <p class="m-0 text-center text-white">&copy; Zero9BSC 2022</p>
             </div>
         </footer>
         <!-- Bootstrap core JS-->

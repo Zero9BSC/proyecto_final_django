@@ -12,14 +12,9 @@ class CrearPostForm(forms.ModelForm):
         exclude = ["autor"]
 
 class ContactoForm(forms.ModelForm):
-
     class Meta:
         model = Contacto
-        fields = [
-            'nombre',
-            'email',
-            'consulta',
-        ]
+        fields = ['nombre', 'email', 'asunto', 'mensaje']
 
 # class SignUpForm(UserCreationForm):
 #     username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Username'}))
@@ -52,23 +47,27 @@ class SignUpForm(UserCreationForm):
         })
 
 
-class PerfilForm(ModelForm):
+class PerfilEditForm(ModelForm):
     class Meta:
-        model= Perfil
+        model = Perfil
         fields = '__all__'
         exclude = ["usuario"]
         widgets = {
-            'correo': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'example@example.com'}),
-            'nombre': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ingrese su nombre'}),
-            'apellido': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ingrese su apellido'}),
-            'imagen': forms.ClearableFileInput(attrs={'class': 'form-control'}),
-            'facebook': forms.URLInput(attrs={'class': 'form-control', 'placeholder': 'https://www.facebook.com/example'}),
-            'twitter': forms.URLInput(attrs={'class': 'form-control', 'placeholder': 'https://twitter.com/example'}),
-            'instagram': forms.URLInput(attrs={'class': 'form-control', 'placeholder': 'https://www.instagram.com/example/'}),
-            'web': forms.URLInput(attrs={'class': 'form-control', 'placeholder': 'https://www.example.com'}),
+            'imagen': forms.ClearableFileInput(attrs={'class': 'form-control form-control-lg'}),
+            'nombre': forms.TextInput(attrs={'class': 'form-control form-control-lg', 'placeholder': 'Ingrese su nombre'}),
+            'apellido': forms.TextInput(attrs={'class': 'form-control form-control-lg', 'placeholder': 'Ingrese su apellido'}),
+            'correo': forms.EmailInput(attrs={'class': 'form-control form-control-lg', 'placeholder': 'example@example.com'}),
+            'facebook': forms.URLInput(attrs={'class': 'form-control form-control-lg', 'placeholder': 'https://www.facebook.com/example'}),
+            'twitter': forms.URLInput(attrs={'class': 'form-control form-control-lg', 'placeholder': 'https://twitter.com/example'}),
+            'instagram': forms.URLInput(attrs={'class': 'form-control form-control-lg', 'placeholder': 'https://www.instagram.com/example/'}),
+            'web': forms.URLInput(attrs={'class': 'form-control form-control-lg', 'placeholder': 'https://www.example.com'}),
         }
 
+
+
 class UserEditForm(UserCreationForm):
+    password1 = forms.CharField(label='Contraseña', widget=forms.PasswordInput(attrs={'class': 'form-control form-control-lg'}))
+    password2 = forms.CharField(label='Confirmación de contraseña', widget=forms.PasswordInput(attrs={'class': 'form-control form-control-lg'}))
 
     class Meta:
         model = User
@@ -77,11 +76,3 @@ class UserEditForm(UserCreationForm):
         ]
         help_text = {k: '' for k in fields}
 
-class PerfilEditForm(ModelForm):
-
-    class Meta:
-        model= Perfil
-        fields = '__all__'
-        exclude = ["usuario"]
-        help_text = {k: '' for k in fields}
-        

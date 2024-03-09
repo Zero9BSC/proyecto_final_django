@@ -12,6 +12,11 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.decorators import login_required # DECORATORS para vistas basadas en Funciones
 from django.contrib.auth.mixins import LoginRequiredMixin # MIXINS para vistas basadas en Clases
 
+from django.core.files.storage import default_storage
+from django.core.files.base import ContentFile
+
+# from django.db.models.signals import post_delete
+# from django.dispatch import receiver
 
 from .models import *
 from .forms import *
@@ -19,8 +24,11 @@ from .forms import *
 
 # VISTAS BASADAS EN FUNCIONES
 def mostrar_home(request):
-
-    return render (request, "index.html")#, {'url': imagenes[0].imagen.url})
+    latest_posts = Post.objects.order_by('-fecha')[:5]
+    perfil_usuario = None
+    if request.user.is_authenticated:
+        perfil_usuario = Perfil.objects.get(usuario=request.user)
+    return render(request, 'index.html', {'latest_posts': latest_posts, 'perfil_usuario': perfil_usuario})
 
 def buscar_post(request):
     
@@ -57,20 +65,12 @@ def mostrar_about(request):
 
 def crear_consulta(request):
     if request.method == "POST":
-        formulario = ContactoForm(request.Contacto)
-
+        formulario = ContactoForm(request.POST)
         if formulario.is_valid():
-
-            formulario_limpio = formulario.cleaned_data
-
-            contacto = Contacto(nombre=formulario_limpio["nombre"], email=formulario_limpio["email"], consulta=formulario_limpio["consulta"])
-
-            contacto.save()
-
-            return render(request, "Home/templates/index.html")
+            formulario.save()
+            return redirect('Home')
     else:
         formulario = ContactoForm()
-        
     return render(request, "contacto.html", {"formulario": formulario})
 
 def mostrar_posteos(request):
@@ -88,54 +88,22 @@ def mostrar_posteos(request):
 
     return render(request, 'mostrar_posteos.html', context=context)
 
-# @login_required
-# def eliminar_posteos(request, post_id):
-
-#     posteos = Post.objects.get(id=post_id)
-
-#     posteos.delete()
-
-#     posteos = Post.objects.all()
-
-#     context = {'posteos':posteos}
-
-#     return render(request, 'mostrar_posteos.html', context=context)
-
-# @login_required
-# def actualizar_posteos(request, post_id):
-
-#     post = Post.objects.get(id=post_id)
-
-#     if request.method == "POST":
-
-#         formulario = CrearPostForm(request.POST)
-
-#         if formulario.is_valid():
-
-#             formulario_limpio = formulario.cleaned_data
-
-#             post.titulo = formulario_limpio['titulo']
-#             post.imagen = formulario_limpio['imagen']
-#             post.sub_titulo = formulario_limpio['sub_titulo']
-#             post.categoria = formulario_limpio['categoria']
-#             post.fecha = formulario_limpio['fecha']
-#             post.texto = formulario_limpio['texto']
-            
-#             post.save()
-
-#             return render(request, "Home/templates/index.html")
-#     else:
-#         formulario = CrearPostForm(initial={'titulo': post.titulo, 'sub_titulo': post.sub_titulo, 'categoria': post.categoria, 'fecha': post.fecha, 'texto': post.texto})
-        
-#         return render(request, "actualizar_post.html", {"formulario": formulario})
 
 @login_required
 def eliminar_posteos(request, post_id):
     post = get_object_or_404(Post, id=post_id)
-    # Verifica si el usuario actual es el autor del post
+    
+    # Verificar si el usuario actual es el autor del post
     if post.autor.usuario == request.user:
+        # Obtener la imagen asociada al post y eliminarla si existe
+        if post.imagen:
+            post.imagen.delete()
+        
+        # Eliminar el post
         post.delete()
+        
     return redirect('Mostrar Posteos')
+
 
 @login_required
 def actualizar_posteos(request, post_id):
@@ -143,95 +111,73 @@ def actualizar_posteos(request, post_id):
     # Verifica si el usuario actual es el autor del post
     if post.autor.usuario == request.user:
         if request.method == "POST":
-            formulario = CrearPostForm(request.POST, instance=post)
+            formulario = CrearPostForm(request.POST, request.FILES, instance=post)
             if formulario.is_valid():
+                # Eliminar la imagen anterior si se proporciona una nueva
+                if 'nueva_imagen' in request.FILES:
+                    if post.imagen:
+                        default_storage.delete(post.imagen.path)
+                    post.imagen = request.FILES['nueva_imagen']
                 formulario.save()
-                return redirect('index.html')
+                return redirect('Mostrar Posteos')
         else:
             formulario = CrearPostForm(instance=post)
-        return render(request, "actualizar_post.html", {"formulario": formulario})
+        categorias_disponibles = ['Noticias', 'Reviews', 'Gaming', 'Software', 'Hardware']  # Agregar categorías disponibles
+        return render(request, "actualizar_post.html", {"formulario": formulario, "categorias": categorias_disponibles})
     else:
         return HttpResponse("No tienes permiso para realizar esta acción.")
 
+
 @login_required
 def editar_usuario(request):
-    perfil = Perfil.objects.get(usuario = request.user.id)
-    usuario = request.user
+    perfil = Perfil.objects.get(usuario=request.user)
 
     if request.method == 'POST':
-        usuario_form = UserEditForm(request.POST)
-        perfil_form = PerfilEditForm(request.POST)
+        usuario_form = UserEditForm(request.POST, instance=request.user)
+        perfil_form = PerfilEditForm(request.POST, request.FILES, instance=perfil)
 
         if usuario_form.is_valid() and perfil_form.is_valid():
-
-            informacion1 = usuario_form.cleaned_data
-            informacion2 = perfil_form.cleaned_data
-            
-            usuario.username = informacion1['username']
-            usuario.password1 = informacion1['password1']
-            usuario.password2 = informacion1['password2']
-            usuario.save()
-
-            perfil.imagen = informacion2['imagen']
-            perfil.nombre = informacion2['nombre']
-            perfil.apellido = informacion2['apellido']
-            perfil.correo = informacion2['correo']
-            perfil.facebook = informacion2['facebook']
-            perfil.twitter = informacion2['twitter']
-            perfil.instagram = informacion2['instagram']
-            perfil.web = informacion2['web']
-            perfil.save()
-
-
-            return render(request, 'index.html')
-        
+            usuario_form.save()
+            perfil_form.save()
+            return redirect('Home')
     else:
-        usuario_form = UserEditForm(initial={
-            'username': usuario.username,
-            'email': usuario.email,
-        })
-        perfil_form = PerfilEditForm(initial={
-            'imagen': perfil.imagen,
-            'nombre': perfil.nombre,
-            'apellido': perfil.apellido,
-            'correo': perfil.correo,
-            'facebook': perfil.facebook,
-            'twitter': perfil.twitter,
-            'instagram': perfil.instagram,
-            'web': perfil.web,
-        })
+        usuario_form = UserEditForm(instance=request.user)
+        perfil_form = PerfilEditForm(instance=perfil)
 
+    # Obtener la URL de la imagen redondeada de tamaño pequeño si existe
+    imagen_pequena_url = perfil.imagen.url if perfil.imagen else None
 
     return render(request, 'admin_update.html', {
         'form': usuario_form,
         'form2': perfil_form,
-        'usuario': usuario,
-        })
-
+        'usuario': request.user,
+        'imagen_pequena_url': imagen_pequena_url,  # Pasar la URL de la imagen al template
+    })
 
 def create_user(request):
     if request.method == 'POST':
         user_form = UserCreationForm(request.POST)
-        perfil_form = PerfilForm(request.POST)
+        perfil_form = PerfilForm(request.POST, request.FILES)
         if user_form.is_valid() and perfil_form.is_valid():
             user = user_form.save()
             
             perfil = perfil_form.save(commit=False)
-            perfil.usuario = User.objects.latest('id')
-
-            print(f'el usuario {User.objects.latest("id").id}')
+            perfil.usuario = user  # Asigna el usuario recién creado al perfil
+            
+            # Si hay una imagen cargada, guárdala en el perfil
+            if 'imagen' in request.FILES:
+                perfil.imagen = request.FILES['imagen']
             
             perfil.save()
 
-            return render(request, 'index.html')
+            return redirect('Home')  # Redirige a la página de inicio
     else:
         user_form = UserCreationForm()
         perfil_form = PerfilForm()
     return render(request, 'registro.html', {
         'user_form': user_form, 
         'perfil_form': perfil_form
-        })
-
+    })
 
 
 
@@ -250,29 +196,29 @@ class PostList(ListView):
 class PostDeleteView(LoginRequiredMixin, DeleteView):
 
     model = Post
-    success_url = '/post_list' #posible solucion a crear post que no redirecciona bien al index
+    success_url = '/post_list'
 
 class PostUpdateView(LoginRequiredMixin, UpdateView):
 
     model = Post
-    success_url = '/post_list' #posible solucion a crear post que no redirecciona bien al index
+    success_url = '/post_list'
     fields = ['titulo', 'imagen', 'sub_titulo', 'categoria', 'fecha', 'texto']
 
 
 class PostCreateView(LoginRequiredMixin, CreateView):
 
     model = Post
-    success_url = '/post_list' #posible solucion a crear post que no redirecciona bien al index
+    success_url = '/post_list'
     fields = ['titulo', 'sub_titulo', 'imagen', 'fecha', 'categoria', 'texto']
 
     def form_valid(self, form):
         post = form.save(commit=False)
-        post.autor = Perfil.objects.get(usuario=self.request.user.id)  # use your own profile here
+        post.autor = Perfil.objects.get(usuario=self.request.user.id)
         post.save()
         return HttpResponseRedirect('/post_list')
 
 class ContactCreateView(CreateView):
-
+    model = Contacto
     form_class = ContactoForm
     template_name = 'contacto.html'
     success_url = reverse_lazy('Home')
@@ -347,7 +293,6 @@ class AdminLoginView(LoginView):
 
 class AdminLogoutView(LogoutView):
     success_url = reverse_lazy('Home')
-    #template_name = 'logout.html'
 
 class PerfilUpdateView(LoginRequiredMixin, UpdateView):
 

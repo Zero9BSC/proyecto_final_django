@@ -1,69 +1,46 @@
 {% extends 'index.html' %}
-
 {% load static %}
 
 {% block codigoDinamico %}
 
-
-	<section class="background firstsection">
-		<div class="box-main">
-			<div class="firstHalf">
-				<h1 class="h-primary center" style="margin-top:30px;text-align:center;">
-                    Quiénes somos
-                </h1>
-				<p class="text-small" style="margin-top:30px;text-align:center;">
-					El equipo Nozama se guía por cuatro principios: la obsesión por el cliente, la pasión por la innovación, el
-					compromiso con la excelencia operativa y el pensamiento a largo plazo. Nos esforzamos por ser
+<section class="background firstsection">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="h-primary text-center mt-5">Quiénes somos</h1>
+                <p class="text-small text-center">
+                    El equipo Nozama se guía por cuatro principios: la obsesión por el cliente, la pasión por la innovación, el
+                    compromiso con la excelencia operativa y el pensamiento a largo plazo. Nos esforzamos por ser
                     la empresa más centrada en el cliente del mundo, la mejor empleadora y el lugar más seguro
                     para trabajar. Las opiniones de los clientes, las compras en un solo clic, las recomendaciones
                     personalizadas, el servicio Prime, la Logística de Nozama, AWS, la autopublicación Kindle Direct
                     Publishing, Kindle, el programa de formación Career Choice, los dispositivos Fire, Fire TV,
                     Nozama Echo, Alexa, la tecnología Just Walk Out, Nozama Studios o The Climate Pledge son
                     algunos ejemplos en los que Nozama ha sido pionera.
-				</p>
-				<br>
-				<p class="center"><a href="#Order"
-				style="text-decoration:none;color:white;">
-                        A continuación se encuentran las personas que
-						trabaja en nuestra empresa</a>
-				</p>
-			</div>
-		</div>
-	</section>
-	<section class="service">
-		<h1 class="h-primary center" style="margin-top:30px;text-align:center;">
-			El equipo de Nozama
-		</h1>
-	<div id="services">
-			<div class="box">
-				<img src=
-"https://media.geeksforgeeks.org/wp-content/uploads/20201231132740/Capture.PNG"
-					alt="picture goes here">
-			
-				<p class="center">
-					<a href="#xyz" style="text-decoration:none;color:black;
-		font-weight:bold;font-family: 'Langar', cursive;">
-						Franco Nicolas Jones
-					</a>
-				</p>
-				<p style="font-family: sans-serif">CEO and the Founder</p>
-			</div>
-			<div class="box">
-				<img src=
-"https://media.geeksforgeeks.org/wp-content/uploads/20201231132740/Capture.PNG"
-					alt="picture goes here">
-				
-				<p class="center">
-					<a href="#abc" style="text-decoration:none;color:black;
-		font-weight:bold;font-family: 'Langar', cursive;">
-						Florencia Hnatiuk
-					</a>
-				</p>
-				
-				<p style="font-family: sans-serif ">Co-Founder</p>
-			</div>
-		</div>
-	
-	</section>
+                </p>
+                <p class="text-center">
+                    <a href="#Order" class="text-white" style="text-decoration:none;">A continuación se encuentran las personas que trabajan en nuestra empresa</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="service">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="h-primary text-center mt-5">El equipo de Nozama</h1>
+                <div class="box text-center">
+					<img src="{% static 'Home/assets/profile-pic.png' %}" alt="Foto de perfil" class="img-fluid rounded-circle" style="max-width: 180px;">
+					<p>
+						<a href="#xyz" class="text-dark font-weight-bold" style="font-size: 24px;">Franco Nicolas Jones</a>
+					</p>
+					<p class="font-weight-bold" style="font-size: 20px;">CEO y Fundador</p>
+				</div>
+            </div>
+        </div>
+    </div>
+</section>
 
 {% endblock  %}

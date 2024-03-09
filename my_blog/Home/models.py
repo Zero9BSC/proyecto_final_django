@@ -49,10 +49,11 @@ class Post(models.Model):
 class Contacto(models.Model):
     nombre = models.CharField(max_length=90)
     email = models.EmailField()
-    consulta = models.CharField(max_length=254)
+    asunto = models.CharField(max_length=100)
+    mensaje = models.TextField()
 
     def __str__(self):
-        return f'Nombre: {self.nombre}, Email: {self.email}, Consulta: {self.consulta}'
+        return f'Nombre: {self.nombre}, Email: {self.email}, Asunto: {self.asunto}, Mensaje: {self.mensaje}'
 
 
 
