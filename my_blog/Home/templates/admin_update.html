@@ -24,23 +24,16 @@
                             {{ form.password2 | add_class:"form-control form-control-lg" }}
                         </div>
                         <div class="mb-3">
-                            <label class="form-label fs-5">Imagen</label>
-                            {% if imagen_pequena_url %}
-                                <div class="mb-3">
-                                    <img src="{{ imagen_pequena_url }}" class="rounded-circle" alt="Imagen de perfil" style="max-width: 150px; max-height: 150px;">
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label"></label>
-                                    {{ form2.imagen }}
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Eliminar</label>
-                                </div>
-                            {% else %}
-                                <div class="placeholder">No hay imagen de perfil</div>
+                            <label for="id_imagen" class="form-label fs-5">Imagen</label>
+                            <div class="d-flex align-items-center flex-column">
+                                {% if imagen_pequena_url %}
+                                    <div class="mb-2">
+                                        <img src="{{ imagen_pequena_url }}" class="rounded-circle" alt="Imagen de perfil" style="max-width: 150px; max-height: 150px;">
+                                    </div>
+                                {% endif %}
                                 {{ form2.imagen }}
-                            {% endif %}
-                        </div>
+                            </div>
+                        </div>                                                                 
                         <div class="mb-3">
                             <label for="id_nombre" class="form-label fs-5">Nombre</label>
                             {{ form2.nombre | add_class:"form-control form-control-lg" }}
