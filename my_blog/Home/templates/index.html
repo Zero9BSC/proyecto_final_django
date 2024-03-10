@@ -63,7 +63,7 @@
                         {% endif %}
                         <li class="nav-item"><a class="nav-link" href="{% url 'Mostrar Posteos' %}">Mostrar Posteos (FBV)</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'List' %}">Mostrar Posteos (CBV)</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'Buscar' %}">Buscar Post</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'buscar_post' %}">Buscar Post</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'Crear' %}">Crear Post</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'About' %}">About</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'Contacto' %}">Contacto</a></li>
@@ -157,7 +157,7 @@
                         <div class="card-header">Buscar</div>
                         <div class="card-body">
                             <ul class="list-unstyled mb-0">
-                                <form action="buscar/" method="get">
+                                <form action="{% url 'Buscar' %}" method="get">
                                     <div class="input-group">
                                         <input type="text" class="form-control" placeholder="Buscar..." name="titulo" id="titulo">
                                         <button class="btn btn-primary" id="button-search" type="submit">Go!<i class="fas fa-search"></i></button>

@@ -3,12 +3,11 @@ from . import views
 
 urlpatterns = [
     path('', views.mostrar_home, name='Home'),
-    path('buscar_post', views.buscar_post, name='Buscar'),
-    path('buscar/', views.buscar),
+    path('buscar_post/', views.buscar_post, name='buscar_post'),
+    path('buscar/', views.buscar, name='Buscar'),
     path('mostrar_post/', views.mostrar_post, name='Mostrar'),
     path('mostrar_contacto/', views.ContactCreateView.as_view(), name='Contacto'),
     path('mostrar_about/', views.mostrar_about, name='About'),
-    #path('mostrar_noticias/', views.mostrar_noticias, name='Noticias'),
     path('mostrar_posteos/', views.mostrar_posteos, name='Mostrar Posteos'),
     path('eliminar_posteos/<post_id>', views.eliminar_posteos, name='Eliminar Posteos'),
     path('actualizar_posteos/<post_id>', views.actualizar_posteos, name='Actualizar Posteos'),

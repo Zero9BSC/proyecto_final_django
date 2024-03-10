@@ -35,24 +35,21 @@ def buscar_post(request):
     return render(request, "buscar_post.html")
 
 def buscar(request):
+    titulo = request.GET.get('titulo')
 
-    try:
-        if request.method == "GET":
-            if request.GET["titulo"]:
-                titulo = request.GET["titulo"]
-                post = Post.objects.filter(titulo__icontains=titulo)
-                if post:
-                    
-                    return render(request, "buscar_post.html", {"post":post, "titulo":titulo})    
-                else:
-                    
-                    respuesta = "No hay post"
-                
-                    return render(request, "buscar_post.html", {"respuesta": respuesta})
-    except ValueError:
-        print('que haces hermano!? estas pasando algo sin valor flaco!')
-        respuesta = "Debe ingresar un parametro para buscar"
-        return render(request, "buscar_post.html", {"respuesta": respuesta})
+    if titulo:  
+        posts = Post.objects.filter(titulo__icontains=titulo)
+        if posts:
+            return render(request, "buscar_post.html", {"post": posts, "titulo": titulo})
+        else:
+            respuesta = "No se encontraron resultados para la búsqueda."
+            return render(request, "buscar_post.html", {"respuesta": respuesta})
+    elif request.method == 'GET' and not titulo:
+        mensaje = "Debe ingresar un parámetro para buscar."
+        return render(request, "buscar_post.html", {"mensaje": mensaje})
+    else:
+        return render(request, "buscar_post.html")
+
 
 def mostrar_post(request):
     return render(request, "post.html") #Solo como ejemplo para mostrar como se ve la template "post.html"
@@ -300,6 +297,3 @@ class PerfilUpdateView(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy('Home')
     template_name = '/Home/perfil.html'
     fields = ['imagen', 'nombre', 'apellido', 'facebook', 'twitter', 'instagram', 'web', 'correo']
-
-
-

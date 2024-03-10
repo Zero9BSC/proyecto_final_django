@@ -9,7 +9,7 @@
         <div class="col-lg-6">
             <div class="card mt-5 shadow-lg">
                 <div class="card-body">
-                    <form action="buscar/" method="GET">
+                    <form action="{% url 'Buscar' %}" method="GET">
                         <div class="mb-3">
                             <label for="titulo" class="form-label fs-5">Ingrese su búsqueda aquí:</label>
                             <input type="text" class="form-control form-control-lg" name="titulo" id="titulo" placeholder="Ingrese su búsqueda aquí">
@@ -24,10 +24,11 @@
     </div>
 
     {% block codigoDinamico1 %}
-    {% if respuesta %}
+    {% if mensaje or respuesta %}
     <div class="row justify-content-center mt-5">
         <div class="col-md-8">
             <div class="alert alert-info" role="alert">
+                {{ mensaje }}
                 {{ respuesta }}
             </div>
         </div>
