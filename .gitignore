@@ -130,3 +130,6 @@ dmypy.json
 .pyre/
 
 .DS_Store
+
+#Media files
+my_blog/media/
