@@ -2,49 +2,52 @@
 {% load static %}
 
 {% block codigoDinamico %}
-    <div class="container">
-        <div class="row my-4 py-4">
-            <div class="col text-center">
-                <h1 class="h-primary">¡Contáctanos!</h1>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card mt-5 shadow-lg">
+                <div class="card-body">
+                    <h2 class="card-title text-center mb-4">¡Contáctanos!</h2>
+                    <form method="post" class="needs-validation" novalidate>
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="id_nombre" class="form-label fs-5">Nombre:</label>
+                            {% if form.nombre.value %}
+                                <input type="text" name="nombre" id="id_nombre" class="form-control form-control-lg" value="{{ form.nombre.value }}">
+                            {% else %}
+                                <input type="text" name="nombre" id="id_nombre" class="form-control form-control-lg">
+                            {% endif %}
+                        </div>
+                        <div class="mb-3">
+                            <label for="id_email" class="form-label fs-5">Email:</label>
+                            {% if form.email.value %}
+                                <input type="email" name="email" id="id_email" class="form-control form-control-lg" value="{{ form.email.value }}">
+                            {% else %}
+                                <input type="email" name="email" id="id_email" class="form-control form-control-lg">
+                            {% endif %}
+                        </div>
+                        <div class="mb-3">
+                            <label for="id_asunto" class="form-label fs-5">Asunto:</label>
+                            {% if form.asunto.value %}
+                                <input type="text" name="asunto" id="id_asunto" class="form-control form-control-lg" value="{{ form.asunto.value }}">
+                            {% else %}
+                                <input type="text" name="asunto" id="id_asunto" class="form-control form-control-lg">
+                            {% endif %}
+                        </div>
+                        <div class="mb-3">
+                            <label for="id_mensaje" class="form-label fs-5">Mensaje:</label>
+                            {% if form.mensaje.value %}
+                                <textarea name="mensaje" id="id_mensaje" class="form-control form-control-lg" rows="5">{{ form.mensaje.value }}</textarea>
+                            {% else %}
+                                <textarea name="mensaje" id="id_mensaje" class="form-control form-control-lg" rows="5"></textarea>
+                            {% endif %}
+                        </div>
+                        <button class="btn btn-primary btn-lg w-100" type="submit">Enviar</button>
+                    </form>
+                </div>
             </div>
         </div>
-        <div class="m-5 p-5">
-            <form method="post" class="needs-validation" novalidate>
-                {% csrf_token %}
-                <div class="mb-3">
-                    <label for="id_nombre" class="form-label">Nombre:</label>
-                    {% if form.nombre.value %}
-                        <input type="text" name="nombre" id="id_nombre" class="form-control" value="{{ form.nombre.value }}">
-                    {% else %}
-                        <input type="text" name="nombre" id="id_nombre" class="form-control">
-                    {% endif %}
-                </div>
-                <div class="mb-3">
-                    <label for="id_email" class="form-label">Email:</label>
-                    {% if form.email.value %}
-                        <input type="email" name="email" id="id_email" class="form-control" value="{{ form.email.value }}">
-                    {% else %}
-                        <input type="email" name="email" id="id_email" class="form-control">
-                    {% endif %}
-                </div>
-                <div class="mb-3">
-                    <label for="id_asunto" class="form-label">Asunto:</label>
-                    {% if form.asunto.value %}
-                        <input type="text" name="asunto" id="id_asunto" class="form-control" value="{{ form.asunto.value }}">
-                    {% else %}
-                        <input type="text" name="asunto" id="id_asunto" class="form-control">
-                    {% endif %}
-                </div>
-                <div class="mb-3">
-                    <label for="id_mensaje" class="form-label">Mensaje:</label>
-                    {% if form.mensaje.value %}
-                        <textarea name="mensaje" id="id_mensaje" class="form-control">{{ form.mensaje.value }}</textarea>
-                    {% else %}
-                        <textarea name="mensaje" id="id_mensaje" class="form-control"></textarea>
-                    {% endif %}
-                </div>
-                <button class="btn btn-primary" type="submit">Enviar</button>
-            </form>
-        </div>
     </div>
+</div>
+<br><br><br><br>
 {% endblock %}

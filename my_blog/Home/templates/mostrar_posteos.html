@@ -3,59 +3,52 @@
 
 {% block codigoDinamico %}
 
-<style>
-    .post-imagen {
-        max-width: 300px;
-        height: auto;
-        object-fit: cover;
-    }
-</style>
+<div class="container mt-5">
+    <h1 class="h-primary text-center mb-4">Lista de Posteos</h1>
 
-<div class="container">
-    <h1 class="h-primary text-center mt-5">Lista de Posteos</h1>
-
-    <div class="m-5 p-5">
-        {% if posteos %}
-            <ul class="list-group">
-                {% for post in posteos %}
-                    <li class="list-group-item">
-                        <h2>{{ post.titulo }}</h2>
-                        {% if post.imagen %}
-                            <img src="{{ post.imagen.url }}" alt="Imagen del post" class="img-fluid post-imagen">
-                        {% else %}
-                            <p>No hay imagen asociada a este post.</p>
-                        {% endif %}
-                        <p>Subtítulo: {{ post.sub_titulo }}</p>
-                        <p>Autor: {{ post.autor }}</p>
-                        <p>Categoría: {{ post.categoria }}</p>
-                        <p>Fecha: {{ post.fecha }}</p>
-                        <p>Texto: {{ post.texto }}</p>
-                        {% if post.es_autor %}
-                            <div class="btn-group" role="group">
-                                <button type="button" class="btn btn-danger mr-2" style="margin-right: 5px;">
-                                    <a href="{% url 'Eliminar Posteos' post_id=post.id %}" style="color: white; text-decoration: none;">Eliminar</a>
-                                </button>
-                                <button type="button" class="btn btn-primary mr-2" style="margin-right: 5px;">
-                                    <a href="{% url 'Actualizar Posteos' post_id=post.id %}" style="color: white; text-decoration: none;">Actualizar</a>
-                                </button>
-                            </div>
-                        {% endif %}
-                    </li>
-                    <br>
-                {% endfor %}
-            </ul>
-        {% else %}
-            <div class="text-center">
-                <h2 class="h-primary">No hay posteos creados</h2>
+    <div class="row justify-content-center">
+        <div class="col-lg-12">
+            <div class="card shadow">
+                <div class="card-body">
+                    {% if posteos %}
+                        <ul class="list-group list-group-flush">
+                            {% for post in posteos %}
+                                <li class="list-group-item">
+                                    {% if post.imagen %}
+                                        <img src="{{ post.imagen.url }}" alt="Imagen del post" class="img-fluid post-imagen">
+                                    {% else %}
+                                        <p class="text-muted">No hay imagen asociada a este post.</p>
+                                    {% endif %}
+                                    <p><strong>Autor:</strong> {{ post.autor }}</p>
+                                    <p><strong>Categoría:</strong> {{ post.categoria }}</p>
+                                    <p>{{ post.fecha }}</p>
+                                    <h2 class="card-title">{{ post.titulo }}</h2>
+                                    <p>{{ post.sub_titulo }}</p>                                    
+                                    <p>{{ post.texto }}</p>
+                                    {% if post.es_autor %}
+                                        <div class="mt-3">
+                                            <a href="{% url 'Eliminar Posteos' post_id=post.id %}" class="btn btn-danger mr-2" style="color: white; text-decoration: none;">Eliminar</a>
+                                            <a href="{% url 'Actualizar Posteos' post_id=post.id %}" class="btn btn-primary" style="color: white; text-decoration: none;">Actualizar</a>
+                                        </div>
+                                    {% endif %}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <div class="text-center">
+                            <h2 class="h-primary">No hay posteos creados</h2>
+                        </div>
+                    {% endif %}
+                </div>
             </div>
-        {% endif %}
-        
-        <div class="m-5 p-5 text-center">
-            <button class="btn btn-success">
-                <a href="{% url 'Crear' %}" style="color: white; text-decoration: none;">Crear Nuevo Post</a>
-            </button>
         </div>
     </div>
-</div>
 
+    <div class="text-center mt-5">
+        <button class="btn btn-success">
+            <a href="{% url 'Crear' %}" style="color: white; text-decoration: none;">Crear Nuevo Post</a>
+        </button>
+    </div>
+</div>
+<br><br><br><br>
 {% endblock %}

@@ -4,6 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from .models import *
 from django.forms import ModelForm
 
+
 class CrearPostForm(forms.ModelForm):
     
     class Meta:
@@ -11,21 +12,13 @@ class CrearPostForm(forms.ModelForm):
         fields = '__all__'
         exclude = ["autor"]
 
+
 class ContactoForm(forms.ModelForm):
     class Meta:
         model = Contacto
         fields = ['nombre', 'email', 'asunto', 'mensaje']
 
-# class SignUpForm(UserCreationForm):
-#     username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Username'}))
-#     password1 = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Password'}))
-#     password2 = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Password Again'}))
-    
-#     class Meta:
-#         model = User
-#         fields = ['username', 'password1', 'password2']
-#         help_text = {k: '' for k in fields}
-        
+
 class SignUpForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = User
@@ -47,7 +40,7 @@ class SignUpForm(UserCreationForm):
         })
 
 
-class PerfilEditForm(ModelForm):
+class PerfilForm(ModelForm):
     class Meta:
         model = Perfil
         fields = '__all__'
@@ -62,7 +55,6 @@ class PerfilEditForm(ModelForm):
             'instagram': forms.URLInput(attrs={'class': 'form-control form-control-lg', 'placeholder': 'https://www.instagram.com/example/'}),
             'web': forms.URLInput(attrs={'class': 'form-control form-control-lg', 'placeholder': 'https://www.example.com'}),
         }
-
 
 
 class UserEditForm(UserCreationForm):

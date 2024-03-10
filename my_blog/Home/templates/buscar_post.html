@@ -4,18 +4,18 @@
 {% block codigoDinamico %}
 
 <div class="container">
+    <h1 class="h-primary text-center mt-5">Buscar Post</h1>
     <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card mt-5">
+        <div class="col-lg-6">
+            <div class="card mt-5 shadow-lg">
                 <div class="card-body">
-                    <h2 class="card-title text-center mb-4">Buscar Post</h2>
                     <form action="buscar/" method="GET">
                         <div class="mb-3">
-                            <label for="titulo" class="form-label">Ingrese su búsqueda aquí:</label>
-                            <input type="text" class="form-control" name="titulo" id="titulo">
+                            <label for="titulo" class="form-label fs-5">Ingrese su búsqueda aquí:</label>
+                            <input type="text" class="form-control form-control-lg" name="titulo" id="titulo" placeholder="Ingrese su búsqueda aquí">
                         </div>
                         <div class="text-center">
-                            <button class="btn btn-primary" type="submit">Buscar</button>
+                            <button class="w-100 btn btn-lg btn-primary" type="submit">Buscar</button>
                         </div>
                     </form>
                 </div>
@@ -35,18 +35,18 @@
     {% endif %}
 
     {% if post %}
-    <h1 class="h-primary text-center mt-5">Resultado de tu búsqueda</h1>
+    <h2 class="h-primary text-center mt-5">Resultado de tu búsqueda</h2>
     <div class="row justify-content-center mt-5">
         {% for i in post %}
-        <div class="col-md-6">
-            <div class="card mb-4">
-                <img src="{{ i.imagen.url }}" class="card-img-top" alt="...">
+        <div class="col-lg-6">
+            <div class="card mb-4 shadow-lg">
+                <img src="{{ i.imagen.url }}" class="card-img-top rounded" alt="...">
                 <div class="card-body">
-                    <h5 class="card-title">Titulo: {{ i.titulo }}</h5>
-                    <p class="card-text">Subtítulo: {{ i.sub_titulo }}</p>
-                    <p class="card-text">Autor: {{ i.user }}</p>
-                    <p class="card-text">Fecha: {{ i.fecha }}</p>
-                    <p class="card-text">Texto: {{ i.texto }}</p>
+                    <h5 class="card-title fs-5">Titulo: {{ i.titulo }}</h5>
+                    <p class="card-text fs-6">Subtítulo: {{ i.sub_titulo }}</p>
+                    <p class="card-text fs-6">Autor: {{ i.user }}</p>
+                    <p class="card-text fs-6">Fecha: {{ i.fecha }}</p>
+                    <p class="card-text fs-6">Texto: {{ i.texto }}</p>
                 </div>
             </div>
         </div>
@@ -56,10 +56,10 @@
 
     <div class="row justify-content-center mt-5">
         <div class="col-md-6 text-center">
-            <button class="btn btn-primary" onclick="location.href='{% url 'Home' %}'">Volver</button>
+            <button class="w-100 btn btn-lg btn-primary" onclick="location.href='{% url 'Home' %}'">Volver</button>
         </div>
     </div>
     {% endblock %}
 </div>
-
+<br><br><br><br>
 {% endblock %}

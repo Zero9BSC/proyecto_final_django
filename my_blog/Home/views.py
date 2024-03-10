@@ -134,7 +134,7 @@ def editar_usuario(request):
 
     if request.method == 'POST':
         usuario_form = UserEditForm(request.POST, instance=request.user)
-        perfil_form = PerfilEditForm(request.POST, request.FILES, instance=perfil)
+        perfil_form = PerfilForm(request.POST, request.FILES, instance=perfil)
 
         if usuario_form.is_valid() and perfil_form.is_valid():
             usuario_form.save()
@@ -142,7 +142,7 @@ def editar_usuario(request):
             return redirect('Home')
     else:
         usuario_form = UserEditForm(instance=request.user)
-        perfil_form = PerfilEditForm(instance=perfil)
+        perfil_form = PerfilForm(instance=perfil)
 
     # Obtener la URL de la imagen redondeada de tamaño pequeño si existe
     imagen_pequena_url = perfil.imagen.url if perfil.imagen else None

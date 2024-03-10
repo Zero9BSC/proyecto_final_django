@@ -1,54 +1,48 @@
 {% extends 'index.html' %}
-
 {% load static %}
 
 {% block codigoDinamico %}
 
-<h1 class="h-primary center" style="margin-top:30px;text-align:center;">
-    Lista de Posteos
-</h1>
+<div class="container mt-5">
+    <h1 class="h-primary text-center mb-4">Lista de Posteos</h1>
 
-{% if object_list.all %}
-
-    {% for post in object_list %}
-        <div class="m-5 p-5">
-            <ul>
-                <table>
-                    <li class="list-group-item">Titulo: {{ post.titulo }}</li>    
-                    <li class="list-group-item"><img src="{{ post.imagen.url }}" alt="..."></li>
-                    <li class="list-group-item">Sub Titulo: {{ post.sub_titulo }}</li>
-                    <li class="list-group-item">Autor: {{ post.autor }}</li>
-                    <li class="list-group-item">Categoria: {{ post.categoria }}</li> 
-                    <li class="list-group-item">Fecha: {{ post.fecha }}</li> 
-                    <li class="list-group-item">Texto: {{ post.texto }}</li>
-
-                    <button class="btn btn-success">
-                        <a style="color:white; text-decoration:none;" href="{% url 'Detail' post.id %}">Ver Detalles</a>
-                    </button>
-                    <button class="btn btn-danger">
-                        <a style="color:white; text-decoration:none;" href="{% url 'Delete' post.id %}">Eliminar</a>
-                    </button>
-                    <button class="btn btn-primary">
-                        <a style="color:white; text-decoration:none;" href="{% url 'Update' post.id %}">Actualizar</a>
-                    </button>
-                </table>
-            </ul>
+    {% if object_list.all %}
+        {% for post in object_list %}
+            <div class="card shadow mb-4">
+                <div class="card-body">
+                    {% if post.imagen %}
+                        <img src="{{ post.imagen.url }}" alt="Imagen del post" class="img-fluid mb-3">
+                    {% else %}
+                        <p class="text-muted">No hay imagen asociada a este post.</p>
+                    {% endif %}
+                    <h5 class="card-title">{{ post.titulo }}</h5>
+                    <h5 class="card-subtitle">{{ post.sub_titulo }}</h5>
+                    <br>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><strong>Autor:</strong> {{ post.autor }}</li>
+                        <li class="list-group-item"><strong>Categoría:</strong> {{ post.categoria }}</li>
+                        <li class="list-group-item">{{ post.fecha }}</li>
+                        <li class="list-group-item">{{ post.texto }}</li>
+                    </ul>
+                    <div class="mt-3 text-center">
+                        <a href="{% url 'Detail' post.id %}" class="btn btn-success mr-2" style="color:white; text-decoration:none;">Ver Detalles</a>
+                        <a href="{% url 'Delete' post.id %}" class="btn btn-danger mr-2" style="color:white; text-decoration:none;">Eliminar</a>
+                        <a href="{% url 'Update' post.id %}" class="btn btn-primary" style="color:white; text-decoration:none;">Actualizar</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="text-center">
+            <h2 class="h-primary">No hay posteos creados</h2>
         </div>
+    {% endif %}
 
-    {% endfor %}
-{% else %}
-    <div class="m-5 p-5">
-        <h2 class="h-primary center" style="margin-top:30px;text-align:center;">
-            No hay posteos creados
-        </h2>
+    <div class="text-center mt-5">
+        <button class="btn btn-success">
+            <a href="{% url 'Crear' %}" style="color:white; text-decoration:none;">Crear Nuevo Post</a>
+        </button>
     </div>
-
-{% endif %}
-<div class="m-5 p-5">        
-    <button class="btn btn-success">
-        <a style="color:white; text-decoration:none;" href="{% url 'Crear' %}">Crear Nuevo Post</a>
-    </button>
 </div>
-
 
 {% endblock %}
