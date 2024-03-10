@@ -2,12 +2,31 @@
 {% load static %}
 
 {% block codigoDinamico %}
+<style>
+    body {
+        background-image: url("{% static 'Home/assets/background_4.jpg' %}");
+        background-size: cover;
+        background-repeat: no-repeat;
+        color: #fff; /* Cambiamos el color del texto a blanco para mayor contraste */
+    }
+
+    .card {
+        background-color: rgba(0, 0, 0, 0.7); /* Agregamos un fondo oscuro semitransparente al formulario para mejorar la legibilidad del texto */
+    }
+
+    .titulo-contacto {
+        margin-top: 2rem;
+        font-size: 2rem; /* Ajustamos el tamaño del título */
+        text-align: center;
+    }
+</style>
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card mt-5 shadow-lg">
                 <div class="card-body">
-                    <h2 class="card-title text-center mb-4">¡Contáctanos!</h2>
+                    <h2 class="titulo-contacto">¡Contáctanos!</h2> <!-- Aplicamos la clase de estilo al título -->
                     <form method="post" class="needs-validation" novalidate>
                         {% csrf_token %}
                         <div class="mb-3">

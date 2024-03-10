@@ -2,8 +2,23 @@
 {% load static %}
 
 {% block codigoDinamico %}
+<style>
+    body {
+        background-image: url("{% static 'Home/assets/background_2.jpg' %}");
+        background-size: cover;
+        background-repeat: no-repeat;
+        color: #fff;
+    }
+
+    .titulo-login {
+        margin-top: 5rem;
+        font-size: 2rem;
+        text-align: center;
+    }
+</style>
+
 <div class="container">
-    <h1 class="h-primary text-center mt-5">Iniciar Sesión</h1>
+    <h1 class="titulo-login">Iniciar Sesión</h1>
     <div class="row justify-content-center">
         <div class="col-lg-6">
             <div class="card mt-5 shadow-lg">

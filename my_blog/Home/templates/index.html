@@ -13,7 +13,8 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
         <!-- Bootstrap Icons CSS (CDN) -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-        
+        <!-- Enlaces a las fuentes -->
+        <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
         <style>
                 /* Custom styles for the navbar */
             .navbar-brand {
@@ -29,6 +30,18 @@
 
             .navbar-nav .nav-link:hover {
                 color: #fff; /* Cambia el color del texto a blanco cuando se pasa el mouse */
+            }
+
+            /* Estilo de letra "gamer" */
+            .gamer-text {
+                font-family: 'Press Start 2P', cursive;
+                text-transform: uppercase;
+                color: #fff;
+            }
+
+            /* Estilos para la clase with-halo */
+            .with-halo {
+                box-shadow: 0 0 0 5px rgba(255, 255, 255, 0.5); /* Agrega un halo blanco alrededor de la imagen */
             }
 
             @media (max-width: 991.98px) {
@@ -73,24 +86,32 @@
         </nav>
         {% block codigoDinamico %}
         <!-- Page header with logo and tagline-->
-        <header class="py-5 bg-light border-bottom mb-4">
-            <div class="container">
+        <header class="py-5 bg-light border-bottom mb-4" style="position: relative;">
+            <!-- Video como fondo -->
+            <video autoplay loop muted playsinline style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; animation: fadeIn 3s;">
+                <!-- Proporciona múltiples fuentes de video para una mejor compatibilidad con el navegador -->
+                <source src="{% static 'Home/assets/banner_background.mp4' %}" type="video/mp4">
+                <source src="{% static 'Home/assets/banner_background.webm' %}" type="video/webm">
+                <!-- Contenido de respaldo en caso de que el navegador no admita video HTML5 -->
+                Tu navegador no soporta la etiqueta de video.
+            </video>
+            <div class="container" style="position: relative; z-index: 1;">
                 <div class="text-center my-5">
-                    <h1 class="fw-bolder">Te damos la bienvenida al Blog Gaming Zone</h1>
+                    <h1 class="fw-bolder gamer-text">Te damos la bienvenida al Blog Gaming Zone</h1>
                     {% if request.user.is_authenticated %}
                         {% if perfil_usuario %}
                             {% if perfil_usuario.imagen %}
                                 <img src="{{ perfil_usuario.imagen.url }}" alt="Imagen de perfil del usuario" class="rounded-circle img-thumbnail perfil-imagen" style="width: 100px; height: 100px;">
                             {% else %}
-                                <p>No hay imagen de perfil disponible</p>
+                                <p class="text-white">No hay imagen de perfil disponible</p>
                             {% endif %}
-                            <h3>{{ request.user.username }}</h3>
+                            <h3 class="text-white">{{ request.user.username }}</h3>
                             {% comment %} <h3>{{ request.user.id }}</h3> {% endcomment %}
                         {% endif %}
                     {% else %}
-                        <h3>Invitado</h3>
+                        <h3 class="text-white">Invitado</h3>
                     {% endif %}
-                    <p class="lead mb-0">Un Blog Gamer para Gamers!</p>
+                    <p class="lead mb-0 text-white">Un Blog Gamer para Gamers!</p>
                 </div>
             </div>
         </header>
@@ -191,7 +212,7 @@
                     <!-- Side widget-->
                     <div class="card mb-4">
                         <div class="card-header">Side Widget</div>
-                        <div class="card-body">You can put anything you want inside of these side widgets. They are easy to use, and feature the Bootstrap 5 card component!</div>
+                        <div class="card-body">Próximamente widgets en Bootstrap 5 card component!</div>
                     </div>
                 </div>
             </div>
@@ -217,7 +238,7 @@
                         </ul>
                     </div>
                 </div>
-                <p class="m-0 text-center text-white">&copy; Zero9BSC 2022</p>
+                <p class="m-0 text-center text-white">&copy; Zero9BSC 2022 - 2024</p>
             </div>
         </footer>
         <!-- Bootstrap core JS-->

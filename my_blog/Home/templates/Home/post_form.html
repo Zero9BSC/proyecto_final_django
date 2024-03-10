@@ -2,13 +2,31 @@
 {% load static %}
 
 {% block codigoDinamico %}
+<style>
+    body {
+        background-image: url("{% static 'Home/assets/background_3.jpg' %}");
+        background-size: cover;
+        background-repeat: no-repeat;
+        color: #fff; /* Color del texto a blanco para mayor contraste */
+    }
+
+    .card {
+        background-color: rgba(0, 0, 0, 0.7); /* Test fondo oscuro semitransparente al formulario para mejorar la legibilidad del texto */
+    }
+
+    .titulo-post {
+        margin-top: 2rem;
+        font-size: 2rem; /* Tamaño del título */
+        text-align: center;
+    }
+</style>
 
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card mt-5 shadow-lg">
                 <div class="card-body">
-                    <h2 class="card-title text-center mb-4">Crear Post</h2>
+                    <h2 class="titulo-post">Crear Post</h2>
                     <form method="post" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="mb-3">

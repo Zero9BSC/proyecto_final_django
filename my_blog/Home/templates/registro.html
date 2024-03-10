@@ -2,8 +2,23 @@
 {% load static %}
 
 {% block codigoDinamico %}
+<style>
+    body {
+        background-image: url("{% static 'Home/assets/background_1.jpg' %}");
+        background-size: cover;
+        background-repeat: no-repeat;
+        color: #fff; /* Cambiamos el color del texto a blanco para mayor contraste */
+    }
+
+    .titulo-registro {
+        margin-top: 5rem;
+        font-size: 2rem; /* Ajustamos el tamaño del título */
+        text-align: center;
+    }
+</style>
+
 <div class="container">
-    <h1 class="h-primary text-center mt-5">Registro de usuario</h1>
+    <h1 class="titulo-registro">Registro de usuario</h1> <!-- Aplicamos la clase de estilo al título -->
     <div class="row justify-content-center">
         <div class="col-lg-6">
             <div class="card mt-5 shadow-lg">
