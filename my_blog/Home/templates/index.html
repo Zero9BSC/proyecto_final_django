@@ -88,7 +88,7 @@
         <!-- Page header with logo and tagline-->
         <header class="py-5 bg-light border-bottom mb-4" style="position: relative;">
             <!-- Video como fondo -->
-            <video autoplay loop muted playsinline style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; animation: fadeIn 3s;">
+            <video autoplay loop muted playsinline style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; animation: fadeIn 3s;" id="background-video">
                 <!-- Múltiples fuentes de video para una mejor compatibilidad con el navegador -->
                 <source src="{% static 'Home/assets/banner_background.mp4' %}" type="video/mp4">
                 <source src="{% static 'Home/assets/banner_background.webm' %}" type="video/webm">
@@ -245,5 +245,10 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
         <script src="{% static 'Home/js/scripts.js' %}"></script>
+        <script>
+            // JavaScript para ralentizar la reproducción del video
+            var video = document.getElementById("background-video");
+            video.playbackRate = 0.7; // Modifica este valor según lo que necesites, 1 es la velocidad normal
+        </script>
     </body>
 </html>
