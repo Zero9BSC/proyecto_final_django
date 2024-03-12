@@ -7,12 +7,12 @@
         background-image: url("{% static 'Home/assets/background_3.jpg' %}");
         background-size: cover;
         background-repeat: no-repeat;
-        color: #fff; /* Color del texto a blanco para mayor contraste */
+        color: #000; /* Color del texto a blanco para mayor contraste */
     }
 
-    .card {
-        background-color: rgba(0, 0, 0, 0.7); /* Test fondo oscuro semitransparente al formulario para mejorar la legibilidad del texto */
-    }
+    /*.card {
+        background-color: rgba(0, 0, 0, 0.7); /* Test fondo oscuro semitransparente al formulario para mejorar la legibilidad del texto 
+    }*/
 
     .titulo-post {
         margin-top: 2rem;
@@ -22,11 +22,12 @@
 </style>
 
 <div class="container">
+    <h1 class="h-primary text-center mt-5" style="color: #fff">Crear Post</h1>
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card mt-5 shadow-lg">
                 <div class="card-body">
-                    <h2 class="titulo-post">Crear Post</h2>
+                    {% comment %} <h2 class="titulo-post">Crear Post</h2> {% endcomment %}
                     <form method="post" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="mb-3">

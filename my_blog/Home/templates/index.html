@@ -66,19 +66,19 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                        <li class="nav-item"><a class="nav-link" href="{% url 'Home' %}">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'Home' %}">Inicio</a></li>
                         {% if request.user.is_authenticated %}
-                            <li class="nav-item"><a class="nav-link" href="{% url 'Logout' %}">Logout</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'Logout' %}">Cerrar sesión</a></li>
                             <li class="nav-item"><a class="nav-link" href="{% url 'Editar Usuario' %}">Editar Usuario</a></li>
                         {% else %}
-                            <li class="nav-item"><a class="nav-link" href="{% url 'Sign Up' %}">Sign Up</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{% url 'Login' %}">Login</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'Sign Up' %}">Registrarse</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'Login' %}">Iniciar sesión</a></li>
                         {% endif %}
                         <li class="nav-item"><a class="nav-link" href="{% url 'Mostrar Posteos' %}">Mostrar Posteos (FBV)</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'List' %}">Mostrar Posteos (CBV)</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'buscar_post' %}">Buscar Post</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'Crear' %}">Crear Post</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'About' %}">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'About' %}">Acerca de</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'Contacto' %}">Contacto</a></li>
                     </ul>
                 </div>
@@ -89,7 +89,7 @@
         <header class="py-5 bg-light border-bottom mb-4" style="position: relative;">
             <!-- Video como fondo -->
             <video autoplay loop muted playsinline style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; animation: fadeIn 3s;">
-                <!-- Proporciona múltiples fuentes de video para una mejor compatibilidad con el navegador -->
+                <!-- Múltiples fuentes de video para una mejor compatibilidad con el navegador -->
                 <source src="{% static 'Home/assets/banner_background.mp4' %}" type="video/mp4">
                 <source src="{% static 'Home/assets/banner_background.webm' %}" type="video/webm">
                 <!-- Contenido de respaldo en caso de que el navegador no admita video HTML5 -->
