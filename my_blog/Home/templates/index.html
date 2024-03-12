@@ -54,6 +54,51 @@
                     padding-bottom: 8px;
                 }
             }
+
+            .category-item {
+                text-align: center;
+                text-decoration: none;
+                color: #333;
+                transition: transform 0.3s ease;
+                padding: 15px;
+            }
+            
+            .category-item:hover {
+                transform: translateY(-5px);
+            }
+            
+            .bi {
+                font-size: 3rem;
+                margin-bottom: 0.5rem;
+            }
+            
+            .category-text {
+                font-size: 16px;
+            }
+            
+            .card-header {
+                background-color: #343a40;
+                color: #fff;
+                padding: 10px 20px;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+                border-radius: 0.25rem 0.25rem 0 0;
+            }
+            
+            .card-body {
+                background-color: #f8f9fa;
+            }
+            
+            .card {
+                margin-bottom: 30px;
+                border-radius: 15px;
+                border: 1px solid rgba(0, 0, 0, 0.125);
+            }
+            
+            .card-header {
+                border-bottom: 0;
+                border-radius: 15px 15px 0 0;
+            }
+            
         </style>
     </head>
     <body>
@@ -189,23 +234,33 @@
                     </div>
                     <!-- Categories widget-->
                     <div class="card mb-4">
-                        <div class="card-header">Categorias</div>
+                        <div class="card-header">Categorías</div>
                         <div class="card-body">
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <ul class="list-unstyled mb-0">
-                                        <li><a href="{% url 'Noticias' categoria="Noticias" %}">Noticias</a></li>
-                                        <li><a href="{% url 'Reviews' categoria="Reviews" %}">Reviews</a></li>
-                                        <li><a href="{% url 'Gaming' categoria="Gaming" %}">Gaming</a></li>
-                                    </ul>
-                                </div>
-                                <div class="col-sm-6">
-                                    <ul class="list-unstyled mb-0">
-                                        <li><a href="{% url 'Software' categoria="Software" %}">Software</a></li>
-                                        <li><a href="{% url 'Hardware' categoria="Hardware" %}">Hardware</a></li>
-                                        <li><a href="{% url 'List' %}">Todo</a></li>
-                                    </ul>
-                                </div>
+                            <div class="row row-cols-2 row-cols-md-3 g-4">
+                                <a href="{% url 'Noticias' categoria="Noticias" %}" class="col category-item">
+                                    <span class="bi bi-newspaper"></span>
+                                    <span class="category-text">Noticias</span>
+                                </a>
+                                <a href="{% url 'Reviews' categoria="Reviews" %}" class="col category-item">
+                                    <span class="bi bi-star"></span>
+                                    <span class="category-text">Reviews</span>
+                                </a>
+                                <a href="{% url 'Gaming' categoria="Gaming" %}" class="col category-item">
+                                    <span class="bi bi-joystick"></span>
+                                    <span class="category-text">Gaming</span>
+                                </a>
+                                <a href="{% url 'Software' categoria="Software" %}" class="col category-item">
+                                    <span class="bi bi-laptop"></span>
+                                    <span class="category-text">Software</span>
+                                </a>
+                                <a href="{% url 'Hardware' categoria="Hardware" %}" class="col category-item">
+                                    <span class="bi bi-server"></span>
+                                    <span class="category-text">Hardware</span>
+                                </a>
+                                <a href="{% url 'List' %}" class="col category-item">
+                                    <span class="bi bi-collection"></span>
+                                    <span class="category-text">Todo</span>
+                                </a>
                             </div>
                         </div>
                     </div>

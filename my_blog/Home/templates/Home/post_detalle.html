@@ -3,19 +3,26 @@
 {% load static %}
 
 {% block codigoDinamico %}
-
-<h1 class="h-primary center" style="margin-top:30px;text-align:center;">
-    {{post.titulo}}
-</h1>
-    <img src="{{post.imagen.url}}"  alt="...">
-<p class="h-primary center" style="margin-top:30px;text-align:center;">Autor:{{post.autor}}</p>
-<p class="h-primary center" style="margin-top:30px;text-align:center;">Categoria:{{post.categoria}}</p>
-<h3 class="h-primary center" style="margin-top:30px;text-align:center;">Subtitulo:{{post.sub_titulo}}</h3>
-<p class="h-primary center" style="margin-top:30px;text-align:center;">Fecha de Creacion:{{post.fecha}}</p>
-<p class="h-primary center" style="margin-top:30px;text-align:center;">{{post.texto}}</p>
-
-<button class="btn btn-primary m-5">
-    <a style="color:white; text-decoration:none;" href="{% url 'List' %}">Regresar</a>
-</button>
-
+<div class="container-fluid py-5" style="background-color: #f8f9fa;">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-lg border-0">
+                <img src="{{ post.imagen.url }}" class="card-img-top rounded-top img-fluid" alt="Imagen del Post">
+                <div class="card-body">
+                    <h1 class="card-title text-center mb-4" style="font-size: 2.5rem; color: #343a40; font-weight: bold;">{{ post.titulo }}</h1>
+                    <p class="card-text text-muted text-center" style="font-size: 1.2rem;"><strong>Autor:</strong> {{ post.autor }}</p>
+                    <p class="card-text text-muted text-center" style="font-size: 1.2rem;"><strong>Categoría:</strong> {{ post.categoria }}</p>
+                    <h2 class="card-subtitle text-center mb-4" style="font-size: 2rem; color: #6c757d;">{{ post.sub_titulo }}</h2>
+                    <p class="card-text" style="font-size: 1.2rem;">{{ post.texto }}</p>
+                </div>
+                <div class="card-footer bg-light text-muted text-center">
+                    <small style="font-size: 1rem;">Publicado el {{ post.fecha }}</small>
+                </div>
+            </div>
+            <div class="mt-5 text-center">
+                <a href="{% url 'List' %}" class="btn btn-primary btn-lg" style="font-size: 1.5rem; padding: 0.75rem 3rem;">Regresar</a>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

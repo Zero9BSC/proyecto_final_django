@@ -4,47 +4,50 @@
 
 {% block codigoDinamico %}
 
-    <h1 class="h-primary center" style="margin-top:30px;text-align:center;">
-        Posteos de Gaming
-    </h1>
+    <h1 class="h-primary center" style="margin-top: 30px; text-align: center;">Posteos de Gaming</h1>
 
     {% if object_list.all %}
 
-            {% for post in object_list %}    
+        <div class="container">
+            <div class="row">
+                {% for post in object_list %}
+                    <div class="col-lg-6">
+                        <div class="card mb-4">
+                            {% if post.imagen %}
+                                <img src="{{ post.imagen.url }}" class="card-img-top" alt="Imagen">
+                            {% endif %}
+                            <div class="card-body">
+                                <h3 class="card-title">{{ post.titulo }}</h3>
+                                <p class="card-text">{{ post.sub_titulo }}</p>
+                                <p class="card-text">Autor: {{ post.autor }}</p>
+                                <p class="card-text">Categoría: {{ post.categoria }}</p>
+                                <p class="card-text">Fecha: {{ post.fecha }}</p>
+                                <p class="card-text">Texto: {{ post.texto }}</p>
+                                <div class="d-grid gap-2">
+                                    <a href="{% url 'Detail' post.id %}" class="btn btn-success">Ver Detalles</a>
+                                    <a href="{% url 'Delete' post.id %}" class="btn btn-danger">Eliminar</a>
+                                    <a href="{% url 'Update' post.id %}" class="btn btn-primary">Actualizar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
 
-                    <li class="list-group-item">Titulo: {{ post.titulo }}</li>    
-                    <li class="list-group-item"><img src="{{ post.imagen.url }}" alt="..."></li>
-                    <li class="list-group-item">Sub Titulo: {{ post.sub_titulo }}</li>
-                    <li class="list-group-item">Autor: {{ post.autor }}</li>
-                    <li class="list-group-item">Categoria: {{ post.categoria }}</li> 
-                    <li class="list-group-item">Fecha: {{ post.fecha }}</li> 
-                    <li class="list-group-item">Texto: {{ post.texto }}</li>
-
-                    <button class="btn btn-success m-5">
-                        <a style="color:white; text-decoration:none;" href="{% url 'Detail' post.id %}">Ver Detalles</a>
-                    </button>
-                    <button class="btn btn-danger m-5">
-                        <a style="color:white; text-decoration:none;" href="{% url 'Delete' post.id %}">Eliminar</a>
-                    </button>
-                    <button class="btn btn-primary m-5">
-                        <a style="color:white; text-decoration:none;" href="{% url 'Update' post.id %}">Actualizar</a>
-                    </button>
-
-            {% endfor %}
-
-        {% else %}
-            <h1 class="h-primary center" style="margin-top:30px;text-align:center;">
-                No hay posteos con esta categoria aun, quieres crear uno?
-            </h1>
-            
-                <button class="btn btn-success">
-                    <a style="color:white; text-decoration:none;" href="{% url 'Crear' %}">Crear Nuevo Post</a>
-                </button>
+    {% else %}
+        <h1 class="h-primary center" style="margin-top: 30px; text-align: center;">
+            No hay posteos con esta categoría aún. ¿Quieres crear uno?
+        </h1>
+        
+        <div style="display: flex; justify-content: center; margin-top: 20px;">
+            <a href="{% url 'Crear' %}" class="btn btn-success">Crear Nuevo Post</a>
+        </div>
 
     {% endif %}
 
-    <button class="btn btn-primary m-5">
-        <a style="color:white; text-decoration:none;" href="{% url 'Home' %}">Regresar</a>
-    </button>
+    <div style="display: flex; justify-content: center; margin-top: 20px;">
+        <a href="{% url 'Home' %}" class="btn btn-primary">Regresar</a>
+    </div>
 
 {% endblock  %}
