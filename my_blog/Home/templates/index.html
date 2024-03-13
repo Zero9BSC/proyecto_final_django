@@ -61,6 +61,9 @@
                 color: #333;
                 transition: transform 0.3s ease;
                 padding: 15px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
             }
             
             .category-item:hover {
@@ -84,20 +87,20 @@
                 border-radius: 0.25rem 0.25rem 0 0;
             }
             
-            .card-body {
-                background-color: #f8f9fa;
-            }
-            
             .card {
                 margin-bottom: 30px;
-                border-radius: 15px;
-                border: 1px solid rgba(0, 0, 0, 0.125);
+                border-radius: 9px; /* Aquí se establece el radio de borde para las tarjetas */
+                {% comment %} border: 1px solid rgba(0, 0, 0, 0.125); /* Aquí se establece el borde sólido */ {% endcomment %}
             }
             
-            .card-header {
-                border-bottom: 0;
-                border-radius: 15px 15px 0 0;
-            }
+            {% comment %} .card-header {
+                background-color: #343a40;
+                color: #fff;
+                padding: 10px 20px;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.125); /* Aquí se establece el borde inferior */
+                
+            } {% endcomment %}
+
             /* Estilos específicos para el footer */
             .footer .bi {
                 font-size: 1.5rem; /* Restaurar el tamaño de los iconos del footer */

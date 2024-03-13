@@ -8,29 +8,34 @@
 
     {% if object_list.all %}
         {% for post in object_list %}
-            <div class="card shadow mb-4">
-                <div class="card-body">
-                    {% if post.imagen %}
-                        <img src="{{ post.imagen.url }}" alt="Imagen del post" class="img-fluid mb-3">
-                    {% else %}
-                        <p class="text-muted">No hay imagen asociada a este post.</p>
-                    {% endif %}
-                    <h5 class="card-title">{{ post.titulo }}</h5>
-                    <h5 class="card-subtitle">{{ post.sub_titulo }}</h5>
-                    <br>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item"><strong>Autor:</strong> {{ post.autor }}</li>
-                        <li class="list-group-item"><strong>Categoría:</strong> {{ post.categoria }}</li>
-                        <li class="list-group-item">{{ post.fecha }}</li>
-                        <li class="list-group-item">{{ post.texto }}</li>
-                    </ul>
-                    <div class="mt-3 text-center">
-                        <a href="{% url 'Detail' post.id %}" class="btn btn-success mr-2" style="color:white; text-decoration:none;">Ver Detalles</a>
-                        <a href="{% url 'Delete' post.id %}" class="btn btn-danger mr-2" style="color:white; text-decoration:none;">Eliminar</a>
-                        <a href="{% url 'Update' post.id %}" class="btn btn-primary" style="color:white; text-decoration:none;">Actualizar</a>
+            <a href="{% url 'Detail' post.id %}" style="text-decoration: none; color: inherit;">
+                <div class="card shadow mb-4">
+                    <div class="card-body">
+                        {% if post.imagen %}
+                            <div class="banner">
+                                <img src="{{ post.imagen.url }}" alt="Imagen del post" class="img-fluid">
+                                <div class="banner-content">
+                                    <h2 class="card-title">{{ post.titulo }}</h2>
+                                    <h5 class="card-subtitle">{{ post.sub_titulo }}</h5>
+                                    <p class="card-text">
+                                        <strong>Autor:</strong> {{ post.autor.usuario.username }}<br>
+                                        <strong>Categoría:</strong> {{ post.categoria }}<br>
+                                        {{ post.fecha }}
+                                    </p>
+                                </div>
+                            </div>
+                        {% else %}
+                            <p class="text-muted">No hay imagen asociada a este post.</p>
+                        {% endif %}
+                        {% if post.autor.usuario == request.user %}
+                            <div class="mt-3 text-center">
+                                <a href="{% url 'Delete' post.id %}" class="btn btn-danger mr-2" style="color:white; text-decoration:none;">Eliminar</a>
+                                <a href="{% url 'Update' post.id %}" class="btn btn-primary" style="color:white; text-decoration:none;">Actualizar</a>
+                            </div>
+                        {% endif %}
                     </div>
                 </div>
-            </div>
+            </a>
         {% endfor %}
     {% else %}
         <div class="text-center">
@@ -38,11 +43,44 @@
         </div>
     {% endif %}
 
-    <div class="text-center mt-5">
-        <button class="btn btn-success">
-            <a href="{% url 'Crear' %}" style="color:white; text-decoration:none;">Crear Nuevo Post</a>
-        </button>
-    </div>
+    {% if request.user.is_authenticated %}
+        <div class="text-center mt-5">
+            <button class="btn btn-success">
+                <a href="{% url 'Crear' %}" style="color:white; text-decoration:none;">Crear Nuevo Post</a>
+            </button>
+        </div>
+    {% endif %}
 </div>
+
+<style>
+    .banner {
+        position: relative;
+        overflow: hidden;
+        height: 200px; /* Ajusta la altura del banner según tu preferencia */
+    }
+
+    .banner img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* Ajusta la imagen para llenar completamente el contenedor */
+        object-position: center; /* Centra la imagen verticalmente */
+    }
+
+    .banner-content {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: rgba(0, 0, 0, 0.5); /* Ajusta el color de fondo y la opacidad según tu preferencia */
+        color: #fff; /* Color del texto */
+        padding: 10px;
+    }
+
+    .banner-content h2,
+    .banner-content h5,
+    .banner-content p {
+        margin-bottom: 5px;
+    }
+</style>
 
 {% endblock %}
