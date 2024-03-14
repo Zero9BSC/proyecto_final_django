@@ -8,12 +8,18 @@
         background-image: url("{% static 'Home/assets/background_6.jpg' %}");
         background-size: cover;
         background-position: center;
-        color: #fff;
+        background-repeat: no-repeat;
+        color: #000;
     }
+
+    .title {
+        color: #fff; 
+    }
+
 </style>
 
-<div class="container background-container">
-    <h1 class="h-primary text-center mt-5">Buscar Post</h1>
+<div class="container background-container min-vh-100">
+    <h1 class="h-primary text-center title mt-5">Buscar Post</h1>
     <div class="row justify-content-center">
         <div class="col-lg-6">
             <div class="card mt-5 shadow-lg">
@@ -45,7 +51,7 @@
     {% endif %}
 
     {% if post %}
-    <h2 class="h-primary text-center mt-5">Resultado de tu búsqueda</h2>
+    <h2 class="h-primary text-center title mt-5">Resultado de tu búsqueda</h2>
     <div class="row justify-content-center mt-5">
         {% for i in post %}
         <div class="col-lg-6">
@@ -56,7 +62,7 @@
                     <p class="card-text fs-6">Subtítulo: {{ i.sub_titulo }}</p>
                     <p class="card-text fs-6">Autor: {{ i.user }}</p>
                     <p class="card-text fs-6">Fecha: {{ i.fecha }}</p>
-                    <p class="card-text fs-6">Texto: {{ i.texto }}</p>
+                    <a href="{% url 'Detail' i.id %}" class="stretched-link"></a>
                 </div>
             </div>
         </div>

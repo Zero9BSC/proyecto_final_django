@@ -93,6 +93,12 @@
                 {% comment %} border: 1px solid rgba(0, 0, 0, 0.125); /* Aquí se establece el borde sólido */ {% endcomment %}
             }
             
+            .sticky-row {
+                position: -webkit-sticky; /* Safari */
+                position: sticky;
+                top: 0;
+            }
+
             {% comment %} .card-header {
                 background-color: #343a40;
                 color: #fff;
@@ -107,7 +113,7 @@
             }  
         </style>
     </head>
-    <body>
+    <body class="min-vh-100">
         <!-- Responsive navbar-->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
             <div class="container-fluid">
@@ -121,14 +127,14 @@
                         {% if request.user.is_authenticated %}
                             <li class="nav-item"><a class="nav-link" href="{% url 'Logout' %}">Cerrar sesión</a></li>
                             <li class="nav-item"><a class="nav-link" href="{% url 'Editar Usuario' %}">Editar Usuario</a></li>
-                        {% else %}
+                            <li class="nav-item"><a class="nav-link" href="{% url 'Crear' %}">Crear Post</a></li>
+                            {% else %}
                             <li class="nav-item"><a class="nav-link" href="{% url 'Sign Up' %}">Registrarse</a></li>
                             <li class="nav-item"><a class="nav-link" href="{% url 'Login' %}">Iniciar sesión</a></li>
                         {% endif %}
                         <li class="nav-item"><a class="nav-link" href="{% url 'Mostrar Posteos' %}">Mostrar Posteos (FBV)</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'List' %}">Mostrar Posteos (CBV)</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'buscar_post' %}">Buscar Post</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'Crear' %}">Crear Post</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'About' %}">Acerca de</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'Contacto' %}">Contacto</a></li>
                     </ul>
@@ -157,7 +163,6 @@
                                 <p class="text-white">No hay imagen de perfil disponible</p>
                             {% endif %}
                             <h3 class="text-white">{{ request.user.username }}</h3>
-                            {% comment %} <h3>{{ request.user.id }}</h3> {% endcomment %}
                         {% endif %}
                     {% else %}
                         <h3 class="text-white">Invitado</h3>
@@ -166,6 +171,8 @@
                 </div>
             </div>
         </header>
+
+
         <!-- Page content-->
         <div class="container">
             <div class="row">
@@ -175,13 +182,15 @@
                         <!-- Featured blog post-->
                         <div class="card mb-4">
                             {% if latest_posts.0.imagen %}
-                                <a href="{{ latest_posts.0.get_absolute_url }}"><img class="card-img-top" src="{{ latest_posts.0.imagen.url }}" alt="{{ latest_posts.0.titulo }}" /></a>
+                                <a href="{% url 'Detail' latest_posts.0.id %}"><img class="card-img-top" src="{{ latest_posts.0.imagen.url }}" alt="{{ latest_posts.0.titulo }}" /></a>
                             {% endif %}
                             <div class="card-body">
                                 <div class="small text-muted">{{ latest_posts.0.fecha }}</div>
-                                <h2 class="card-title">{{ latest_posts.0.titulo }}</h2>
-                                <p class="card-text">{{ latest_posts.0.texto }}</p>
-                                <a class="btn btn-primary" href="{{ latest_posts.0.get_absolute_url }}">LEER MÁS »</a>
+                                <h2 class="card-title">{{ latest_posts.0.titulo | slice:":50" }}</h2>
+                                <h5 class="card-subtitle mb-3">{{ latest_posts.0.sub_titulo | slice:":150" }}...</h5>
+                                {% comment %} <p class="card-text">{{ latest_posts.0.texto | slice:":70"}}</p> {% endcomment %}
+                                <a class="btn btn-primary" href="{% url 'Detail' latest_posts.0.id %}">LEER MÁS »</a>
+                                {% comment %} <a class="btn btn-primary" href="{{ latest_posts.0.get_absolute_url }}">LEER MÁS »</a> {% endcomment %}
                             </div>
                         </div>
                         <!-- Nested row for non-featured blog posts-->
@@ -190,12 +199,13 @@
                             <div class="col-lg-6">
                                 <!-- Blog post-->
                                 <div class="card mb-4">
-                                    <a href="{{ post.get_absolute_url }}"><img class="card-img-top" src="{{ post.imagen.url }}" alt="{{ post.titulo }}" /></a>
+                                    <a href="{% url 'Detail' post.id %}"><img class="card-img-top" src="{{ post.imagen.url }}" alt="{{ post.titulo }}" /></a>
                                     <div class="card-body">
                                         <div class="small text-muted">{{ post.fecha }}</div>
-                                        <h2 class="card-title h4">{{ post.titulo }}</h2>
-                                        <p class="card-text">{{ post.texto }}</p>
-                                        <a class="btn btn-primary" href="{{ post.get_absolute_url }}">LEER MÁS »</a>
+                                        <h2 class="card-title h4">{{ post.titulo | slice:":50" }}</h2>
+                                        <h5 class="card-subtitle mb-3">{{ post.sub_titulo | slice:":30" }}...</h5>
+                                        {% comment %} <p class="card-text">{{ post.texto | slice:":30" }}</p> {% endcomment %}
+                                        <a class="btn btn-primary" href="{% url 'Detail' post.id %}">LEER MÁS »</a>
                                     </div>
                                 </div>
                             </div>
@@ -224,62 +234,68 @@
 
                 <!-- Side widgets-->
                 <div class="col-lg-4">
-                    <!-- Search widget-->
-                    <div class="card mb-4">
-                        <div class="card-header">Buscar</div>
-                        <div class="card-body">
-                            <ul class="list-unstyled mb-0">
-                                <form action="{% url 'Buscar' %}" method="get">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="Buscar..." name="titulo" id="titulo">
-                                        <button class="btn btn-primary" id="button-search" type="submit">Go!<i class="fas fa-search"></i></button>
-                                    </div>
-                                </form>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- Categories widget-->
-                    <div class="card mb-4">
-                        <div class="card-header">Categorías</div>
-                        <div class="card-body">
-                            <div class="row row-cols-2 row-cols-md-3 g-4">
-                                <a href="{% url 'Noticias' categoria="Noticias" %}" class="col category-item">
-                                    <span class="bi bi-newspaper"></span>
-                                    <span class="category-text">Noticias</span>
-                                </a>
-                                <a href="{% url 'Reviews' categoria="Reviews" %}" class="col category-item">
-                                    <span class="bi bi-star"></span>
-                                    <span class="category-text">Reviews</span>
-                                </a>
-                                <a href="{% url 'Gaming' categoria="Gaming" %}" class="col category-item">
-                                    <span class="bi bi-joystick"></span>
-                                    <span class="category-text">Gaming</span>
-                                </a>
-                                <a href="{% url 'Software' categoria="Software" %}" class="col category-item">
-                                    <span class="bi bi-laptop"></span>
-                                    <span class="category-text">Software</span>
-                                </a>
-                                <a href="{% url 'Hardware' categoria="Hardware" %}" class="col category-item">
-                                    <span class="bi bi-server"></span>
-                                    <span class="category-text">Hardware</span>
-                                </a>
-                                <a href="{% url 'List' %}" class="col category-item">
-                                    <span class="bi bi-collection"></span>
-                                    <span class="category-text">Todo</span>
-                                </a>
+                    <div class="sticky-row">
+                        <!-- Search widget-->
+                        <div class="card mb-4">
+                            <div class="card-header">Buscar</div>
+                            <div class="card-body">
+                                <ul class="list-unstyled mb-0">
+                                    <form action="{% url 'Buscar' %}" method="get">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" placeholder="Buscar..." name="titulo" id="titulo">
+                                            <button class="btn btn-primary" id="button-search" type="submit">Go!<i class="fas fa-search"></i></button>
+                                        </div>
+                                    </form>
+                                </ul>
                             </div>
                         </div>
-                    </div>
-                    <!-- Side widget-->
-                    <div class="card mb-4">
-                        <div class="card-header">Side Widget</div>
-                        <div class="card-body">Próximamente widgets en Bootstrap 5 card component!</div>
+
+                        <!-- Categories widget-->
+                        <div class="card mb-4">
+                            <div class="card-header">Categorías</div>
+                            <div class="card-body">
+                                <div class="row row-cols-2 row-cols-md-3 g-4">
+                                    <a href="{% url 'Noticias' categoria="Noticias" %}" class="col category-item">
+                                        <span class="bi bi-newspaper"></span>
+                                        <span class="category-text">Noticias</span>
+                                    </a>
+                                    <a href="{% url 'Reviews' categoria="Reviews" %}" class="col category-item">
+                                        <span class="bi bi-star"></span>
+                                        <span class="category-text">Reviews</span>
+                                    </a>
+                                    <a href="{% url 'Gaming' categoria="Gaming" %}" class="col category-item">
+                                        <span class="bi bi-joystick"></span>
+                                        <span class="category-text">Gaming</span>
+                                    </a>
+                                    <a href="{% url 'Software' categoria="Software" %}" class="col category-item">
+                                        <span class="bi bi-laptop"></span>
+                                        <span class="category-text">Software</span>
+                                    </a>
+                                    <a href="{% url 'Hardware' categoria="Hardware" %}" class="col category-item">
+                                        <span class="bi bi-server"></span>
+                                        <span class="category-text">Hardware</span>
+                                    </a>
+                                    <a href="{% url 'List' %}" class="col category-item">
+                                        <span class="bi bi-collection"></span>
+                                        <span class="category-text">Todo</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Side widget-->
+                        <div class="card mb-4">
+                            <div class="card-header">Side Widget</div>
+                            <div class="card-body">Próximamente widgets en Bootstrap 5 card component!</div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         {% endblock  %}
         <br><br><br><br>
+
+
         <!-- Footer-->
         <footer class="footer py-5 bg-dark">
             <div class="container">

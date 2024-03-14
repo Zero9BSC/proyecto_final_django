@@ -25,8 +25,10 @@
                                 <p class="card-text">Texto: {{ post.texto }}</p>
                                 <div class="d-grid gap-2">
                                     <a href="{% url 'Detail' post.id %}" class="btn btn-success">Ver Detalles</a>
-                                    <a href="{% url 'Delete' post.id %}" class="btn btn-danger">Eliminar</a>
-                                    <a href="{% url 'Update' post.id %}" class="btn btn-primary">Actualizar</a>
+                                    {% if post.autor.usuario == request.user %}
+                                        <a href="{% url 'Delete' post.id %}" class="btn btn-danger">Eliminar</a>
+                                        <a href="{% url 'Update' post.id %}" class="btn btn-primary">Actualizar</a>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
@@ -40,10 +42,15 @@
             No hay posteos con esta categoría aún. ¿Quieres crear uno?
         </h1>
         
-        <div style="display: flex; justify-content: center; margin-top: 20px;">
-            <a href="{% url 'Crear' %}" class="btn btn-success">Crear Nuevo Post</a>
-        </div>
 
+
+    {% endif %}
+    {% if request.user.is_authenticated %}
+        <div class="text-center mt-5">
+            <button class="btn btn-success">
+                <a href="{% url 'Crear' %}" style="color: white; text-decoration: none;">Crear Nuevo Post</a>
+            </button>
+        </div>
     {% endif %}
 
     <div style="display: flex; justify-content: center; margin-top: 20px;">

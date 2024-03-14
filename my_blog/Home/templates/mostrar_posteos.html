@@ -78,7 +78,7 @@
     }
 </style>
 
-<div class="container mt-5">
+<div class="container mt-5 min-vh-100">
     <h1 class="h-primary text-center mb-4">Lista de Posteos</h1>
 
     <div class="row justify-content-center">
@@ -93,7 +93,7 @@
                         {% endif %}
                         <div class="card-overlay">
                             <h2 class="card-title">{{ post.titulo | slice:":50" }}</h2>
-                            <h5 class="card-subtitle mb-3">{{ post.sub_titulo | slice:":70" }}</h5>
+                            <h5 class="card-subtitle mb-3">{{ post.sub_titulo | slice:":100" }}</h5>
                             <p class="card-text">{{ post.autor.usuario.username }}</p> <!-- Mostrar solo el nombre de usuario -->
                             <p class="card-text">{{ post.fecha }}</p>
                             {% if post.autor.usuario == request.user %}
@@ -115,11 +115,12 @@
             </div>
         {% endif %}
     </div>
-
-    <div class="text-center mt-5">
-        <button class="btn btn-success">
-            <a href="{% url 'Crear' %}" style="color: white; text-decoration: none;">Crear Nuevo Post</a>
-        </button>
-    </div>
+    {% if request.user.is_authenticated %}
+        <div class="text-center mt-5">
+            <button class="btn btn-success">
+                <a href="{% url 'Crear' %}" style="color: white; text-decoration: none;">Crear Nuevo Post</a>
+            </button>
+        </div>
+    {% endif %}
 </div>
 {% endblock %}
