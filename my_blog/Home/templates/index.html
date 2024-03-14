@@ -32,6 +32,18 @@
                 color: #fff; /* Cambia el color del texto a blanco cuando se pasa el mouse */
             }
 
+            /* Estilo para el título "Gaming Zone" con aspecto Gamer */
+            .gamer-title {
+                font-family: 'Press Start 2P', cursive;
+                font-size: 20px; /* Tamaño ajustado */
+                color: #ff0000;
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+                letter-spacing: 2px;
+                text-transform: uppercase;
+                display: inline-block; /* Para que se centre correctamente */
+                vertical-align: middle; /* Para centrar verticalmente */
+            }
+
             /* Estilo de letra "gamer" */
             .gamer-text {
                 font-family: 'Press Start 2P', cursive;
@@ -117,7 +129,10 @@
         <!-- Responsive navbar-->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
             <div class="container-fluid">
-                <a class="navbar-brand me-5" href="{% url 'Home' %}">Gaming Zone</a>
+                <a class="navbar-brand me-5" href="{% url 'Home' %}">
+                    <img src="{% static 'Home/assets/zicon.ico' %}" alt="Logo" width="30" height="30" class="d-inline-block align-text-top me-2">
+                    <span class="gamer-title">Gaming Zone</span>
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>

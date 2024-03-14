@@ -2,11 +2,21 @@
 {% load static %}
 
 {% block codigoDinamico %}
-<div class="container mt-5">
+
+<style>
+    body {
+        background-image: url("{% static 'Home/assets/background_7.jpg' %}");
+        background-size: cover;
+        background-repeat: no-repeat;
+        color: #fff;
+    }
+</style>
+
+<div class="container background-container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card shadow">
-                <div class="card-header bg-primary text-white">
+            <div class="card shadow" style="border-top-left-radius: 3px; border-top-right-radius: 3px;">
+                <div class="card-header text-white">
                     <h3 class="card-title mb-0">Actualizar Post</h3>
                 </div>
                 <div class="card-body">
@@ -35,10 +45,10 @@
                                 {% endfor %}
                             </select>
                         </div>
-                        {% comment %} <div class="form-group">
+                        <div class="form-group" style="display: none;>
                             <label for="id_fecha">Fecha:</label>
                             <input type="date" class="form-control" id="id_fecha" name="fecha" value="{{ formulario.fecha.value|date:'Y-m-d' }}">
-                        </div> {% endcomment %}
+                        </div>
                         <div class="form-group">
                             <label for="id_texto">Texto:</label>
                             <textarea class="form-control" id="id_texto" name="texto">{{ formulario.texto.value }}</textarea>
