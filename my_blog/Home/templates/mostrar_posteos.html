@@ -43,26 +43,20 @@
     }
 
     .btn-custom {
-        background-color: #4CAF50;
-        color: white;
-        border: none;
         padding: 10px 20px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
         font-size: 16px;
         margin: 4px 2px;
         transition-duration: 0.4s;
-        cursor: pointer;
         border-radius: 8px;
     }
 
     .btn-custom:hover {
-        background-color: #45a049;
+        filter: brightness(85%);
     }
 
     .btn-danger {
         background-color: #f44336;
+        color: white;
     }
 
     .btn-danger:hover {
@@ -71,10 +65,21 @@
 
     .btn-primary {
         background-color: #008CBA;
+        color: white;
     }
 
     .btn-primary:hover {
         background-color: #0077A3;
+    }
+
+    /* Agregar estilo para el enlace de la tarjeta */
+    .card-link {
+        color: inherit; /* Utilizar el color de texto predeterminado */
+        text-decoration: none; /* Quitar subrayado */
+    }
+
+    .card-link:hover {
+        text-decoration: none; /* Mantener el subrayado eliminado al pasar el mouse */
     }
 </style>
 
@@ -85,26 +90,33 @@
         {% if posteos %}
             {% for post in posteos %}
                 <div class="col-lg-10 mb-4">
-                    <div class="card bg-dark text-white shadow rounded">
-                        {% if post.imagen %}
-                            <div class="card-img-container d-flex align-items-center justify-content-center">
-                                <img src="{{ post.imagen.url }}" class="card-img" alt="Imagen del post">
-                            </div>
-                        {% endif %}
-                        <div class="card-overlay">
-                            <h2 class="card-title">{{ post.titulo | slice:":50" }}</h2>
-                            <h5 class="card-subtitle mb-3">{{ post.sub_titulo | slice:":100" }}</h5>
-                            <p class="card-text">{{ post.autor.usuario.username }}</p> <!-- Mostrar solo el nombre de usuario -->
-                            <p class="card-text">{{ post.fecha }}</p>
-                            {% if post.autor.usuario == request.user %}
-                                <div class="mt-3">
-                                    <a href="{% url 'Eliminar Posteos' post_id=post.id %}" class="btn btn-danger btn-custom mr-2">Eliminar</a>
-                                    <a href="{% url 'Actualizar Posteos' post_id=post.id %}" class="btn btn-primary btn-custom">Actualizar</a>
+                    <!-- Envolver todo el contenido de la tarjeta en un enlace -->
+                    <a href="{% url 'Detail' post.id %}" class="card-link">
+                        <div class="card bg-dark text-white shadow rounded">
+                            {% if post.imagen %}
+                                <div class="card-img-container d-flex align-items-center justify-content-center">
+                                    <img src="{{ post.imagen.url }}" class="card-img" alt="Imagen del post">
                                 </div>
                             {% endif %}
-                            <a href="{% url 'Detail' post.id %}" class="stretched-link"></a>
+                            <div class="card-overlay">
+                                <h2 class="card-title">{{ post.titulo | slice:":50" }}</h2>
+                                <h5 class="card-subtitle mb-3">{{ post.sub_titulo | slice:":100" }}</h5>
+                                <p class="card-text">{{ post.autor.usuario.username }}</p> <!-- Mostrar solo el nombre de usuario -->
+                                <p class="card-text">{{ post.fecha }}</p>
+                                {% if post.autor.usuario == request.user %}
+                                    <div class="mt-3">
+                                        <form action="{% url 'Eliminar Posteos' post_id=post.id %}" method="post" style="display: inline;">
+                                            {% csrf_token %}
+                                            <button type="submit" class="btn btn-danger btn-custom mr-2">Eliminar</button>
+                                        </form>
+                                        <form action="{% url 'Actualizar Posteos' post_id=post.id %}" method="get" style="display: inline;">
+                                            <button type="submit" class="btn btn-primary btn-custom">Actualizar</button>
+                                        </form>
+                                    </div>
+                                {% endif %}
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
             {% endfor %}
         {% else %}
@@ -120,6 +132,9 @@
             <button class="btn btn-success">
                 <a href="{% url 'Crear' %}" style="color: white; text-decoration: none;">Crear Nuevo Post</a>
             </button>
+        </div>
+        <div class="text-left mt-5">
+            <a href="{% url 'Home' %}" class="btn btn-secondary">Volver</a>
         </div>
     {% endif %}
 </div>
