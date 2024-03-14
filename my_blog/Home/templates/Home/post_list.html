@@ -30,7 +30,7 @@
                         {% if post.autor.usuario == request.user %}
                             <div class="mt-3 text-center">
                                 <a href="{% url 'Delete' post.id %}" class="btn btn-danger mr-2" style="color:white; text-decoration:none;">Eliminar</a>
-                                <a href="{% url 'Update' post.id %}" class="btn btn-primary" style="color:white; text-decoration:none;">Actualizar</a>
+                                <a href="{% url 'Actualizar Posteos' post.id %}" class="btn btn-primary" style="color:white; text-decoration:none;">Actualizar</a>
                             </div>
                         {% endif %}
                     </div>

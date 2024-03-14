@@ -35,10 +35,10 @@
                                 {% endfor %}
                             </select>
                         </div>
-                        <div class="form-group">
+                        {% comment %} <div class="form-group">
                             <label for="id_fecha">Fecha:</label>
                             <input type="date" class="form-control" id="id_fecha" name="fecha" value="{{ formulario.fecha.value|date:'Y-m-d' }}">
-                        </div>
+                        </div> {% endcomment %}
                         <div class="form-group">
                             <label for="id_texto">Texto:</label>
                             <textarea class="form-control" id="id_texto" name="texto">{{ formulario.texto.value }}</textarea>
