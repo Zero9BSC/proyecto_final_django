@@ -10,16 +10,27 @@
         color: #000; /* Color del texto a blanco para mayor contraste */
     }
 
-    /*.card {
-        background-color: rgba(0, 0, 0, 0.7); /* Test fondo oscuro semitransparente al formulario para mejorar la legibilidad del texto 
-    }*/
-
     .titulo-post {
         margin-top: 2rem;
         font-size: 2rem; /* Tamaño del título */
         text-align: center;
     }
+
+    .error-message {
+        color: #721c24; /* Color oscuro para el texto del mensaje de error */
+        background-color: #f8d7da; /* Color claro para el fondo del mensaje de error */
+        border: 1px solid #f5c6cb; /* Borde rojo para resaltar el mensaje de error */
+        padding: 10px; /* Añade espacio interno alrededor del mensaje de error */
+        border-radius: 5px; /* Añade bordes redondeados al mensaje de error */
+        margin-top: 5px; /* Espaciado superior para separar los mensajes de error */
+        margin-bottom: 5px; /* Espaciado inferior para separar los mensajes de error */
+    }
+
+    .form-group {
+        margin-bottom: 20px; /* Añade un espacio entre los campos del formulario */
+    }
 </style>
+
 
 <div class="container">
     <h1 class="h-primary text-center mt-5" style="color: #fff">Crear Post</h1>
@@ -27,38 +38,55 @@
         <div class="col-md-8">
             <div class="card mt-5 shadow-lg">
                 <div class="card-body">
-                    {% comment %} <h2 class="titulo-post">Crear Post</h2> {% endcomment %}
                     <form method="post" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="mb-3">
                             <label for="id_titulo" class="form-label fs-5">Título:</label>
-                            <input type="text" name="titulo" class="form-control form-control-lg" id="id_titulo" placeholder="Título">
+                            <input type="text" name="titulo" class="form-control form-control-lg {% if form.titulo.errors %}is-invalid{% endif %}" id="id_titulo" placeholder="Título">
+                            {% for error in form.titulo.errors %}
+                                <div class="invalid-feedback">{{ error }}</div>
+                            {% endfor %}
                         </div>
                         <div class="mb-3">
                             <label for="id_sub_titulo" class="form-label fs-5">Subtítulo:</label>
-                            <input type="text" name="sub_titulo" class="form-control form-control-lg" id="id_sub_titulo" placeholder="Subtítulo">
+                            <input type="text" name="sub_titulo" class="form-control form-control-lg {% if form.sub_titulo.errors %}is-invalid{% endif %}" id="id_sub_titulo" placeholder="Subtítulo">
+                            {% for error in form.sub_titulo.errors %}
+                                <div class="invalid-feedback">{{ error }}</div>
+                            {% endfor %}
                         </div>
                         <div class="mb-3">
                             <label for="id_imagen" class="form-label fs-5">Imagen:</label>
                             <div class="input-group">
-                                <input type="file" name="imagen" class="form-control form-control-lg" id="id_imagen" accept="image/*">
+                                <input type="file" name="imagen" class="form-control form-control-lg {% if form.imagen.errors %}is-invalid{% endif %}" id="id_imagen" accept="image/*">
+                                {% for error in form.imagen.errors %}
+                                    <div class="invalid-feedback">{{ error }}</div>
+                                {% endfor %}
                             </div>
                         </div>
                         <div class="mb-3">
                             <label for="id_fecha" class="form-label fs-5">Fecha:</label>
-                            <input type="date" name="fecha" class="form-control form-control-lg" id="id_fecha" value="{{ form.fecha.value }}">
+                            <input type="date" name="fecha" class="form-control form-control-lg {% if form.fecha.errors %}is-invalid{% endif %}" id="id_fecha" value="{{ form.fecha.value }}">
+                            {% for error in form.fecha.errors %}
+                                <div class="invalid-feedback">{{ error }}</div>
+                            {% endfor %}
                         </div>
                         <div class="mb-3">
                             <label for="id_categoria" class="form-label fs-5">Categoría:</label>
-                            <select name="categoria" class="form-control form-control-lg" id="id_categoria">
+                            <select name="categoria" class="form-control form-control-lg {% if form.categoria.errors %}is-invalid{% endif %}" id="id_categoria">
                                 {% for choice in form.categoria.field.choices %}
-                                    <option value="{{ choice.0 }}" {% if choice.0 == form.categoria.value %}selected{% endif %}>{{ choice.1 }}</option>
+                                    <option value="{{ choice.0 }}" {% if choice.0 == form.categoria.value %}selected{% endif %}> {{ choice.1 }}</option>
                                 {% endfor %}
                             </select>
+                            {% for error in form.categoria.errors %}
+                                <div class="invalid-feedback">{{ error }}</div>
+                            {% endfor %}
                         </div>
                         <div class="mb-3">
                             <label for="id_texto" class="form-label fs-5">Texto:</label>
-                            <textarea name="texto" class="form-control form-control-lg" id="id_texto" rows="5" placeholder="Texto"></textarea>
+                            <textarea name="texto" class="form-control form-control-lg {% if form.texto.errors %}is-invalid{% endif %}" id="id_texto" rows="5" placeholder="Texto"></textarea>
+                            {% for error in form.texto.errors %}
+                                <div class="invalid-feedback">{{ error }}</div>
+                            {% endfor %}
                         </div>
                         <div class="text-center">
                             <input class="btn btn-primary btn-lg" type="submit" value="Enviar">

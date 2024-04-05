@@ -6,11 +6,18 @@ from django.forms import ModelForm
 
 
 class CrearPostForm(forms.ModelForm):
-    
     class Meta:
-        model= Post
-        fields = '__all__'
-        exclude = ["autor"]
+        model = Post
+        fields = ['titulo', 'sub_titulo', 'imagen', 'fecha', 'categoria', 'texto']
+
+    def __init__(self, *args, **kwargs):
+        super(CrearPostForm, self).__init__(*args, **kwargs)
+        self.fields['titulo'].widget.attrs.update({'class': 'form-control form-control-lg', 'placeholder': 'Título'})
+        self.fields['sub_titulo'].widget.attrs.update({'class': 'form-control form-control-lg', 'placeholder': 'Subtítulo'})
+        self.fields['imagen'].widget.attrs.update({'class': 'form-control form-control-lg'})
+        self.fields['fecha'].widget.attrs.update({'class': 'form-control form-control-lg'})
+        self.fields['categoria'].widget.attrs.update({'class': 'form-control form-control-lg'})
+        self.fields['texto'].widget.attrs.update({'class': 'form-control form-control-lg', 'placeholder': 'Texto'})
 
 
 class ContactoForm(forms.ModelForm):

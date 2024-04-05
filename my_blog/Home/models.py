@@ -5,7 +5,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 CATEGORIES_CHOICES = (
-    ("", "Select Option"),
+    ("", "Seleccione una opción"),
     ("Noticias", "Noticias"),
     ("Reviews", "Reviews"),
     ("Gaming", "Gaming"),
