@@ -4,7 +4,7 @@
 
 > Este es un proyecto realizado para el curso de Python en coderhouse. Se trata de un blog en el que podrás navegar y crear posts categorizados..
 
-> Puede ver una preview del proyecto funcionando entrando en el siguiente [Link](https://drive.google.com/file/d/1UQogxk6BA6FiGMrn9pE7OHwpk2uwgWmD/view?usp=drivesdk)
+> Puede ver el proyecto funcionando entrando en el siguiente [Link](https://francoj.pythonanywhere.com/)
 ## Installation git clone
 
 Para acceder al proyecto clonándolo, deberás ejecutar en consola: 
